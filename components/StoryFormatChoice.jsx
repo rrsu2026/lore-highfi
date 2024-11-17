@@ -1,25 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 
-const StoryFormatChoice = () => {
+const StoryFormatChoice = ({navigation}) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Welcome to the Story Format Choice!</Text>
-    </View>
+    <View>
+      <Text>How would you like to share your story?</Text>
+      <Button title="Text" onPress={() => navigation.navigate("TextInputChoice")} />
+      <Button title="Audio" onPress={() => navigation.navigate("StartAudioRecording")} />
+      <Button title="Video" onPress={() => navigation.navigate("StartVideoRecording")} />
+      </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  text: {
-    fontSize: 20,
-    color: '#333',
-  },
 });
 
 export default StoryFormatChoice;
