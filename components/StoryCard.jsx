@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 
-const StoryCard = ({ navigation }) => {
+const StoryCard = ({ navigation, story }) => {
   return (
-      <Button title="View Story" onPress={() => navigation.navigate("ViewStory")} />
+      <Button title={story.title} onPress={() => navigation.navigate("ViewStory", {"story": story})} />
   );
 };
 

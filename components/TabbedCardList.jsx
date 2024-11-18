@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import TimelineDisplay from "./TimelineDisplay";
-import RecentDisplay from "./RecentDisplay";
+import StoriesDisplayTimeline from "./StoriesDisplayTimeline";
+import StoriesDisplayRecent from "./StoriesDisplayRecent";
 
 const Tabs = createMaterialTopTabNavigator();
 
@@ -10,8 +10,8 @@ const TabbedCardList = () => {
   return (
     <View>
       <Tabs.Navigator>
-        <Tabs.Screen name="TimelineDisplay" component={TimelineDisplay} />
-        <Tabs.Screen name="RecentDisplay" component={RecentDisplay} />
+        <Tabs.Screen name="StoriesDisplayTimeline" component={StoriesDisplayTimeline} />
+        <Tabs.Screen name="StoriesDisplayRecent" component={StoriesDisplayRecent} />
       </Tabs.Navigator>
     </View>
   );

@@ -1,11 +1,16 @@
-import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet, Button } from "react-native";
+import StoryText from "./StoryText";
+import StoryAudio from "./StoryAudio";
 
-const ViewStory = ({ navigation }) => {
+const ViewStory = ({ navigation, route }) => {
   return (
     <View>
-      <Text>Author Name</Text>
-      <Text>Story Name</Text>
+      <Text>{route.params.story.author}</Text>
+      <Text>{route.params.story.title}</Text>
+      { route.params.story.text && <StoryText /> }
+      { route.params.story.audio && <StoryAudio />}
+      { route.params.story.video && <StoryVideo />}
     </View>
   );
 };
