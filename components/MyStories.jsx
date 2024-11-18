@@ -1,13 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import StoryCard from './StoryCard';
+import TabbedCardList from './TabbedCardList';
 
 const RecordVideo = ({ navigation }) => {
   return (
     <View>
       <Text>My Stories</Text>
-      <StoryCard navigation={navigation} />
-      </View>
+      <TabbedCardList />
+    </View>
   );
 };
 

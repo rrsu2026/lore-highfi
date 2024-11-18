@@ -1498,6 +1498,15 @@
   dependencies:
     color "^4.2.3"
 
+"@react-navigation/material-top-tabs@^7.0.4":
+  version "7.0.4"
+  resolved "https://registry.yarnpkg.com/@react-navigation/material-top-tabs/-/material-top-tabs-7.0.4.tgz#7bc5154cf5e062a8045234179061245bdcc58a80"
+  integrity sha512-/250x5H0hIKFFZLQ00UR6lrFPi3t5bq0bkYw+A2BIEwR4rguYSyhv1zwaM5mz1tGUd0qQT3MdxfXlD7YkHgQbg==
+  dependencies:
+    "@react-navigation/elements" "^2.0.3"
+    color "^4.2.3"
+    react-native-tab-view "^4.0.1"
+
 "@react-navigation/native-stack@^7.0.3":
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/@react-navigation/native-stack/-/native-stack-7.0.3.tgz#23642888921b19cfcc527f40697434da6b330cf4"
@@ -4642,6 +4651,13 @@ react-native-screens@~4.1.0:
   dependencies:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
+
+react-native-tab-view@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-4.0.1.tgz#666f89ed8758be9d1b956bbcc031f604bed2dd6a"
+  integrity sha512-9J/mcYfZ3o8yHYR0VxOpdgnU2gPkiCBxNVMtN0GpHtDshGhaczoIeu3Mn4jQKS73GQ2T8/4NH1LHU/Ue0ZF0jQ==
+  dependencies:
+    use-latest-callback "^0.2.1"
 
 react-native-web@~0.19.13:
   version "0.19.13"
