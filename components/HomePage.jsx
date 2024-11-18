@@ -1,7 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
-import StoryCard from './StoryCard';
-import TabbedCardList from './TabbedCardList';
+import { View, Button } from 'react-native';
 import StoriesDisplayTimeline from './StoriesDisplayTimeline';
 
 const HomePage = ({navigation, route}) => {

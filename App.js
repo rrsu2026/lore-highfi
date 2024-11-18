@@ -49,7 +49,7 @@ export default function App() {
           <Stack.Screen name="RecordAudio" component={RecordAudio} />
           <Stack.Screen name="ViewStory" component={ViewStory} />
           <Stack.Screen name="EditMetadata" component={EditMetadata} />
-          <Stack.Screen name="MyStories" component={MyStories} />
+          <Stack.Screen name="MyStories" component={MyStories} initialParams={{stories}} />
           <Stack.Screen name="Scan" component={Scan} />
           <Stack.Screen name="EditWrittenStory" component={EditWrittenStory} />
         </Stack.Navigator>

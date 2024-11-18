@@ -1,13 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
-import StoryCard from './StoryCard';
 import TabbedCardList from './TabbedCardList';
 
-const RecordVideo = ({ navigation }) => {
+const MyStories = ({ navigation, route }) => {
   return (
     <View>
       <Text>My Stories</Text>
-      <TabbedCardList />
+      <TabbedCardList stories={route.params.stories} />
     </View>
   );
 };
@@ -15,4 +14,4 @@ const RecordVideo = ({ navigation }) => {
 const styles = StyleSheet.create({
 });
 
-export default RecordVideo;
+export default MyStories;

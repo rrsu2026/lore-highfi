@@ -1,17 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import StoriesDisplayTimeline from "./StoriesDisplayTimeline";
 import StoriesDisplayRecent from "./StoriesDisplayRecent";
 
 const Tabs = createMaterialTopTabNavigator();
 
-const TabbedCardList = () => {
+const TabbedCardList = ({stories}) => {
   return (
     <View>
       <Tabs.Navigator>
-        <Tabs.Screen name="StoriesDisplayTimeline" component={StoriesDisplayTimeline} />
-        <Tabs.Screen name="StoriesDisplayRecent" component={StoriesDisplayRecent} />
+        <Tabs.Screen name="StoriesDisplayTimeline" component={() => <StoriesDisplayTimeline stories={stories} />} />
+        <Tabs.Screen name="StoriesDisplayRecent" component={() => <StoriesDisplayRecent stories={stories} />} />
       </Tabs.Navigator>
     </View>
   );
