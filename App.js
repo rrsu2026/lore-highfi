@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomePage from './components/HomePage';
 import StoryFormatChoice from './components/StoryFormatChoice';
@@ -18,6 +18,9 @@ const stories = [ // Fake database
   {
     title: "Meeting my Wife",
     author: "Christos Stephanopoulos",
+    location: "Nantucket, MA",
+    postedAt: new Date(2024, 6, 15).toISOString(), // Months in JavaScript are 0-indexed, but days and years are not
+    occurrencedAt: new Date(1975, 0, 1).toISOString(),
     text: "Off the shore of Cape Cod, summers on Nantucket were a combination of warm sun and brisk wind. It was late August and I had escaped the busy skylines of New York in search of solace. I pulled out my camera while watching waves crash upon Madaket Beach. My goal was to capture the momentary bliss I felt. But there she stood in front of the vast sea"
   },
   {
@@ -32,7 +35,7 @@ const stories = [ // Fake database
     title: "First Trip to NYC",
     author: "Bob W."
   }
-]
+];
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -40,7 +43,7 @@ export default function App() {
     <NavigationContainer>
       <View style={styles.container}>
         <Stack.Navigator>
-          <Stack.Screen name="HomePage" component={HomePage} initialParams={{stories}} />
+          <Stack.Screen name="HomePage" component={HomePage} initialParams={{ stories }} />
           <Stack.Screen name="StoryFormatChoice" component={StoryFormatChoice} />
           <Stack.Screen name="TextInputChoice" component={TextInputChoice} />
           <Stack.Screen name="StartAudioRecording" component={StartAudioRecording} />
@@ -49,7 +52,7 @@ export default function App() {
           <Stack.Screen name="RecordAudio" component={RecordAudio} />
           <Stack.Screen name="ViewStory" component={ViewStory} />
           <Stack.Screen name="EditMetadata" component={EditMetadata} />
-          <Stack.Screen name="MyStories" component={MyStories} initialParams={{stories}} />
+          <Stack.Screen name="MyStories" component={MyStories} initialParams={{ stories }} />
           <Stack.Screen name="Scan" component={Scan} />
           <Stack.Screen name="EditWrittenStory" component={EditWrittenStory} />
         </Stack.Navigator>

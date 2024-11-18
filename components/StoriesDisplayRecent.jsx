@@ -1,18 +1,21 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import StoryCard from './StoryCard';
 
 const StoriesDisplayRecent = ({ navigation, stories }) => {
   return (
-    <View>
+    <ScrollView>
       {
         stories.map(story => <StoryCard navigation={navigation} story={story} key={story.title} />)
       }
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
 });
 
 export default StoriesDisplayRecent;

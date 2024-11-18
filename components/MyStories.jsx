@@ -4,7 +4,7 @@ import TabbedCardList from './TabbedCardList';
 
 const MyStories = ({ navigation, route }) => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text>My Stories</Text>
       <TabbedCardList navigation={navigation} stories={route.params.stories} />
     </View>
@@ -12,6 +12,9 @@ const MyStories = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
 });
 
 export default MyStories;
