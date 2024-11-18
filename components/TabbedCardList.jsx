@@ -6,12 +6,12 @@ import StoriesDisplayRecent from "./StoriesDisplayRecent";
 
 const Tabs = createMaterialTopTabNavigator();
 
-const TabbedCardList = ({stories}) => {
+const TabbedCardList = ({ navigation, stories }) => {
   return (
     <View>
       <Tabs.Navigator>
-        <Tabs.Screen name="StoriesDisplayTimeline" component={() => <StoriesDisplayTimeline stories={stories} />} />
-        <Tabs.Screen name="StoriesDisplayRecent" component={() => <StoriesDisplayRecent stories={stories} />} />
+        <Tabs.Screen name="StoriesDisplayTimeline">{() => <StoriesDisplayTimeline navigation={navigation} stories={stories} />}</Tabs.Screen>
+        <Tabs.Screen name="StoriesDisplayRecent">{() => <StoriesDisplayRecent navigation={navigation} stories={stories} />}</Tabs.Screen>
       </Tabs.Navigator>
     </View>
   );

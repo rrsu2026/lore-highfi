@@ -6,7 +6,7 @@ const MyStories = ({ navigation, route }) => {
   return (
     <View>
       <Text>My Stories</Text>
-      <TabbedCardList stories={route.params.stories} />
+      <TabbedCardList navigation={navigation} stories={route.params.stories} />
     </View>
   );
 };
