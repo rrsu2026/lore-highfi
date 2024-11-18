@@ -2,13 +2,16 @@ import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import StoryCard from './StoryCard';
 
-const HomePage = ({navigation}) => {
+const RecordVideo = ({ navigation }) => {
   return (
     <View>
-      <Button title="Share Your Story" onPress={() => navigation.navigate("StoryFormatChoice")} />
+      <Text>My Stories</Text>
       <StoryCard navigation={navigation} />
-    </View>
+      </View>
   );
 };
 
-export default HomePage;
+const styles = StyleSheet.create({
+});
+
+export default RecordVideo;
