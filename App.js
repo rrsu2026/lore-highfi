@@ -14,7 +14,25 @@ import MyStories from './components/MyStories';
 import Scan from './components/Scan';
 import EditWrittenStory from './components/EditWrittenStory';
 
-
+const stories = [ // Fake database
+  {
+    title: "Meeting my Wife",
+    author: "Christos Stephanopoulos",
+    text: "Off the shore of Cape Cod, summers on Nantucket were a combination of warm sun and brisk wind. It was late August and I had escaped the busy skylines of New York in search of solace. I pulled out my camera while watching waves crash upon Madaket Beach. My goal was to capture the momentary bliss I felt. But there she stood in front of the vast sea"
+  },
+  {
+    title: "Nightmare at DFW",
+    author: "Rennold Suzuki"
+  },
+  {
+    title: "Elvis Concert",
+    author: "Shelly C."
+  },
+  {
+    title: "First Trip to NYC",
+    author: "Bob W."
+  }
+]
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -22,7 +40,7 @@ export default function App() {
     <NavigationContainer>
       <View style={styles.container}>
         <Stack.Navigator>
-          <Stack.Screen name="HomePage" component={HomePage} />
+          <Stack.Screen name="HomePage" component={HomePage} initialParams={{stories}} />
           <Stack.Screen name="StoryFormatChoice" component={StoryFormatChoice} />
           <Stack.Screen name="TextInputChoice" component={TextInputChoice} />
           <Stack.Screen name="StartAudioRecording" component={StartAudioRecording} />

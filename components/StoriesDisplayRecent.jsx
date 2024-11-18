@@ -2,12 +2,12 @@ import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import StoryCard from './StoryCard';
 
-const StoriesDisplayRecent = ({ navigation }) => {
+const StoriesDisplayRecent = ({ navigation, stories }) => {
   return (
     <View>
-      <StoryCard navigation={navigation} story={{title: "View Story 1 (recent)"}} />
-      <StoryCard navigation={navigation} story={{title: "View Story 2"}} />
-      <StoryCard navigation={navigation} story={{title: "View Story 3"}} />
+      {
+        stories.map(story => <StoryCard navigation={navigation} story={story} key={story.title} />)
+      }
     </View>
   );
 };
