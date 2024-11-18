@@ -1,7 +1,11 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet, View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+// MAIN PAGES 
 import HomePage from './components/HomePage';
+import SearchPage from './components/SearchPage';
+import MyProfile from './components/MyProfile';
 import StoryFormatChoice from './components/StoryFormatChoice';
 import TextInputChoice from './components/TextInputChoice';
 import StartAudioRecording from './components/StartAudioRecording';
@@ -13,6 +17,8 @@ import EditMetadata from './components/EditMetadata';
 import MyStories from './components/MyStories';
 import Scan from './components/Scan';
 import EditWrittenStory from './components/EditWrittenStory';
+
+import NavBar from './components/Navbar';
 
 const stories = [ // Fake database
   {
@@ -43,7 +49,9 @@ export default function App() {
     <NavigationContainer>
       <View style={styles.container}>
         <Stack.Navigator>
-          <Stack.Screen name="HomePage" component={HomePage} initialParams={{ stories }} />
+          <Stack.Screen name="HomePage" component={HomePage} initialParams={{stories}} />
+          <Stack.Screen name="SearchPage" component={SearchPage} />
+          <Stack.Screen name="MyProfile" component={MyProfile} />
           <Stack.Screen name="StoryFormatChoice" component={StoryFormatChoice} />
           <Stack.Screen name="TextInputChoice" component={TextInputChoice} />
           <Stack.Screen name="StartAudioRecording" component={StartAudioRecording} />
@@ -56,7 +64,7 @@ export default function App() {
           <Stack.Screen name="Scan" component={Scan} />
           <Stack.Screen name="EditWrittenStory" component={EditWrittenStory} />
         </Stack.Navigator>
-        <nav style={styles.navbar}>Navbar goes here</nav>
+        <NavBar/>
       </View>
     </NavigationContainer>
   );
