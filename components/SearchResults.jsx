@@ -5,11 +5,18 @@ import FakeDatabaseContext from './FakeDatabaseContext';
 
 const SearchResults = ({ navigation, route }) => {
   const db = useContext(FakeDatabaseContext);
+  const getSearchResults = (query) => {
+    return db.stories.filter((story) => {
+      const queryLower = query.toLowerCase();
+      return story.title?.toLowerCase().includes(queryLower) ||
+        db.users.find((user) => user.id == story.author).name?.toLowerCase().includes(queryLower) ||
+        story.tags?.map((tag)=>tag.toLowerCase()).includes(queryLower);
+    });
+  };
   return (
     <View>
       <Text>Results for "{route.params.query}"</Text>
-      <TabbedCardList navigation={navigation} stories={db.stories} />
-      {/* TODO: Filter based on search query */}
+      <TabbedCardList navigation={navigation} stories={getSearchResults(route.params.query)} />
     </View>
   );
 };
