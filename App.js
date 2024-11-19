@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // MAIN PAGES 
 import HomePage from './components/HomePage';
 import SearchPage from './components/SearchPage';
+import SearchResults from './components/SearchResults';
 import MyProfile from './components/MyProfile';
 import StoryFormatChoice from './components/StoryFormatChoice';
 import TextInputChoice from './components/TextInputChoice';
@@ -51,6 +52,7 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen name="HomePage" component={HomePage} initialParams={{stories}} />
           <Stack.Screen name="SearchPage" component={SearchPage} />
+          <Stack.Screen name="SearchResults" component={SearchResults} initialParams={{ stories }} />
           <Stack.Screen name="MyProfile" component={MyProfile} />
           <Stack.Screen name="StoryFormatChoice" component={StoryFormatChoice} />
           <Stack.Screen name="TextInputChoice" component={TextInputChoice} />
