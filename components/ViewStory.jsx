@@ -1,12 +1,13 @@
-import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import React, { useContext } from "react";
+import { View, Text, StyleSheet } from "react-native";
 import StoryText from "./StoryText";
 import StoryAudio from "./StoryAudio";
 
-const ViewStory = ({ navigation, route }) => {
+const ViewStory = ({ route }) => {
+  const db = useContext(FakeDatabaseContext);
   return (
     <View>
-      <Text>{route.params.story.author}</Text>
+      <Text>{db.users.find((user)=>user.id == route.params.story.author).name}</Text>
       <Text>{route.params.story.title}</Text>
       { route.params.story.text && <StoryText /> }
       { route.params.story.audio && <StoryAudio />}

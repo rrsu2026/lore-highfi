@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 
 const StoryCard = ({ navigation, story }) => {
+  const db = useContext(FakeDatabaseContext);
   return (
     <View>
       <Text>{story.occurredAt}</Text>
       <Text>{story.title}</Text>
-      <Text>{story.author}</Text>
+      <Text>{db.users.find((user)=>user.id == story.author).name}</Text>
       <Text>{story.text && "Text" || story.audio && "Audio" || story.video && "Video"}</Text>
       <Text>{story.location}</Text>
       <Text>{story.postedAt}</Text>

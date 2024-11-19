@@ -28,7 +28,7 @@ const fakeDatabase = {
   stories: [
     {
       title: "Meeting my Wife",
-      author: "Christos Stephanopoulos",
+      author: "701e20bb-3aba-4d4b-9f6c-436762886d58",
       location: "Nantucket, MA",
       postedAt: new Date(2024, 6, 15).toISOString(), // Months in JavaScript are 0-indexed, but days and years are not
       occurrencedAt: new Date(1975, 0, 1).toISOString(),
@@ -36,15 +36,41 @@ const fakeDatabase = {
     },
     {
       title: "Nightmare at DFW",
-      author: "Rennold Suzuki"
+      author: "6618d3b5-8540-4b84-9ed8-215a7f769ee3"
     },
     {
       title: "Elvis Concert",
-      author: "Shelly C."
+      author: "a28bfa77-fd2e-4802-834b-0a0f1c76d394"
     },
     {
       title: "First Trip to NYC",
-      author: "Bob W."
+      author: "6a5bb277-6f10-4e0f-937c-5ef5d1d8f692"
+    }
+  ],
+  users: [
+    {
+      id: "701e20bb-3aba-4d4b-9f6c-436762886d58",
+      name: "Christos Stephanopoulos"
+    },
+    {
+      id: "6618d3b5-8540-4b84-9ed8-215a7f769ee3",
+      name: "Rennold Suzuki",
+      location: "Seattle, WA",
+      age: 85,
+      tags: ["Veteran", "First-Gen", "Scientist"],
+      about: "I moved to the US from Okinawa, Japan in 1959 to study at MIT. I then moved to California to work at a ChemE lab."
+    },
+    {
+      id: "a28bfa77-fd2e-4802-834b-0a0f1c76d394",
+      name: "Shelly C.",
+    },
+    {
+      id: "6a5bb277-6f10-4e0f-937c-5ef5d1d8f692",
+      name: "Bob W.",
+      location: "Austin, TX",
+      age: 78,
+      tags: ["1970s", "Teacher"],
+      about: "I love talking about Austin, TX and science education!"
     }
   ]
 };
