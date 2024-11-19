@@ -1,52 +1,44 @@
-import React, { useState } from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
-const NavBar = () => {
-  const navigation = useNavigation(); // Use the navigation hook
-  const [selected, setSelected] = useState('home'); 
+// color import
+import Colors from '../Theme.js';
 
-  // Function to handle button press and change the selected state
-  const handlePress = (screen, icon) => {
-    navigation.navigate(screen); 
-    setSelected(icon);
-  };
+const NavBar = ({ currentScreen }) => {
+  const navigation = useNavigation();
+
+  // determine if the current screen highlights the search icon
+  const isSearchHighlighted = ['SearchPage', 'SearchResults'].includes(currentScreen);
+
+  // map icons to their respective screens
+  const icons = [
+    { screen: 'SearchPage', icon: 'search', outline: 'search-outline', label: 'Search', isHighlighted: isSearchHighlighted },
+    { screen: 'HomePage', icon: 'home', outline: 'home-outline', label: 'Home', isHighlighted: currentScreen === 'HomePage' },
+    { screen: 'MyProfile', icon: 'person', outline: 'person-outline', label: 'My Profile', isHighlighted: currentScreen === 'MyProfile' },
+  ];
 
   return (
     <View style={styles.navbar}>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => handlePress("HomePage", 'home')}
-      >
-        <Ionicons
-          name={selected === 'home' ? 'home' : 'home-outline'}
-          size={30}
-          color={selected === 'home' ? 'tomato' : 'gray'}
-        />
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => handlePress("SearchPage", 'search')}
-      >
-        <Ionicons
-          name={selected === 'search' ? 'search' : 'search-outline'}
-          size={30}
-          color={selected === 'search' ? 'tomato' : 'gray'}
-        />
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => handlePress("MyProfile", 'myProfile')}
-      >
-        <Ionicons
-          name={selected === 'myProfile' ? 'person' : 'person-outline'}
-          size={30}
-          color={selected === 'myProfile' ? 'tomato' : 'gray'}
-        />
-      </TouchableOpacity>
+      {icons.map(({ screen, icon, outline, label, isHighlighted }) => (
+        <TouchableOpacity
+          key={screen}
+          style={[
+            styles.navSection,
+            isHighlighted && styles.highlightedSection, // apply shading to 1/3 of the navbar
+          ]}
+          onPress={() => navigation.navigate(screen)} // handle press for the entire section
+        >
+          <View style={[styles.highlightLine, isHighlighted && { backgroundColor: Colors.colors.complementColor3 }]} />
+          <Ionicons
+            name={isHighlighted ? icon : outline}
+            size={30}
+            color={isHighlighted ? Colors.colors.chineseBlack : Colors.colors.graniteGray }
+          />
+          <Text style={[styles.label, { color: isHighlighted ? Colors.colors.chineseBlack: Colors.colors.graniteGray }]}>{label}</Text>
+        </TouchableOpacity>
+      ))}
     </View>
   );
 };
@@ -55,14 +47,37 @@ const styles = StyleSheet.create({
   navbar: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    backgroundColor: 'white',
-    paddingVertical: 10,
+    backgroundColor: Colors.colors.primaryColorSelect, 
     position: 'absolute',
     bottom: 0,
     width: '100%',
+    height: 80,
+  },
+  navSection: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+  },
+  highlightedSection: {
+    backgroundColor: Colors.colors.primaryColorBg, 
+    height: '100%',
+  },
+  highlightLine: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 3, // highlight line thickness
+    width: '100%',
+    backgroundColor: Colors.colors.primaryColor2, 
   },
   button: {
     alignItems: 'center',
+  },
+  label: {
+    fontSize: 12,
+    marginTop: 4,
   },
 });
 

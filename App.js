@@ -82,11 +82,18 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [db, setDb] = useState(fakeDatabase);
+  const [currentScreen, setCurrentScreen] = useState("HomePage");
   const [loggedInUser, setLoggedInUser] = useState(db.users.find((user) => user.id === defaultUser));
   return (
     <AuthenticationContext.Provider value={loggedInUser}>
       <FakeDatabaseContext.Provider value={db}>
-        <NavigationContainer>
+        <NavigationContainer
+          onStateChange={(state) => {
+            if (!state) return; 
+            const currentRoute = state.routes[state.index]; // get active screen
+            setCurrentScreen(currentRoute.name); // update state with current screen name
+          }}
+        >
           <View style={styles.container}>
             <Stack.Navigator>
               <Stack.Screen name="HomePage" component={HomePage} />
@@ -105,7 +112,7 @@ export default function App() {
               <Stack.Screen name="Scan" component={Scan} />
               <Stack.Screen name="EditWrittenStory" component={EditWrittenStory} />
             </Stack.Navigator>
-            <NavBar />
+            <NavBar currentScreen={currentScreen} />
           </View>
         </NavigationContainer>
       </FakeDatabaseContext.Provider>
