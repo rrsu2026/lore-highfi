@@ -1,12 +1,14 @@
-import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import React, { useContext } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import TabbedCardList from './TabbedCardList';
+import FakeDatabaseContext from './FakeDatabaseContext';
 
-const MyStories = ({ navigation, route }) => {
+const MyStories = ({ navigation }) => {
+  const db = useContext(FakeDatabaseContext);
   return (
     <View style={styles.container}>
       <Text>My Stories</Text>
-      <TabbedCardList navigation={navigation} stories={route.params.stories} />
+      <TabbedCardList navigation={navigation} stories={db.stories} />
     </View>
   );
 };
