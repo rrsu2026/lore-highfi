@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useState } from 'react';
 import FakeDatabaseContext from './components/FakeDatabaseContext';
+import AuthenticationContext from './components/AuthenticationContext';
 
 // MAIN PAGES 
 import HomePage from './components/HomePage';
@@ -75,35 +76,40 @@ const fakeDatabase = {
   ]
 };
 
+const defaultUser = "6618d3b5-8540-4b84-9ed8-215a7f769ee3";
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  [db, setDb] = useState(fakeDatabase);
+  const [db, setDb] = useState(fakeDatabase);
+  const [loggedInUser, setLoggedInUser] = useState(db.users.find((user) => user.id === defaultUser));
   return (
-    <FakeDatabaseContext.Provider value={db}>
-      <NavigationContainer>
-        <View style={styles.container}>
-          <Stack.Navigator>
-            <Stack.Screen name="HomePage" component={HomePage} />
-            <Stack.Screen name="SearchPage" component={SearchPage} />
-            <Stack.Screen name="SearchResults" component={SearchResults} />
-            <Stack.Screen name="MyProfile" component={MyProfile} />
-            <Stack.Screen name="StoryFormatChoice" component={StoryFormatChoice} />
-            <Stack.Screen name="TextInputChoice" component={TextInputChoice} />
-            <Stack.Screen name="StartAudioRecording" component={StartAudioRecording} />
-            <Stack.Screen name="StartVideoRecording" component={StartVideoRecording} />
-            <Stack.Screen name="RecordVideo" component={RecordVideo} />
-            <Stack.Screen name="RecordAudio" component={RecordAudio} />
-            <Stack.Screen name="ViewStory" component={ViewStory} />
-            <Stack.Screen name="EditMetadata" component={EditMetadata} />
-            <Stack.Screen name="MyStories" component={MyStories} />
-            <Stack.Screen name="Scan" component={Scan} />
-            <Stack.Screen name="EditWrittenStory" component={EditWrittenStory} />
-          </Stack.Navigator>
-          <NavBar />
-        </View>
-      </NavigationContainer>
-    </FakeDatabaseContext.Provider>
+    <AuthenticationContext.Provider value={loggedInUser}>
+      <FakeDatabaseContext.Provider value={db}>
+        <NavigationContainer>
+          <View style={styles.container}>
+            <Stack.Navigator>
+              <Stack.Screen name="HomePage" component={HomePage} />
+              <Stack.Screen name="SearchPage" component={SearchPage} />
+              <Stack.Screen name="SearchResults" component={SearchResults} />
+              <Stack.Screen name="MyProfile" component={MyProfile} />
+              <Stack.Screen name="StoryFormatChoice" component={StoryFormatChoice} />
+              <Stack.Screen name="TextInputChoice" component={TextInputChoice} />
+              <Stack.Screen name="StartAudioRecording" component={StartAudioRecording} />
+              <Stack.Screen name="StartVideoRecording" component={StartVideoRecording} />
+              <Stack.Screen name="RecordVideo" component={RecordVideo} />
+              <Stack.Screen name="RecordAudio" component={RecordAudio} />
+              <Stack.Screen name="ViewStory" component={ViewStory} />
+              <Stack.Screen name="EditMetadata" component={EditMetadata} />
+              <Stack.Screen name="MyStories" component={MyStories} />
+              <Stack.Screen name="Scan" component={Scan} />
+              <Stack.Screen name="EditWrittenStory" component={EditWrittenStory} />
+            </Stack.Navigator>
+            <NavBar />
+          </View>
+        </NavigationContainer>
+      </FakeDatabaseContext.Provider>
+    </AuthenticationContext.Provider>
   );
 }
 
