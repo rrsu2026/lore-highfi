@@ -10,6 +10,7 @@ import HomePage from './components/HomePage';
 import SearchPage from './components/SearchPage';
 import SearchResults from './components/SearchResults';
 import MyProfile from './components/MyProfile';
+import MyCircle from './components/MyCircle';
 import StoryFormatChoice from './components/StoryFormatChoice';
 import TextInputChoice from './components/TextInputChoice';
 import StartAudioRecording from './components/StartAudioRecording';
@@ -59,7 +60,8 @@ const fakeDatabase = {
       location: "Seattle, WA",
       age: 85,
       tags: ["Veteran", "First-Gen", "Scientist"],
-      about: "I moved to the US from Okinawa, Japan in 1959 to study at MIT. I then moved to California to work at a ChemE lab."
+      about: "I moved to the US from Okinawa, Japan in 1959 to study at MIT. I then moved to California to work at a ChemE lab.",
+      circle: ["a28bfa77-fd2e-4802-834b-0a0f1c76d394", "6a5bb277-6f10-4e0f-937c-5ef5d1d8f692"]
     },
     {
       id: "a28bfa77-fd2e-4802-834b-0a0f1c76d394",
@@ -100,6 +102,7 @@ export default function App() {
               <Stack.Screen name="SearchPage" component={SearchPage} />
               <Stack.Screen name="SearchResults" component={SearchResults} />
               <Stack.Screen name="MyProfile" component={MyProfile} />
+              <Stack.Screen name="MyCircle" component={MyCircle} />
               <Stack.Screen name="StoryFormatChoice" component={StoryFormatChoice} />
               <Stack.Screen name="TextInputChoice" component={TextInputChoice} />
               <Stack.Screen name="StartAudioRecording" component={StartAudioRecording} />
