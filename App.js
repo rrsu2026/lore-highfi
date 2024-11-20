@@ -37,16 +37,37 @@ const fakeDatabase = {
       text: "Off the shore of Cape Cod, summers on Nantucket were a combination of warm sun and brisk wind. It was late August and I had escaped the busy skylines of New York in search of solace. I pulled out my camera while watching waves crash upon Madaket Beach. My goal was to capture the momentary bliss I felt. But there she stood in front of the vast sea"
     },
     {
+      title: "Nightmare at DFW part 2",
+      author: "6618d3b5-8540-4b84-9ed8-215a7f769ee3",
+      location: "Nantucket, MA",
+      postedAt: new Date(2024, 6, 15).toISOString(), // Months in JavaScript are 0-indexed, but days and years are not
+      occurrencedAt: new Date(1980, 0, 1).toISOString(),
+      text: "Off the shore of Cape Cod, summers on Nantucket were a combination of warm sun and brisk wind. It was late August and I had escaped the busy skylines of New York in search of solace. I pulled out my camera while watching waves crash upon Madaket Beach. My goal was to capture the momentary bliss I felt. But there she stood in front of the vast sea"
+    },
+    {
       title: "Nightmare at DFW",
-      author: "6618d3b5-8540-4b84-9ed8-215a7f769ee3"
+      author: "6618d3b5-8540-4b84-9ed8-215a7f769ee3",
+      location: "Nantucket, MA",
+      postedAt: new Date(2024, 6, 15).toISOString(), // Months in JavaScript are 0-indexed, but days and years are not
+      occurrencedAt: new Date(1980, 0, 1).toISOString(),
+      text: "Off the shore of Cape Cod, summers on Nantucket were a combination of warm sun and brisk wind. It was late August and I had escaped the busy skylines of New York in search of solace. I pulled out my camera while watching waves crash upon Madaket Beach. My goal was to capture the momentary bliss I felt. But there she stood in front of the vast sea"
     },
     {
       title: "Elvis Concert",
-      author: "a28bfa77-fd2e-4802-834b-0a0f1c76d394"
+      author: "a28bfa77-fd2e-4802-834b-0a0f1c76d394",
+      location: "Nantucket, MA",
+      postedAt: new Date(2024, 6, 15).toISOString(), // Months in JavaScript are 0-indexed, but days and years are not
+      occurrencedAt: new Date(1945, 0, 1).toISOString(),
+      text: "Off the shore of Cape Cod, summers on Nantucket were a combination of warm sun and brisk wind. It was late August and I had escaped the busy skylines of New York in search of solace. I pulled out my camera while watching waves crash upon Madaket Beach. My goal was to capture the momentary bliss I felt. But there she stood in front of the vast sea"
     },
     {
       title: "First Trip to NYC",
-      author: "6a5bb277-6f10-4e0f-937c-5ef5d1d8f692"
+      author: "6a5bb277-6f10-4e0f-937c-5ef5d1d8f692",
+      location: "Nantucket, MA",
+      postedAt: new Date(2024, 6, 15).toISOString(), // Months in JavaScript are 0-indexed, but days and years are not
+      occurrencedAt: new Date(1963, 0, 1).toISOString(),
+      text: "Off the shore of Cape Cod, summers on Nantucket were a combination of warm sun and brisk wind. It was late August and I had escaped the busy skylines of New York in search of solace. I pulled out my camera while watching waves crash upon Madaket Beach. My goal was to capture the momentary bliss I felt. But there she stood in front of the vast sea"
+      
     }
   ],
   users: [
