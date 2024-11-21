@@ -82,11 +82,7 @@ const StoriesDisplayTimeline = ({ navigation, stories }) => {
                           <StoryCard
                             key={story.title}
                             navigation={navigation}
-                            story={{
-                              title: story.title,
-                              author: story.author,
-                              location: story.location,
-                            }}
+                            story={story}
                           />
                         ))}
                       </View>
@@ -96,11 +92,7 @@ const StoriesDisplayTimeline = ({ navigation, stories }) => {
                   <View style={styles.cardContainer}>
                     <StoryCard
                       navigation={navigation}
-                      story={{
-                        title: groupedStories[decade][0].title,
-                        author: groupedStories[decade][0].author,
-                        location: groupedStories[decade][0].location,
-                      }}
+                      story={groupedStories[decade][0]}
                     />
                   </View>
                 )}
