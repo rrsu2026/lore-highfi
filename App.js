@@ -139,7 +139,11 @@ export default function App() {
                 component={HomePage}
                 options={{ headerShown: false }}
               />
-              <Stack.Screen name="SearchPage" component={SearchPage} />
+              <Stack.Screen
+                name="SearchPage"
+                component={SearchPage}
+                options={{ headerShown: false }}
+              />
               <Stack.Screen name="SearchResults" component={SearchResults} />
               <Stack.Screen name="MyProfile" component={MyProfile} />
               <Stack.Screen name="MyCircle" component={MyCircle} />
