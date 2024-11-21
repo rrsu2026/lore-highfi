@@ -1,7 +1,7 @@
 export default {
   colors: {
     // Blues
-    primaryColorBg: "#ecf1f8", 
+    primaryColorBg: "#ecf1f8",
     primaryColorSelect: "rgb(228, 234, 242)",
     primaryColor1: "rgb(164, 187, 223)",
     primaryColor2: "rgb(113, 145, 195)",
@@ -24,10 +24,9 @@ export default {
     x11DarkGray: "#a9a9a9", // X11 Dark Gray: subtle and muted grey
     x11Gray: "#bebebe", // X11 Gray: light and soft grey
     chineseBlack: "#141414", // Chinese Black: deep and rich black
-    white: "#FFFFFF", 
+    grayBg: "#f4f4f4",
+    white: "#FFFFFF",
   },
-
-
 
   fontFamily: "Montserrat, sans-serif",
 

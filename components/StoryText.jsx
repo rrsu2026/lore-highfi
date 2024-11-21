@@ -1,15 +1,32 @@
-import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import React from "react";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 
 const StoryText = ({ text }) => {
+  const textArray = text.split("\n\n");
+
   return (
-    <View>
-      <Text>{text}</Text>
-    </View>
+    <FlatList
+      data={textArray}
+      keyExtractor={(_, index) => index.toString()}
+      renderItem={({ item }) => (
+        <Text style={styles.textParagraph}>{item}</Text>
+      )}
+      contentContainerStyle={styles.listContainer}
+    />
   );
 };
 
 const styles = StyleSheet.create({
+  listContainer: {
+    padding: "1%",
+    marginVertical: "5%",
+  },
+  textParagraph: {
+    fontSize: 16,
+    marginBottom: 12,
+    lineHeight: 24,
+    color: "#333",
+  },
 });
 
 export default StoryText;

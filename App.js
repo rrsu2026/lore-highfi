@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useState } from "react";
 import FakeDatabaseContext from "./components/FakeDatabaseContext";
 import AuthenticationContext from "./components/AuthenticationContext";
+import theme from "./Theme";
 
 // MAIN PAGES
 import HomePage from "./components/HomePage";
@@ -122,7 +123,17 @@ export default function App() {
           }}
         >
           <View style={styles.container}>
-            <Stack.Navigator>
+            <Stack.Navigator
+              screenOptions={{
+                headerStyle: {
+                  backgroundColor: "#f4f4f4",
+                },
+                headerTintColor: theme.colors.primaryColor5,
+                headerTitleStyle: {
+                  fontWeight: "bold",
+                },
+              }}
+            >
               <Stack.Screen
                 name="HomePage"
                 component={HomePage}
@@ -150,7 +161,14 @@ export default function App() {
               />
               <Stack.Screen name="RecordVideo" component={RecordVideo} />
               <Stack.Screen name="RecordAudio" component={RecordAudio} />
-              <Stack.Screen name="ViewStory" component={ViewStory} />
+              <Stack.Screen
+                name="ViewStory"
+                component={ViewStory}
+                options={{
+                  headerBackTitle: "Back",
+                  headerTitle: "",
+                }}
+              />
               <Stack.Screen name="EditMetadata" component={EditMetadata} />
               <Stack.Screen name="MyStories" component={MyStories} />
               <Stack.Screen name="Scan" component={Scan} />

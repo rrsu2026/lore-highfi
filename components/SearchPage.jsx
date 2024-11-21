@@ -3,24 +3,23 @@ import { View, Text, StyleSheet, Button, TextInput } from "react-native";
 
 const SearchPage = ({ navigation }) => {
   const [query, setQuery] = React.useState("");
+
   return (
-    <View>
-      <label htmlFor="search">
-        Search{" "}
-        <TextInput
-          id="search"
-          value={query}
-          onChangeText={setQuery}
-          onSubmitEditing={() =>
-            navigation.navigate("SearchResults", { query })
-          }
-        />
-      </label>
+    <View style={styles.container}>
+      <Text style={styles.label}>Search</Text>
+      <TextInput
+        style={styles.input}
+        value={query}
+        onChangeText={setQuery}
+        onSubmitEditing={() => navigation.navigate("SearchResults", { query })}
+        placeholder="Type something..."
+      />
       <Button
         title="🔎"
         onPress={() => navigation.navigate("SearchResults", { query })}
       />
-      <Text>Suggestions</Text>
+
+      <Text style={styles.suggestionsHeader}>Suggestions</Text>
       <Button
         title="Chinese-American"
         onPress={() =>
@@ -37,18 +36,33 @@ const SearchPage = ({ navigation }) => {
           navigation.navigate("SearchResults", { query: "Military" })
         }
       />
-      <Button
-        title="Peru"
-        onPress={() => navigation.navigate("SearchResults", { query: "Peru" })}
-      />
-      <Button
-        title="1980s"
-        onPress={() => navigation.navigate("SearchResults", { query: "1980s" })}
-      />
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 8,
+  },
+  input: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 4,
+    paddingHorizontal: 8,
+    marginBottom: 16,
+  },
+  suggestionsHeader: {
+    fontSize: 18,
+    fontWeight: "600",
+    marginVertical: 16,
+  },
+});
 
 export default SearchPage;
