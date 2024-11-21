@@ -46,14 +46,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  yellowLine: {
-    width: 15,
-    backgroundColor: theme.colors.complementColor2,
-    marginLeft: 20,
-    borderRadius: 2,
-    borderColor: theme.colors.chineseBlack,
-    borderWidth: 2.5,
-  },
   shareStoryButton: {
     flexDirection: "row",
     alignItems: "center",

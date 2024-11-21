@@ -13,43 +13,32 @@ import {
   State,
 } from "react-native-gesture-handler";
 import StoryCard from "./StoryCard";
-
 import theme from "../Theme";
 
 const StoriesDisplayTimeline = ({ navigation, stories }) => {
   const [scale, setScale] = useState(new Animated.Value(1));
   const [zoomIn, setZoomIn] = useState(false);
 
-  // onPinchEvent handles pinch gestures (scaling), updates the scale state
-  const onPinchEvent = Animated.event([{ nativeEvent: { scale } }]);
+  const onPinchEvent = Animated.event([{ nativeEvent: { scale } }], {
+    useNativeDriver: false,
+  });
 
-  // onPinchStateChange handles the end of the pinch gesture and resets the scale
   const onPinchStateChange = (event) => {
     if (event.nativeEvent.state === State.END) {
       Animated.spring(scale, {
         toValue: 1,
         friction: 7,
+        useNativeDriver: false,
       }).start();
     }
   };
 
-  // Helper function to format a date string into a decade (e.g., 1910, 1920, etc.)
   const formatDateToDecade = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
-    const decade = Math.floor(year / 10) * 10;
-    return decade;
+    return Math.floor(year / 10) * 10;
   };
 
-  /* 
-  Kinda format stories into a dict with like the decade. we could do a nested dict to track like by the years then, and then 
-  we would eventually sort by month, year once they zoom enough. not sure asnbdhjabsdjha
-  {
-    1910: [story1, story2, story3],
-    1920: [story4, story5],
-    1930: [story6]
-  }
-  */
   const groupStoriesByDecade = (stories) => {
     return stories.reduce((acc, story) => {
       const decade = formatDateToDecade(story.occurrencedAt);
@@ -63,7 +52,6 @@ const StoriesDisplayTimeline = ({ navigation, stories }) => {
 
   const groupedStories = groupStoriesByDecade(stories);
 
-  // handleStackClick toggles the zoom state when a stack of stories is clicked --> rn it just expands and shrinks the stack, need to figure out how to make it zoom into a timeline?
   const handleStackClick = () => {
     setZoomIn(!zoomIn);
   };
@@ -76,16 +64,14 @@ const StoriesDisplayTimeline = ({ navigation, stories }) => {
       >
         <Animated.View style={[styles.timeline, { transform: [{ scale }] }]}>
           <ScrollView style={styles.scrollView}>
+            <View style={styles.yellowLine} />
             {Object.keys(groupedStories)
               .sort((a, b) => a - b)
               .map((decade) => (
                 <View key={decade} style={styles.yearSection}>
                   <View style={styles.yearContainer}>
-                    {/* Decade label */}
                     <Text style={styles.time}>{`${decade}s`}</Text>
-                    <View style={styles.lineContainer}></View>
                   </View>
-                  {/* Display a stack of stories if there are more than one in the decade */}
                   {groupedStories[decade].length > 1 ? (
                     <TouchableOpacity
                       style={styles.stackContainer}
@@ -94,12 +80,11 @@ const StoriesDisplayTimeline = ({ navigation, stories }) => {
                       <Text style={styles.stackLabel}>
                         {groupedStories[decade].length} stories
                       </Text>
-                      {/* Show zoomed-in view of the stack when zoomIn is true */}
                       {zoomIn && (
                         <View style={styles.zoomedStack}>
                           {groupedStories[decade].map((story) => (
                             <StoryCard
-                              key={story.title}
+                              key={story.id} // Use a unique identifier
                               navigation={navigation}
                               story={story}
                             />
@@ -134,12 +119,23 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
-    marginLeft: 40,
+    marginLeft: 30,
+  },
+  yellowLine: {
+    position: "absolute",
+    width: 10,
+    backgroundColor: "#FCD385",
+    borderWidth: 2,
+    height: "100%",
+    left: 20,
+    zIndex: -1,
   },
   yearSection: {
     marginBottom: 30,
   },
   yearContainer: {
+    marginLeft: "10%",
+    marginBottom: "2%",
     flexDirection: "row",
     alignItems: "center",
   },
@@ -148,11 +144,6 @@ const styles = StyleSheet.create({
     color: "#333",
     fontWeight: "bold",
     marginRight: 10,
-  },
-  lineContainer: {
-    height: 1,
-    backgroundColor: "#ccc",
-    flex: 1,
   },
   stackContainer: {
     flexDirection: "column",
