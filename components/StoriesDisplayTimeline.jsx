@@ -1,24 +1,35 @@
-import React, { useState } from 'react'; 
-import { StyleSheet, ScrollView, View, Text, Animated, TouchableOpacity } from 'react-native'; 
-import { GestureHandlerRootView, PinchGestureHandler, State } from 'react-native-gesture-handler'; 
-import StoryCard from './StoryCard'; 
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  ScrollView,
+  View,
+  Text,
+  Animated,
+  TouchableOpacity,
+} from "react-native";
+import {
+  GestureHandlerRootView,
+  PinchGestureHandler,
+  State,
+} from "react-native-gesture-handler";
+import StoryCard from "./StoryCard";
+
+import theme from "../Theme";
 
 const StoriesDisplayTimeline = ({ navigation, stories }) => {
-  const [scale, setScale] = useState(new Animated.Value(1)); 
-  const [zoomIn, setZoomIn] = useState(false); 
+  const [scale, setScale] = useState(new Animated.Value(1));
+  const [zoomIn, setZoomIn] = useState(false);
 
   // onPinchEvent handles pinch gestures (scaling), updates the scale state
-  const onPinchEvent = Animated.event(
-    [{ nativeEvent: { scale } }],
-  );
+  const onPinchEvent = Animated.event([{ nativeEvent: { scale } }]);
 
   // onPinchStateChange handles the end of the pinch gesture and resets the scale
   const onPinchStateChange = (event) => {
     if (event.nativeEvent.state === State.END) {
       Animated.spring(scale, {
-        toValue: 1, 
-        friction: 7, 
-      }).start(); 
+        toValue: 1,
+        friction: 7,
+      }).start();
     }
   };
 
@@ -26,7 +37,7 @@ const StoriesDisplayTimeline = ({ navigation, stories }) => {
   const formatDateToDecade = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
-    const decade = Math.floor(year / 10) * 10; 
+    const decade = Math.floor(year / 10) * 10;
     return decade;
   };
 
@@ -43,14 +54,14 @@ const StoriesDisplayTimeline = ({ navigation, stories }) => {
     return stories.reduce((acc, story) => {
       const decade = formatDateToDecade(story.occurrencedAt);
       if (!acc[decade]) {
-        acc[decade] = []; 
+        acc[decade] = [];
       }
-      acc[decade].push(story); 
+      acc[decade].push(story);
       return acc;
     }, {});
   };
 
-  const groupedStories = groupStoriesByDecade(stories); 
+  const groupedStories = groupStoriesByDecade(stories);
 
   // handleStackClick toggles the zoom state when a stack of stories is clicked --> rn it just expands and shrinks the stack, need to figure out how to make it zoom into a timeline?
   const handleStackClick = () => {
@@ -59,45 +70,53 @@ const StoriesDisplayTimeline = ({ navigation, stories }) => {
 
   return (
     <GestureHandlerRootView style={styles.container}>
-      <PinchGestureHandler onGestureEvent={onPinchEvent} onHandlerStateChange={onPinchStateChange}>
+      <PinchGestureHandler
+        onGestureEvent={onPinchEvent}
+        onHandlerStateChange={onPinchStateChange}
+      >
         <Animated.View style={[styles.timeline, { transform: [{ scale }] }]}>
           <ScrollView style={styles.scrollView}>
-            {Object.keys(groupedStories).sort((a, b) => a - b).map((decade) => (
-              <View key={decade} style={styles.yearSection}>
-                <View style={styles.yearContainer}>
-                  {/* Decade label */}
-                  <Text style={styles.time}>{`${decade}s`}</Text>
-                  <View style={styles.lineContainer}></View>
-                </View>
-                {/* Display a stack of stories if there are more than one in the decade */}
-                {groupedStories[decade].length > 1 ? (
-                  <TouchableOpacity style={styles.stackContainer} onPress={handleStackClick}>
-                    <Text style={styles.stackLabel}>
-                      {groupedStories[decade].length} stories
-                    </Text>
-                    {/* Show zoomed-in view of the stack when zoomIn is true */}
-                    {zoomIn && (
-                      <View style={styles.zoomedStack}>
-                        {groupedStories[decade].map((story) => (
-                          <StoryCard
-                            key={story.title}
-                            navigation={navigation}
-                            story={story}
-                          />
-                        ))}
-                      </View>
-                    )}
-                  </TouchableOpacity>
-                ) : (
-                  <View style={styles.cardContainer}>
-                    <StoryCard
-                      navigation={navigation}
-                      story={groupedStories[decade][0]}
-                    />
+            {Object.keys(groupedStories)
+              .sort((a, b) => a - b)
+              .map((decade) => (
+                <View key={decade} style={styles.yearSection}>
+                  <View style={styles.yearContainer}>
+                    {/* Decade label */}
+                    <Text style={styles.time}>{`${decade}s`}</Text>
+                    <View style={styles.lineContainer}></View>
                   </View>
-                )}
-              </View>
-            ))}
+                  {/* Display a stack of stories if there are more than one in the decade */}
+                  {groupedStories[decade].length > 1 ? (
+                    <TouchableOpacity
+                      style={styles.stackContainer}
+                      onPress={handleStackClick}
+                    >
+                      <Text style={styles.stackLabel}>
+                        {groupedStories[decade].length} stories
+                      </Text>
+                      {/* Show zoomed-in view of the stack when zoomIn is true */}
+                      {zoomIn && (
+                        <View style={styles.zoomedStack}>
+                          {groupedStories[decade].map((story) => (
+                            <StoryCard
+                              key={story.title}
+                              navigation={navigation}
+                              story={story}
+                            />
+                          ))}
+                        </View>
+                      )}
+                    </TouchableOpacity>
+                  ) : (
+                    <View style={styles.cardContainer}>
+                      <StoryCard
+                        navigation={navigation}
+                        story={groupedStories[decade][0]}
+                      />
+                    </View>
+                  )}
+                </View>
+              ))}
           </ScrollView>
         </Animated.View>
       </PinchGestureHandler>
@@ -110,7 +129,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   timeline: {
-    flexDirection: 'column',
+    flexDirection: "column",
     flex: 1,
   },
   scrollView: {
@@ -121,43 +140,44 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   yearContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   time: {
     fontSize: 14,
-    color: '#333',
-    fontWeight: 'bold',
+    color: "#333",
+    fontWeight: "bold",
     marginRight: 10,
   },
   lineContainer: {
     height: 1,
-    backgroundColor: '#ccc',
+    backgroundColor: "#ccc",
     flex: 1,
   },
   stackContainer: {
-    flexDirection: 'column',
+    flexDirection: "column",
     marginTop: 10,
     borderRadius: 5,
     padding: 5,
-    backgroundColor: '#f4f4f4',
+    backgroundColor: "#f4f4f4",
   },
   stackLabel: {
     fontSize: 14,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
     marginBottom: 5,
   },
   zoomedStack: {
-    flexDirection: 'column',
+    flexDirection: "column",
   },
   cardContainer: {
-    borderWidth: 1,
-    borderColor: '#ccc',
+    borderWidth: 3,
+    borderColor: theme.colors.chineseBlack,
     borderRadius: 10,
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor: theme.colors.primaryColorBg,
     marginBottom: 10,
+    marginRight: 10,
   },
 });
 
