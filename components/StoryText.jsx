@@ -18,7 +18,7 @@ const StoryText = ({ text }) => {
 
 const styles = StyleSheet.create({
   listContainer: {
-    padding: "1%",
+    padding: "3%",
     marginVertical: "5%",
   },
   textParagraph: {
