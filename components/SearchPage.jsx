@@ -7,6 +7,7 @@ import {
   Pressable,
   TextInput,
 } from "react-native";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import theme from "../Theme";
 
 const SearchPage = ({ navigation }) => {
@@ -31,7 +32,7 @@ const SearchPage = ({ navigation }) => {
           style={styles.searchButton}
           onPress={() => navigation.navigate("SearchResults", { query })}
         >
-          <Text style={styles.buttonText}>🔎</Text>
+          <FontAwesome name="search" size={24} color="black" />
         </Pressable>
       </View>
 
