@@ -161,11 +161,12 @@ export default function App() {
               <Stack.Screen
                 name="StartAudioRecording"
                 component={StartAudioRecording}
+                options={{ headerTitle: "", headerBackTitle: "Back" }}
               />
               <Stack.Screen
                 name="StartVideoRecording"
                 component={StartVideoRecording}
-                options={{ headerShown: false }}
+                options={{ headerTitle: "" }}
               />
               <Stack.Screen name="RecordVideo" component={RecordVideo} />
               <Stack.Screen name="RecordAudio" component={RecordAudio} />
