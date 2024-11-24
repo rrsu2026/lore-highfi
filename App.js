@@ -151,10 +151,12 @@ export default function App() {
               <Stack.Screen
                 name="StoryFormatChoice"
                 component={StoryFormatChoice}
+                options={{ headerTitle: "" }}
               />
               <Stack.Screen
                 name="TextInputChoice"
                 component={TextInputChoice}
+                options={{ headerTitle: "" }}
               />
               <Stack.Screen
                 name="StartAudioRecording"
@@ -163,6 +165,7 @@ export default function App() {
               <Stack.Screen
                 name="StartVideoRecording"
                 component={StartVideoRecording}
+                options={{ headerShown: false }}
               />
               <Stack.Screen name="RecordVideo" component={RecordVideo} />
               <Stack.Screen name="RecordAudio" component={RecordAudio} />
