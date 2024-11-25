@@ -146,7 +146,11 @@ export default function App() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen name="SearchResults" component={SearchResults} />
-              <Stack.Screen name="MyProfile" component={MyProfile} />
+              <Stack.Screen
+                name="MyProfile"
+                component={MyProfile}
+                options={{ headerShown: false }}
+              />
               <Stack.Screen name="MyCircle" component={MyCircle} />
               <Stack.Screen
                 name="StoryFormatChoice"
