@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Text,
   Alert,
@@ -10,37 +10,45 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import db from "@/database/db";
+import { useNavigation } from "@react-navigation/native"; // Import useNavigation
+import db from "../database/db";
+import Theme from "../Theme";
 
-import Theme from "@/assets/theme";
-
-export default function Login() {
+const Login = () => {
+  const navigation = useNavigation(); // Initialize navigation
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const signInWithEmail = async () => {
+  const handleSignIn = async () => {
     setLoading(true);
     try {
       const { data, error } = await db.auth.signInWithPassword({
-        email: email,
-        password: password,
-        options: {
-          shouldCreateUser: false,
-        },
+        email: email.trim(),
+        password: password.trim(),
+        options: { shouldCreateUser: false },
       });
 
-      if (error) {
-        Alert.alert(error.message);
-      }
       setLoading(false);
+
+      if (error) {
+        Alert.alert("Error", error.message);
+        return;
+      }
+
+      // Navigate to Home screen on success
+      navigation.navigate("HomePage"); // Replace "Home" with the name of your home screen
     } catch (err) {
+      setLoading(false);
       console.error(err);
+      Alert.alert(
+        "Unexpected Error",
+        "Something went wrong. Please try again."
+      );
     }
   };
 
-  const isSignInDisabled =
-    loading || email.length === 0 || password.length === 0;
+  const isSignInDisabled = loading || !email.trim() || !password.trim();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -54,40 +62,38 @@ export default function Login() {
         <Text style={styles.splashText}>Lore</Text>
       </View>
       <TextInput
-        onChangeText={(text) => setEmail(text)}
+        onChangeText={setEmail}
         value={email}
         placeholder="email@address.com"
         placeholderTextColor={Theme.colors.textSecondary}
-        autoCapitalize={"none"}
+        autoCapitalize="none"
+        keyboardType="email-address"
         style={styles.input}
       />
       <TextInput
-        onChangeText={(text) => setPassword(text)}
+        onChangeText={setPassword}
         value={password}
         placeholder="Password"
         placeholderTextColor={Theme.colors.textSecondary}
         secureTextEntry={true}
-        autoCapitalize={"none"}
+        autoCapitalize="none"
         style={styles.input}
       />
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          onPress={() => signInWithEmail()}
-          disabled={isSignInDisabled}
-        >
+        <TouchableOpacity onPress={handleSignIn} disabled={isSignInDisabled}>
           <Text
             style={[
               styles.button,
               isSignInDisabled ? styles.buttonDisabled : undefined,
             ]}
           >
-            Sign in
+            {loading ? "Signing in..." : "Sign in"}
           </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -98,7 +104,6 @@ const styles = StyleSheet.create({
     marginTop: "20%",
     width: "100%",
   },
-
   splash: {
     alignItems: "center",
     marginBottom: 12,
@@ -113,13 +118,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
   },
-  verticallySpaced: {
-    marginVertical: 4,
-    alignSelf: "stretch",
-  },
-  mt20: {
-    marginTop: 20,
-  },
   input: {
     color: Theme.colors.textPrimary,
     backgroundColor: Theme.colors.backgroundPrimary,
@@ -132,15 +130,12 @@ const styles = StyleSheet.create({
   button: {
     color: Theme.colors.textHighlighted,
     fontSize: 18,
-    fontWeight: 18,
+    fontWeight: "bold",
     padding: 8,
   },
   buttonDisabled: {
     color: Theme.colors.textSecondary,
   },
-  background: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
 });
+
+export default Login;

@@ -24,6 +24,7 @@ import MyStories from "./components/MyStories";
 import Scan from "./components/Scan";
 import EditWrittenStory from "./components/EditWrittenStory";
 import SliceOfLifeSearch from "./demo/SliceOfLifeSearch.jsx";
+import Login from "./components/Login";
 
 import NavBar from "./components/Navbar";
 
@@ -193,6 +194,11 @@ export default function App() {
                 name="SliceOfLifeSearch"
                 component={SliceOfLifeSearch}
                 options={{ headerBackTitle: "Back", headerTitle: "" }}
+              />
+              <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{ headerShown: false, presentation: "modal" }}
               />
             </Stack.Navigator>
             <NavBar currentScreen={currentScreen} />
