@@ -4,6 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 const EditWrittenStory = ({ navigation }) => {
   const [image, setImage] = useState(null);
+  const [text, setText] = useState("");
 
   const pickImage = async () => {
     // https://docs.expo.dev/versions/latest/sdk/imagepicker/
@@ -31,9 +32,9 @@ const EditWrittenStory = ({ navigation }) => {
       </Text>
       <Text>
         Text
-        <TextInput />
+        <TextInput onChangeText={setText} />
       </Text>
-      <Button title="Save" onPress={() => navigation.navigate("EditMetadata")} />
+      <Button title="Save" onPress={() => navigation.navigate("EditMetadata", { partialWrittenStory: { image, text } })} />
     </View>
   );
 };

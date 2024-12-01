@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-const RecordVideo = ({ navigation }) => {
+const EditMetadata = ({ navigation, route }) => {
   return (
     <View>
       <Text>
@@ -15,7 +15,8 @@ const RecordVideo = ({ navigation }) => {
       <Text>
         End Date (optional) <DateTimePicker type="date" />
       </Text>
-      {/* Preview goes here */}
+      {route.params.partialWrittenStory && <Text>{route.params.partialWrittenStory.text}</Text>}
+      {/* TODO: previews for audio & video */}
 
       <Text>Make Visible to</Text>
       <Text>
@@ -31,4 +32,4 @@ const RecordVideo = ({ navigation }) => {
 const styles = StyleSheet.create({
 });
 
-export default RecordVideo;
+export default EditMetadata;
