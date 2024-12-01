@@ -109,6 +109,7 @@ const defaultUser = "6618d3b5-8540-4b84-9ed8-215a7f769ee3";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  //const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [db, setDb] = useState(fakeDatabase);
   const [currentScreen, setCurrentScreen] = useState("HomePage");
   const [loggedInUser, setLoggedInUser] = useState(
