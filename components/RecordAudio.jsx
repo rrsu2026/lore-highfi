@@ -1,16 +1,63 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import theme from "../Theme";
 import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { Audio } from 'expo-av';
 
 const RecordAudio = ({ navigation }) => {
+
+  const [recording, setRecording] = useState();
+  const [permissionResponse, requestPermission] = Audio.usePermissions();
+
+  async function startRecording() {
+    try {
+      if (permissionResponse.status !== 'granted') {
+        console.log('Requesting permission..');
+        await requestPermission();
+      }
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: true,
+        playsInSilentModeIOS: true,
+      });
+
+      console.log('Starting recording..');
+      const { recording } = await Audio.Recording.createAsync( Audio.RecordingOptionsPresets.HIGH_QUALITY
+      );
+      setRecording(recording);
+      console.log('Recording started');
+    } catch (err) {
+      console.error('Failed to start recording', err);
+    }
+  }
+
+  async function stopRecording() {
+    console.log('Stopping recording..');
+    setRecording(undefined);
+    await recording.stopAndUnloadAsync();
+    await Audio.setAudioModeAsync(
+      {
+        allowsRecordingIOS: false,
+      }
+    );
+    const uri = recording.getURI();
+    console.log('Recording stopped and stored at', uri);
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Recording...</Text>
       <View style={styles.pauseCont}>
         <Pressable style={styles.choiceButton}>
           <Text style={styles.buttonText}>Pause</Text>
+          <FontAwesome name="pause" size={30} color="black" />
+        </Pressable>
+        <Pressable style={styles.choiceButton} onPress={startRecording}>
+          <Text style={styles.buttonText}>Start</Text>
+          <FontAwesome name="pause" size={30} color="black" />
+        </Pressable>
+        <Pressable style={styles.choiceButton} onPress={stopRecording}>
+          <Text style={styles.buttonText}>Stop</Text>
           <FontAwesome name="pause" size={30} color="black" />
         </Pressable>
         <Pressable
