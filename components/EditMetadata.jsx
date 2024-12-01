@@ -1,26 +1,28 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const RecordVideo = ({ navigation }) => {
   return (
     <View>
-      <label>
+      <Text>
         Title
-        <input />
-      </label>
-      <label>
-        Start Date <input type="date" />
-      </label>
-      <label>
-        End Date (optional) <input type="date" />
-      </label>
+        <TextInput />
+      </Text>
+      <Text>
+        Start Date <DateTimePicker type="date" />
+      </Text>
+      <Text>
+        End Date (optional) <DateTimePicker type="date" />
+      </Text>
       {/* Preview goes here */}
 
       <Text>Make Visible to</Text>
-      <label>
-        <input type="radio" /> Public
-        <input type="radio" /> Circle
-      </label>
+      <Text>
+        {/* TODO: Implement radio button functionality */}
+        <Button type="radio" /> Public
+        <Button type="radio" /> Circle
+      </Text>
       <Button title="Confirm" onPress={() => navigation.navigate("MyStories")} />
     </View>
   );
