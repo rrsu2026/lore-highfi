@@ -1,10 +1,33 @@
 import React, { useContext } from "react";
-import { View, SafeAreaView, Text, StyleSheet, Pressable } from "react-native";
+import {
+  View,
+  SafeAreaView,
+  Text,
+  StyleSheet,
+  Pressable,
+  Alert,
+} from "react-native";
 import AuthenticationContext from "./AuthenticationContext";
 import { FontAwesome } from "@expo/vector-icons";
+import db from "../database/db"; // Adjust this import to match your project structure.
 
 const MyProfile = ({ navigation }) => {
   const user = useContext(AuthenticationContext);
+
+  const signOut = async () => {
+    try {
+      const { error } = await db.auth.signOut();
+      if (error) {
+        Alert.alert("Error", error.message);
+      } else {
+        navigation.navigate("Login"); // Navigate to the Login screen after signing out.
+        Alert.alert("Signed out", "You have been successfully signed out.");
+      }
+    } catch (err) {
+      console.error(err);
+      Alert.alert("Error", "An unexpected error occurred during sign out.");
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -18,8 +41,7 @@ const MyProfile = ({ navigation }) => {
         <View>
           <Text style={styles.nameText}>{user.name}</Text>
           <Text style={styles.locationText}>
-            {" "}
-            <FontAwesome name="map-marker" size={14} color="red" />
+            <FontAwesome name="map-marker" size={14} color="red" />{" "}
             {user.location}
           </Text>
           <Text style={styles.ageText}>Age: {user.age}</Text>
@@ -33,8 +55,10 @@ const MyProfile = ({ navigation }) => {
           </View>
         ))}
       </View>
+
       <Text style={styles.sectionHeader}>About Me</Text>
       <Text style={styles.aboutText}>{user.about}</Text>
+
       <View style={styles.buttonsContainer}>
         <Pressable
           style={styles.button}
@@ -67,6 +91,10 @@ const MyProfile = ({ navigation }) => {
           <Text style={styles.buttonText}>Subscribed Authors</Text>
         </Pressable>
       </View>
+
+      <Pressable style={styles.signOutButton} onPress={signOut}>
+        <Text style={styles.signOutButtonText}>Sign Out</Text>
+      </Pressable>
     </SafeAreaView>
   );
 };
@@ -162,6 +190,19 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "500",
     color: "#000",
+  },
+  signOutButton: {
+    backgroundColor: "#FF6347",
+    borderRadius: 8,
+    paddingVertical: 12,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20,
+  },
+  signOutButtonText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#FFF",
   },
 });
 
