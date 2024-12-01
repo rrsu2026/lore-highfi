@@ -9,8 +9,10 @@ const RecordAudio = ({ navigation }) => {
 
   const [recording, setRecording] = useState();
   const [permissionResponse, requestPermission] = Audio.usePermissions();
+  const [audio, setAudio] = useState(null);
 
   async function startRecording() {
+    // https://docs.expo.dev/versions/latest/sdk/audio-av/
     try {
       if (permissionResponse.status !== 'granted') {
         console.log('Requesting permission..');
@@ -42,6 +44,7 @@ const RecordAudio = ({ navigation }) => {
     );
     const uri = recording.getURI();
     console.log('Recording stopped and stored at', uri);
+    setAudio(uri);
   }
 
   return (
@@ -62,7 +65,7 @@ const RecordAudio = ({ navigation }) => {
         </Pressable>
         <Pressable
           style={styles.choiceButton}
-          onPress={() => navigation.navigate("EditMetadata")}
+          onPress={() => navigation.navigate("EditMetadata", { partialAudioStory: { uri: audio } })}
         >
           <Text style={styles.buttonText}>Save</Text>
           <Entypo name="save" size={35} color="black" />
