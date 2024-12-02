@@ -2,31 +2,31 @@ import { NavigationContainer } from "@react-navigation/native";
 import { StyleSheet, View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useState } from "react";
-import FakeDatabaseContext from "./components/FakeDatabaseContext";
-import AuthenticationContext from "./components/AuthenticationContext";
-import theme from "./Theme";
+import FakeDatabaseContext from "./components/FakeDatabaseContext.jsx";
+import AuthenticationContext from "./components/AuthenticationContext.jsx";
+import theme from "./Theme.js";
 
 // MAIN PAGES
-import HomePage from "./components/HomePage";
-import SearchPage from "./components/SearchPage";
-import SearchResults from "./components/SearchResults";
-import MyProfile from "./components/MyProfile";
-import MyCircle from "./components/MyCircle";
-import StoryFormatChoice from "./components/StoryFormatChoice";
-import TextInputChoice from "./components/TextInputChoice";
-import StartAudioRecording from "./components/StartAudioRecording";
-import StartVideoRecording from "./components/StartVideoRecording";
-import RecordVideo from "./components/RecordVideo";
-import RecordAudio from "./components/RecordAudio";
-import ViewStory from "./components/ViewStory";
-import EditMetadata from "./components/EditMetadata";
-import MyStories from "./components/MyStories";
-import Scan from "./components/Scan";
-import EditWrittenStory from "./components/EditWrittenStory";
+import HomePage from "./components/HomePage.jsx";
+import SearchPage from "./components/SearchPage.jsx";
+import SearchResults from "./components/SearchResults.jsx";
+import MyProfile from "./components/MyProfile.jsx";
+import MyCircle from "./components/MyCircle.jsx";
+import StoryFormatChoice from "./components/StoryFormatChoice.jsx";
+import TextInputChoice from "./components/TextInputChoice.jsx";
+import StartAudioRecording from "./components/StartAudioRecording.jsx";
+import StartVideoRecording from "./components/StartVideoRecording.jsx";
+import RecordVideo from "./components/RecordVideo.jsx";
+import RecordAudio from "./components/RecordAudio.jsx";
+import ViewStory from "./components/ViewStory.jsx";
+import EditMetadata from "./components/EditMetadata.jsx";
+import MyStories from "./components/MyStories.jsx";
+import Scan from "./components/Scan.jsx";
+import EditWrittenStory from "./components/EditWrittenStory.jsx";
 import SliceOfLifeSearch from "./demo/SliceOfLifeSearch.jsx";
-import Login from "./components/Login";
+import Login from "./components/Login.jsx";
 
-import NavBar from "./components/Navbar";
+import NavBar from "./components/Navbar.jsx";
 
 const fakeDatabase = {
   stories: [
