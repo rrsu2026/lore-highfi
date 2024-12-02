@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Audio } from 'expo-av';
+import AuthenticationContext from './AuthenticationContext';
+import { v4 as uuidv4 } from 'uuid';
+
 
 const EditMetadata = ({ navigation, route }) => {
-
+  const user = useContext(AuthenticationContext);
+  const db = useContext(FakeDatabaseContext);
+  const [title, setTitle] = useState('');
   const [sound, setSound] = useState();
 
   async function playSound() {
@@ -25,11 +30,28 @@ const EditMetadata = ({ navigation, route }) => {
       : undefined;
   }, [sound]);
 
+  function createOrUpdateStory() {
+    // Check if a story with this id exists
+    const story = route.params.partialWrittenStory || route.params.partialAudioStory || route.params.partialVideoStory;
+    const existingStory = db.stories.find(s => s.id === story.id);
+    story.title = title; // TODO: load existing values into form if exist
+    if (existingStory) {
+      // Update the story
+      Object.assign(existingStory, story);
+    } else {
+      // Create a new story
+      story.id = uuidv4();
+      story.author = user.id;
+      db.stories.push(story);
+    }
+    console.log('Story created:', story); // FIXME: story props not getting set
+  }
+
   return (
     <View>
       <Text>
         Title
-        <TextInput />
+        <TextInput onChangeText={setTitle} />
       </Text>
       <Text>
         Start Date <DateTimePicker type="date" />
@@ -47,7 +69,10 @@ const EditMetadata = ({ navigation, route }) => {
         <Button type="radio" /> Public
         <Button type="radio" /> Circle
       </Text>
-      <Button title="Confirm" onPress={() => navigation.navigate("MyStories")} />
+      <Button title="Confirm" onPress={() => {
+        createOrUpdateStory();
+        navigation.navigate("MyStories");
+      }} />
     </View>
   );
 };

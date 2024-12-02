@@ -7,7 +7,6 @@ import theme from "../Theme";
 
 const StoryCard = ({ navigation, story }) => {
   const db = useContext(FakeDatabaseContext);
-  console.log(story);
   return (
     <Pressable
       style={styles.container}
@@ -15,9 +14,11 @@ const StoryCard = ({ navigation, story }) => {
       accessible={true}
       accessibilityLabel={`View story titled ${story.title}`}
     >
-      <Text style={styles.textYear}>
-        {format(new Date(story.occurrencedAt), "yyyy")}
-      </Text>
+      {story.occurrencedAt &&
+        <Text style={styles.textYear}>
+          {format(new Date(story.occurrencedAt), "yyyy")}
+        </Text>
+      }
       <View style={styles.textCont}>
         <Text style={styles.text1}>{story.title}</Text>
         {/*<Text>
