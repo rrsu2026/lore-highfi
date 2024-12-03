@@ -9,7 +9,6 @@ const RecordAudio = ({ navigation }) => {
 
   const [recording, setRecording] = useState();
   const [permissionResponse, requestPermission] = Audio.usePermissions();
-  const [audio, setAudio] = useState(null);
   const [hasStartedRecording, setHasStartedRecording] = useState(false);
 
   async function startRecording() {
@@ -46,7 +45,7 @@ const RecordAudio = ({ navigation }) => {
     );
     const uri = recording.getURI();
     console.log('Recording stopped and stored at', uri);
-    setAudio(uri);
+    return uri;
   }
 
   return (
@@ -55,17 +54,16 @@ const RecordAudio = ({ navigation }) => {
         <View>
           <Text style={styles.headerText}>Recording...</Text>
           <View style={styles.pauseCont}>
-            <Pressable style={styles.choiceButton} onPress={()=>{alert("not implemented")}}>
+            <Pressable style={styles.choiceButton} onPress={() => { alert("not implemented"); }}>
               <Text style={styles.buttonText}>Pause</Text>
-              <FontAwesome name="pause" size={30} color="black" />
-            </Pressable>
-            <Pressable style={styles.choiceButton} onPress={stopRecording}>
-              <Text style={styles.buttonText}>Finish</Text>
               <FontAwesome name="pause" size={30} color="black" />
             </Pressable>
             <Pressable
               style={styles.choiceButton}
-              onPress={() => navigation.navigate("EditMetadata", { partialAudioStory: { uri: audio } })}
+              onPress={async () => {
+                const audio = await stopRecording();
+                navigation.navigate("EditMetadata", { partialAudioStory: { uri: audio } });
+              }}
             >
               <Text style={styles.buttonText}>Save</Text>
               <Entypo name="save" size={35} color="black" />
