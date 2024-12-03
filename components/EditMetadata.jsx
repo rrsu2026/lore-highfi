@@ -10,16 +10,9 @@ const EditMetadata = ({ navigation, route }) => {
   const user = useContext(AuthenticationContext);
   const db = useContext(FakeDatabaseContext);
   const [title, setTitle] = useState('');
+  const [text, setText] = useState(route.params.partialWrittenStory?.text || "");
+  const [soundUri, setSoundUri] = useState(route.params.partialAudioStory?.uri || "");
   const [sound, setSound] = useState();
-
-  async function playSound() {
-    console.log('Loading Sound');
-    const { sound } = await Audio.Sound.createAsync(route.params.partialAudioStory.uri);
-    setSound(sound);
-
-    console.log('Playing Sound');
-    await sound.playAsync();
-  }
 
   useEffect(() => {
     return sound
@@ -29,6 +22,15 @@ const EditMetadata = ({ navigation, route }) => {
       }
       : undefined;
   }, [sound]);
+
+  async function playSound() {
+    console.log('Loading Sound');
+    const { sound } = await Audio.Sound.createAsync(soundUri);
+    setSound(sound);
+
+    console.log('Playing Sound');
+    await sound.playAsync();
+  }
 
   function createOrUpdateStory() {
     // Check if a story with this id exists
@@ -59,9 +61,9 @@ const EditMetadata = ({ navigation, route }) => {
       <Text>
         End Date (optional) <DateTimePicker type="date" />
       </Text>
-      {route.params.partialWrittenStory && <Text>{route.params.partialWrittenStory.text}</Text>}
-      {/* TODO: previews for audio & video */}
-      {route.params.partialAudioStory && <Button title="Play Audio" onPress={playSound} />}
+      {text && <Text>{text}</Text>}
+      {soundUri && <Button title="Play Audio" onPress={playSound} />}
+      {/* TODO: preview for video */}
 
       <Text>Make Visible to</Text>
       <Text>
