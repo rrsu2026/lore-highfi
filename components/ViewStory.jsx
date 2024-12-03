@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 import { format } from "date-fns";
 import StoryText from "./StoryText";
 import StoryAudio from "./StoryAudio";
 import theme from "../Theme";
 
-const ViewStory = ({ route }) => {
+const ViewStory = ({ navigation, route }) => {
   const db = useContext(FakeDatabaseContext);
   return (
     <View style={styles.container}>
@@ -15,6 +15,11 @@ const ViewStory = ({ route }) => {
           By{" "}
           {db.users.find((user) => user.id == route.params.story.author).name}
         </Text>
+        <Button title="Edit" onPress={() => navigation.navigate("EditMetadata", {
+          partialWrittenStory: route.params.story.text,
+          partialAudioStory: route.params.story.audio,
+          partialVideoStory: route.params.story.video,
+        })} />
         <View style={styles.spaceSaveCont}>
           <Text style={styles.infoText}>
             {format(new Date(route.params.story.occurrencedAt), "yyyy")}
