@@ -5,7 +5,7 @@ import FakeDatabaseContext from "../components/FakeDatabaseContext";
 import theme from "../Theme";
 
 const SliceOfLifeSearch = ({ navigation }) => {
-  const db = useContext(FakeDatabaseContext);
+  const [db, setDb] = useContext(FakeDatabaseContext);
 
   return (
     <SafeAreaView style={styles.container}>

@@ -41,7 +41,7 @@ const StoriesDisplayTimeline = ({ navigation, stories }) => {
 
   const groupStoriesByDecade = (stories) => {
     return stories.reduce((acc, story) => {
-      const decade = formatDateToDecade(story.occurrencedAt);
+      const decade = formatDateToDecade(story.startDate);
       if (!acc[decade]) {
         acc[decade] = [];
       }

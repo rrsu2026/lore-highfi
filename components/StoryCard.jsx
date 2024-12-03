@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import theme from "../Theme";
 
 const StoryCard = ({ navigation, story }) => {
-  const db = useContext(FakeDatabaseContext);
+  const [db, setDb] = useContext(FakeDatabaseContext);
   return (
     <Pressable
       style={styles.container}
@@ -14,9 +14,9 @@ const StoryCard = ({ navigation, story }) => {
       accessible={true}
       accessibilityLabel={`View story titled ${story.title}`}
     >
-      {story.occurrencedAt &&
+      {story.startDate &&
         <Text style={styles.textYear}>
-          {format(new Date(story.occurrencedAt), "yyyy")}
+          {format(new Date(story.startDate), "yyyy")}
         </Text>
       }
       <View style={styles.textCont}>
@@ -30,7 +30,7 @@ const StoryCard = ({ navigation, story }) => {
       </View>
       <View style={styles.textCont}>
         <Text>{db.users.find((user) => user.id == story.author).name}</Text>
-        <Text>{format(new Date(story.postedAt), "MMM d, yyyy")}</Text>
+        <Text>{story.postedAt ? format(new Date(story.postedAt), "MMM d, yyyy") : `Invalid date: ${story.postedAt}`}</Text>
       </View>
       {/* TODO: Find a way to make this whole element clickable without breaking a11y */}
     </Pressable>

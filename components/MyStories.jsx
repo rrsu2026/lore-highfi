@@ -5,7 +5,7 @@ import FakeDatabaseContext from './FakeDatabaseContext';
 import AuthenticationContext from './AuthenticationContext';
 
 const MyStories = ({ navigation }) => {
-  const db = useContext(FakeDatabaseContext);
+  const [db, setDb] = useContext(FakeDatabaseContext);
   const user = useContext(AuthenticationContext);
   return (
     <View style={styles.container}>

@@ -7,7 +7,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import theme from "../Theme";
 
 const HomePage = ({ navigation }) => {
-  const db = useContext(FakeDatabaseContext);
+  const [db, setDb] = useContext(FakeDatabaseContext);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerCont}>

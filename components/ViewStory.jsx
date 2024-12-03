@@ -6,7 +6,7 @@ import StoryAudio from "./StoryAudio";
 import theme from "../Theme";
 
 const ViewStory = ({ navigation, route }) => {
-  const db = useContext(FakeDatabaseContext);
+  const [db, setDb] = useContext(FakeDatabaseContext);
   return (
     <View style={styles.container}>
       <View style={styles.headerCont}>
@@ -22,7 +22,7 @@ const ViewStory = ({ navigation, route }) => {
         })} />
         <View style={styles.spaceSaveCont}>
           <Text style={styles.infoText}>
-            {format(new Date(route.params.story.occurrencedAt), "yyyy")}
+            {format(new Date(route.params.story.startDate), "yyyy")}
           </Text>
           <Text style={styles.infoText}> {route.params.story.location}</Text>
         </View>

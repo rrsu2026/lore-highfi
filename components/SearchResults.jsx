@@ -4,7 +4,7 @@ import TabbedCardList from "./TabbedCardList";
 import FakeDatabaseContext from "./FakeDatabaseContext";
 
 const SearchResults = ({ navigation, route }) => {
-  const db = useContext(FakeDatabaseContext);
+  const [db, setDb] = useContext(FakeDatabaseContext);
   const getSearchResults = (query) => {
     return db.stories.filter((story) => {
       const queryLower = query.toLowerCase();

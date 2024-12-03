@@ -8,11 +8,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 const EditMetadata = ({ navigation, route }) => {
   const user = useContext(AuthenticationContext);
-  const db = useContext(FakeDatabaseContext);
+  const [db, setDb] = useContext(FakeDatabaseContext);
 
   const [title, setTitle] = useState('');
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   const [text, setText] = useState("");
   const [soundUri, setSoundUri] = useState("");
@@ -23,12 +23,12 @@ const EditMetadata = ({ navigation, route }) => {
       setTitle(route.params.partialWrittenStory.title);
       setStartDate(route.params.partialWrittenStory.startDate);
       setEndDate(route.params.partialWrittenStory.endDate);
-      setText(route.params.partialWrittenStory?.text);
+      setText(route.params.partialWrittenStory.text);
     } else if (route.params.partialAudioStory) {
       setTitle(route.params.partialAudioStory.title);
       setStartDate(route.params.partialAudioStory.startDate);
       setEndDate(route.params.partialAudioStory.endDate);
-      setSoundUri(route.params.partialAudioStory?.uri);
+      setSoundUri(route.params.partialAudioStory.uri);
     } else if (route.params.partialVideoStory) {
       setTitle(route.params.partialVideoStory.title);
       setStartDate(route.params.partialVideoStory.startDate);
@@ -59,10 +59,23 @@ const EditMetadata = ({ navigation, route }) => {
     const story = route.params.partialWrittenStory || route.params.partialAudioStory || route.params.partialVideoStory;
     const existingStory = db.stories.find(s => s.id === story.id);
     // update story with form values
-    story.title = title; // TODO: load existing values into form if exist
     if (existingStory) {
-      Object.assign(existingStory, story);
-      console.log('Story updated:', existingStory);
+      let updated = {};
+      // every story has these
+      updated.id = existingStory.id;
+      updated.author = existingStory.author;
+      updated.postedAt = existingStory.postedAt;
+
+      // these get set through the form
+      updated.title = title;
+      updated.startDate = startDate;
+      updated.endDate = endDate;
+
+      // these differ per type of story
+      updated.text = text;
+      updated.audio = soundUri;
+      db.stories[db.stories.indexOf(existingStory)] = updated;
+      console.log('updated:', db);
       return;
     }
 
