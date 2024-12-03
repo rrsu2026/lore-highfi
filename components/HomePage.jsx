@@ -5,6 +5,7 @@ import FakeDatabaseContext from "./FakeDatabaseContext";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
 import theme from "../Theme";
+import TabbedCardList from "./TabbedCardList";
 
 const HomePage = ({ navigation }) => {
   const [db, setDb] = useContext(FakeDatabaseContext);
@@ -26,10 +27,11 @@ const HomePage = ({ navigation }) => {
       </View>
       <Text style={styles.subAuthorText}>Subscribed Authors:</Text>
 
-      <View style={styles.contentCont}>
-        <View style={styles.yellowLine} />
-        <StoriesDisplayTimeline navigation={navigation} stories={db.stories} />
-      </View>
+      <TabbedCardList
+        style={styles.container}
+        navigation={navigation}
+        stories={db.stories}
+      />
     </SafeAreaView>
   );
 };
