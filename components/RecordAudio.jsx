@@ -10,6 +10,7 @@ const RecordAudio = ({ navigation }) => {
   const [recording, setRecording] = useState();
   const [permissionResponse, requestPermission] = Audio.usePermissions();
   const [hasStartedRecording, setHasStartedRecording] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
   async function startRecording() {
     // https://docs.expo.dev/versions/latest/sdk/audio-av/
@@ -34,6 +35,20 @@ const RecordAudio = ({ navigation }) => {
     }
   }
 
+  async function pauseRecording() {
+    console.log('Pausing recording..');
+    await recording.pauseAsync();
+    setIsPaused(true);
+    console.log('Recording paused');
+  }
+
+  async function resumeRecording() {
+    console.log('Resuming recording..');
+    await recording.startAsync();
+    setIsPaused(false);
+    console.log('Recording resumed');
+  }
+
   async function stopRecording() {
     console.log('Stopping recording..');
     setRecording(undefined);
@@ -54,7 +69,7 @@ const RecordAudio = ({ navigation }) => {
         <View>
           <Text style={styles.headerText}>Recording...</Text>
           <View style={styles.pauseCont}>
-            <Pressable style={styles.choiceButton} onPress={() => { alert("not implemented"); }}>
+            <Pressable style={styles.choiceButton} onPress={isPaused ? resumeRecording : pauseRecording}>
               <Text style={styles.buttonText}>Pause</Text>
               <FontAwesome name="pause" size={30} color="black" />
             </Pressable>
