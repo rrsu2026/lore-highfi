@@ -16,9 +16,9 @@ const ViewStory = ({ navigation, route }) => {
           {db.users.find((user) => user.id == route.params.story.author).name}
         </Text>
         <Button title="Edit" onPress={() => navigation.navigate("EditMetadata", {
-          partialWrittenStory: route.params.story.text,
-          partialAudioStory: route.params.story.audio,
-          partialVideoStory: route.params.story.video,
+          partialWrittenStory: route.params.story,
+          partialAudioStory: route.params.story,
+          partialVideoStory: route.params.story,
         })} />
         <View style={styles.spaceSaveCont}>
           <Text style={styles.infoText}>
