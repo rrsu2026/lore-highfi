@@ -73,6 +73,7 @@ const EditMetadata = ({ navigation, route }) => {
 
       // these differ per type of story
       updated.text = text;
+      updated.image = existingStory.image;
       updated.audio = soundUri;
       db.stories[db.stories.indexOf(existingStory)] = updated;
       console.log('updated:', db);
@@ -80,10 +81,21 @@ const EditMetadata = ({ navigation, route }) => {
     }
 
     // Add values needed to create a new story
-    story.id = uuidv4();
-    story.author = user.id;
-    db.stories.push(story);
-    console.log('Story created:', story); // FIXME: story props not getting set
+    let newStory = {};
+    // every story has these
+    newStory.id = uuidv4();
+    newStory.author = user.id;
+    newStory.postedAt = new Date().toISOString();
+    // these get set through the form
+    newStory.title = title;
+    newStory.startDate = startDate;
+    newStory.endDate = endDate;
+    // these differ per type of story
+    newStory.text = text;
+    newStory.image = route.params.partialWrittenStory?.image;
+    newStory.audio = soundUri;
+    // TODO: video
+    db.stories.push(newStory);
   }
 
   return (
