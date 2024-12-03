@@ -1572,14 +1572,14 @@
   dependencies:
     color "^4.2.3"
 
-"@react-navigation/material-top-tabs@^7.0.4":
-  version "7.0.4"
-  resolved "https://registry.npmjs.org/@react-navigation/material-top-tabs/-/material-top-tabs-7.0.4.tgz"
-  integrity sha512-/250x5H0hIKFFZLQ00UR6lrFPi3t5bq0bkYw+A2BIEwR4rguYSyhv1zwaM5mz1tGUd0qQT3MdxfXlD7YkHgQbg==
+"@react-navigation/material-top-tabs@^7.0.18":
+  version "7.0.18"
+  resolved "https://registry.yarnpkg.com/@react-navigation/material-top-tabs/-/material-top-tabs-7.0.18.tgz#2def7b276843d613fabe45b100c0c1af787f665f"
+  integrity sha512-gp7SA3m9FOmkP2W6w0Xl3MCeR8j30EhlyL20OMuH0nhuBN7CcyHGI0fTlSXJAiA5tKO8AM4R7w5HpJcylwo8Hw==
   dependencies:
-    "@react-navigation/elements" "^2.0.3"
+    "@react-navigation/elements" "^2.2.4"
     color "^4.2.3"
-    react-native-tab-view "^4.0.1"
+    react-native-tab-view "^4.0.5"
 
 "@react-navigation/native-stack@^7.0.0":
   version "7.1.14"
@@ -5196,10 +5196,10 @@ react-native-is-edge-to-edge@^1.1.6:
   resolved "https://registry.yarnpkg.com/react-native-is-edge-to-edge/-/react-native-is-edge-to-edge-1.1.6.tgz#69ec13f70d76e9245e275eed4140d0873a78f902"
   integrity sha512-1pHnFTlBahins6UAajXUqeCOHew9l9C2C8tErnpGC3IyLJzvxD+TpYAixnCbrVS52f7+NvMttbiSI290XfwN0w==
 
-react-native-pager-view@^6.5.1:
-  version "6.5.1"
-  resolved "https://registry.npmjs.org/react-native-pager-view/-/react-native-pager-view-6.5.1.tgz"
-  integrity sha512-YdX7bP+rPYvATMU7HzlMq9JaG3ui/+cVRbFZFGW+QshDULANFg9ECR1BA7H7JTIcO/ZgWCwF+1aVmYG5yBA9Og==
+react-native-pager-view@^6.6.0:
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/react-native-pager-view/-/react-native-pager-view-6.6.0.tgz#5bf04ed469e635c3a9f95fed46d17b93bdad1a86"
+  integrity sha512-LmgZs9ihypMEot82u22n98nKGP4E3ixg6Q/VwS7lbrpVZw7pmC9cdplh10PqlyGMBwPHYt875y5n+3sIzQvUkg==
 
 react-native-safe-area-context@4.12.0:
   version "4.12.0"
@@ -5214,10 +5214,10 @@ react-native-screens@~4.1.0:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
-react-native-tab-view@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.npmjs.org/react-native-tab-view/-/react-native-tab-view-4.0.1.tgz"
-  integrity sha512-9J/mcYfZ3o8yHYR0VxOpdgnU2gPkiCBxNVMtN0GpHtDshGhaczoIeu3Mn4jQKS73GQ2T8/4NH1LHU/Ue0ZF0jQ==
+react-native-tab-view@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-4.0.5.tgz#d12ec7dfd260c6acb247a401b3fc4abe6a3d466c"
+  integrity sha512-Xn3TpYo4yvKRC/f4+cOcvsXlitdnSaYkacshckrEI3JiDmFKNFIRVNxtZFggm4MwbJafq2RzuzR6xrgKoxgkTw==
   dependencies:
     use-latest-callback "^0.2.1"
 
