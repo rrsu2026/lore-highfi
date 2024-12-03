@@ -138,6 +138,7 @@ const styles = StyleSheet.create({
   suggestionButton: {
     backgroundColor: "#FCD385",
     borderRadius: 8,
+    borderWidth: 2.5,
     paddingVertical: 8,
     paddingHorizontal: 12,
     marginBottom: 8,

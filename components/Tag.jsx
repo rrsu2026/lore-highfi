@@ -18,10 +18,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     marginBottom: 8,
     marginHorizontal: 5,
+    borderWidth: 2.5,
   },
   buttonText: {
     color: "#000",
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: "400",
   },
 });
