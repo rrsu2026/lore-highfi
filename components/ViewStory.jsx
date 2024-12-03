@@ -5,6 +5,7 @@ import StoryText from "./StoryText";
 import StoryAudio from "./StoryAudio";
 import theme from "../Theme";
 import AuthenticationContext from "./AuthenticationContext";
+import Tag from "./Tag.jsx";
 
 const ViewStory = ({ navigation, route }) => {
   const [db, setDb] = useContext(FakeDatabaseContext);
@@ -17,18 +18,28 @@ const ViewStory = ({ navigation, route }) => {
           By{" "}
           {db.users.find((user) => user.id == route.params.story.author).name}
         </Text>
-        {user.id === route.params.story.author &&
-          <Button title="Edit" onPress={() => navigation.navigate("EditMetadata", {
-            partialWrittenStory: route.params.story,
-            partialAudioStory: route.params.story,
-            partialVideoStory: route.params.story,
-          })} />
-        }
+        {user.id === route.params.story.author && (
+          <Button
+            title="Edit"
+            onPress={() =>
+              navigation.navigate("EditMetadata", {
+                partialWrittenStory: route.params.story,
+                partialAudioStory: route.params.story,
+                partialVideoStory: route.params.story,
+              })
+            }
+          />
+        )}
         <View style={styles.spaceSaveCont}>
           <Text style={styles.infoText}>
             {format(new Date(route.params.story.startDate), "yyyy")}
           </Text>
           <Text style={styles.infoText}> {route.params.story.location}</Text>
+        </View>
+        <View style={styles.tagsContainer}>
+          {route.params.story.tags.map((tag, index) => (
+            <Tag key={index} navigation={navigation} title={tag} />
+          ))}
         </View>
       </View>
       {route.params.story.text && <StoryText text={route.params.story.text} />}
@@ -47,7 +58,7 @@ const styles = StyleSheet.create({
     padding: "3%",
   },
   headerCont: {
-    paddingBottom: "4%",
+    paddingBottom: "1%",
     borderBottomColor: theme.colors.primaryColor5,
     borderBottomWidth: 3,
   },
@@ -62,6 +73,10 @@ const styles = StyleSheet.create({
   infoText: {
     fontSize: 14,
     padding: 1,
+  },
+  tagsContainer: {
+    flexDirection: "row",
+    marginTop: 15,
   },
 });
 

@@ -10,12 +10,12 @@ const TabbedCardList = ({ navigation, stories }) => {
   return (
     <View>
       <Tabs.Navigator style={{ minHeight: 1000 }}>
-        <Tabs.Screen name="StoriesDisplayTimeline">
+        <Tabs.Screen name="Timeline">
           {() => (
             <StoriesDisplayTimeline navigation={navigation} stories={stories} />
           )}
         </Tabs.Screen>
-        <Tabs.Screen name="StoriesDisplayRecent">
+        <Tabs.Screen name="Recent">
           {() => (
             <StoriesDisplayRecent navigation={navigation} stories={stories} />
           )}

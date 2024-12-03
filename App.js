@@ -35,6 +35,7 @@ const fakeDatabase = {
       title: "Meeting my Wife",
       author: "701e20bb-3aba-4d4b-9f6c-436762886d58",
       location: "Nantucket, MA",
+      tags: ["Slice of Life", "Love Stories", "First-Gen", "Wisdom and Advice"],
       postedAt: new Date(2024, 6, 15).toISOString(), // Months in JavaScript are 0-indexed, but days and years are not
       startDate: new Date(1975, 0, 1).toISOString(),
       text: "Off the shore of Cape Cod, summers on Nantucket were a combination of warm sun and brisk wind. It was late August and I had escaped the busy skylines of New York in search of solace.\n\nI pulled out my camera while watching waves crash upon Madaket Beach. My goal was to capture the momentary bliss I felt. But there she stood in front of the vast sea.\n\nShe was breathtaking, glancing at me with a parasol in hand. Her eyes were gray like the ocean during the first waves after a storm.\n\nNew York was a place of neverending toil and Dionysian indulgence alike. As an up and coming stockbroker, I had grown weary of both extremes. I had come to miss my Swathmore days when I spent my time indulging in literature and the arts. But time stopped when I stepped in front of her.\n\nShe felt like art, her curled hair swaying in the wind as hair did in the eyes of great Romanticists.\n\n\n\n\n\n\n\n\n\n",
@@ -44,6 +45,7 @@ const fakeDatabase = {
       title: "Nightmare at DFW part 2",
       author: "6618d3b5-8540-4b84-9ed8-215a7f769ee3",
       location: "Nantucket, MA",
+      tags: ["Slice of Life", "First-Gen"],
       postedAt: new Date(2024, 6, 15).toISOString(), // Months in JavaScript are 0-indexed, but days and years are not
       startDate: new Date(1980, 0, 1).toISOString(),
       text: "Off the shore of Cape Cod, summers on Nantucket were a combination of warm sun and brisk wind. It was late August and I had escaped the busy skylines of New York in search of solace. I pulled out my camera while watching waves crash upon Madaket Beach. My goal was to capture the momentary bliss I felt. But there she stood in front of the vast sea",
@@ -61,6 +63,7 @@ const fakeDatabase = {
       id: "5082a3db-ff6f-4539-b875-d2035222a3bc",
       title: "Frank Sinatra Concert",
       author: "a28bfa77-fd2e-4802-834b-0a0f1c76d394",
+      tags: ["Slice of Life", "Women"],
       location: "Chicago, IL",
       postedAt: new Date(2024, 6, 15).toISOString(), // Months in JavaScript are 0-indexed, but days and years are not
       startDate: new Date(1945, 0, 1).toISOString(),
@@ -70,6 +73,7 @@ const fakeDatabase = {
       id: "3799dfa1-4d9d-4b0a-987a-9270a18ab151",
       title: "First Trip to NYC",
       author: "6a5bb277-6f10-4e0f-937c-5ef5d1d8f692",
+      tags: ["Slice of Life"],
       location: "New York, NY",
       postedAt: new Date(2024, 6, 15).toISOString(), // Months in JavaScript are 0-indexed, but days and years are not
       startDate: new Date(1963, 0, 1).toISOString(),
