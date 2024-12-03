@@ -10,6 +10,7 @@ import {
 import AuthenticationContext from "./AuthenticationContext";
 import { FontAwesome } from "@expo/vector-icons";
 import db from "../database/db"; // Adjust this import to match your project structure.
+import Tag from "./Tag.jsx";
 
 const MyProfile = ({ navigation }) => {
   const user = useContext(AuthenticationContext);
@@ -50,9 +51,7 @@ const MyProfile = ({ navigation }) => {
 
       <View style={styles.tagsContainer}>
         {user.tags.map((tag, index) => (
-          <View key={index} style={styles.tag}>
-            <Text style={styles.tagText}>{tag}</Text>
-          </View>
+          <Tag key={index} navigation={navigation} title={tag} />
         ))}
       </View>
 
