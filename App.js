@@ -14,7 +14,6 @@ import MyProfile from "./components/MyProfile.jsx";
 import MyCircle from "./components/MyCircle.jsx";
 import StoryFormatChoice from "./components/StoryFormatChoice.jsx";
 import TextInputChoice from "./components/TextInputChoice.jsx";
-import StartAudioRecording from "./components/StartAudioRecording.jsx";
 import StartVideoRecording from "./components/StartVideoRecording.jsx";
 import RecordVideo from "./components/RecordVideo.jsx";
 import RecordAudio from "./components/RecordAudio.jsx";
@@ -172,11 +171,6 @@ export default function App() {
                 name="TextInputChoice"
                 component={TextInputChoice}
                 options={{ headerTitle: "" }}
-              />
-              <Stack.Screen
-                name="StartAudioRecording"
-                component={StartAudioRecording}
-                options={{ headerTitle: "", headerBackTitle: "Back" }}
               />
               <Stack.Screen
                 name="StartVideoRecording"

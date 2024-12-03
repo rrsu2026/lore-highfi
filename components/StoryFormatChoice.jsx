@@ -22,7 +22,7 @@ const StoryFormatChoice = ({ navigation }) => {
       </Pressable>
       <Pressable
         style={styles.choiceButton}
-        onPress={() => navigation.navigate("StartAudioRecording")}
+        onPress={() => navigation.navigate("RecordAudio")}
       >
         <Text style={styles.buttonText}>Audio</Text>
         <FontAwesome6 name="microphone" size={45} color="black" />
