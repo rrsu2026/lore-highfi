@@ -4,9 +4,11 @@ import { format } from "date-fns";
 import StoryText from "./StoryText";
 import StoryAudio from "./StoryAudio";
 import theme from "../Theme";
+import AuthenticationContext from "./AuthenticationContext";
 
 const ViewStory = ({ navigation, route }) => {
   const [db, setDb] = useContext(FakeDatabaseContext);
+  const user = useContext(AuthenticationContext);
   return (
     <View style={styles.container}>
       <View style={styles.headerCont}>
@@ -15,11 +17,13 @@ const ViewStory = ({ navigation, route }) => {
           By{" "}
           {db.users.find((user) => user.id == route.params.story.author).name}
         </Text>
-        <Button title="Edit" onPress={() => navigation.navigate("EditMetadata", {
-          partialWrittenStory: route.params.story,
-          partialAudioStory: route.params.story,
-          partialVideoStory: route.params.story,
-        })} />
+        {user.id === route.params.story.author &&
+          <Button title="Edit" onPress={() => navigation.navigate("EditMetadata", {
+            partialWrittenStory: route.params.story,
+            partialAudioStory: route.params.story,
+            partialVideoStory: route.params.story,
+          })} />
+        }
         <View style={styles.spaceSaveCont}>
           <Text style={styles.infoText}>
             {format(new Date(route.params.story.startDate), "yyyy")}
