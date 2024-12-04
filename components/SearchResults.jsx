@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import TabbedCardList from "./TabbedCardList";
 import FakeDatabaseContext from "./FakeDatabaseContext";
+import theme from "../Theme.js";
 
 const SearchResults = ({ navigation, route }) => {
   const [db, setDb] = useContext(FakeDatabaseContext);
@@ -20,8 +21,8 @@ const SearchResults = ({ navigation, route }) => {
     });
   };
   return (
-    <View>
-      <Text>Results for "{route.params.query}"</Text>
+    <View style={styles.container}>
+      <Text style={styles.resultText}>Results for "{route.params.query}"</Text>
       <TabbedCardList
         style={styles.container}
         navigation={navigation}
@@ -34,8 +35,16 @@ const SearchResults = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderWidth: 2,
-    borderColor: "red",
+    backgroundColor: theme.colors.primaryColor1,
+  },
+  resultText: {
+    fontSize: 20,
+    color: "black",
+    fontWeight: "500",
+    textAlign: "left",
+    marginLeft: "2%",
+    marginBottom: "3%",
+    marginTop: "10%",
   },
 });
 
