@@ -112,13 +112,13 @@ const StoriesDisplayTimeline = ({ navigation, stories }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingBottom: "90%",
   },
   timeline: {
     flexDirection: "column",
     flex: 1,
   },
   scrollView: {
-    flex: 1,
     marginLeft: 30,
   },
   yellowLine: {

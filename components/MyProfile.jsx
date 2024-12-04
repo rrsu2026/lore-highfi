@@ -42,7 +42,7 @@ const MyProfile = ({ navigation }) => {
         <View>
           <Text style={styles.nameText}>{user.name}</Text>
           <Text style={styles.locationText}>
-            <FontAwesome name="map-marker" size={14} color="#ff8578" />{" "}
+            <FontAwesome name="map-marker" size={14} color="#eb4634" />{" "}
             {user.location}
           </Text>
           <Text style={styles.ageText}>Age: {user.age}</Text>

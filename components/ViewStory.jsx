@@ -32,7 +32,9 @@ const ViewStory = ({ navigation, route }) => {
         )}
         <View style={styles.spaceSaveCont}>
           <Text style={styles.infoText}>
-            {route.params.story.startDate ? format(new Date(route.params.story.startDate), "yyyy") : `Invalid date: ${route.params.story.startDate}`}
+            {route.params.story.startDate
+              ? format(new Date(route.params.story.startDate), "yyyy")
+              : `Invalid date: ${route.params.story.startDate}`}
           </Text>
           <Text style={styles.infoText}> {route.params.story.location}</Text>
         </View>
@@ -56,6 +58,7 @@ const ViewStory = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     padding: "3%",
+    paddingBottom: "60%",
   },
   headerCont: {
     paddingBottom: "1%",

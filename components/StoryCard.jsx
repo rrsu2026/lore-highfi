@@ -22,7 +22,7 @@ const StoryCard = ({ navigation, story }) => {
           </Text>
         )}
         <Text style={styles.locationText}>
-          <FontAwesome name="map-marker" size={14} color="#ff8578" />{" "}
+          <FontAwesome name="map-marker" size={14} color="#eb4634" />{" "}
           {story.location}
         </Text>
       </View>
