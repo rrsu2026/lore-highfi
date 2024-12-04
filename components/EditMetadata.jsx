@@ -1,63 +1,107 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { Audio } from 'expo-av';
-import AuthenticationContext from './AuthenticationContext';
-import { v4 as uuidv4 } from 'uuid';
-
+import React, { useContext, useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  Pressable,
+  TextInput,
+} from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { Audio } from "expo-av";
+import AuthenticationContext from "./AuthenticationContext";
+import uuid from "react-native-uuid";
 
 const EditMetadata = ({ navigation, route }) => {
   const user = useContext(AuthenticationContext);
   const [db, setDb] = useContext(FakeDatabaseContext);
 
-  const [title, setTitle] = useState('');
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [title, setTitle] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
   const [text, setText] = useState("");
   const [soundUri, setSoundUri] = useState("");
   const [sound, setSound] = useState();
 
+  const [visibility, setVisibility] = useState("Public");
+
   useEffect(() => {
     if (route.params.partialWrittenStory) {
       setTitle(route.params.partialWrittenStory.title);
-      setStartDate(route.params.partialWrittenStory.startDate);
-      setEndDate(route.params.partialWrittenStory.endDate);
+      setStartDate(
+        route.params.partialWrittenStory.startDate
+          ? new Date(route.params.partialWrittenStory.startDate)
+          : new Date()
+      );
+      setEndDate(
+        route.params.partialWrittenStory.endDate
+          ? new Date(route.params.partialWrittenStory.endDate)
+          : new Date()
+      );
       setText(route.params.partialWrittenStory.text);
     } else if (route.params.partialAudioStory) {
       setTitle(route.params.partialAudioStory.title);
-      setStartDate(route.params.partialAudioStory.startDate);
-      setEndDate(route.params.partialAudioStory.endDate);
+      setStartDate(
+        route.params.partialAudioStory.startDate
+          ? new Date(route.params.partialAudioStory.startDate)
+          : new Date()
+      );
+      setEndDate(
+        route.params.partialAudioStory.endDate
+          ? new Date(route.params.partialAudioStory.endDate)
+          : new Date()
+      );
       setSoundUri(route.params.partialAudioStory.uri);
     } else if (route.params.partialVideoStory) {
       setTitle(route.params.partialVideoStory.title);
-      setStartDate(route.params.partialVideoStory.startDate);
-      setEndDate(route.params.partialVideoStory.endDate);
+      setStartDate(
+        route.params.partialVideoStory.startDate
+          ? new Date(route.params.partialVideoStory.startDate)
+          : new Date()
+      );
+      setEndDate(
+        route.params.partialVideoStory.endDate
+          ? new Date(route.params.partialVideoStory.endDate)
+          : new Date()
+      );
     }
-  }, [route.params.partialWrittenStory, route.params.partialAudioStory, route.params.partialVideoStory]);
+  }, [
+    route.params.partialWrittenStory,
+    route.params.partialAudioStory,
+    route.params.partialVideoStory,
+  ]);
 
   useEffect(() => {
     return sound
       ? () => {
-        console.log('Unloading Sound');
-        sound.unloadAsync();
-      }
+          console.log("Unloading Sound");
+          sound.unloadAsync();
+        }
       : undefined;
   }, [sound]);
 
   async function playSound() {
-    console.log('Loading Sound');
-    const { sound } = await Audio.Sound.createAsync(soundUri);
-    setSound(sound);
-
-    console.log('Playing Sound');
-    await sound.playAsync();
+    try {
+      console.log("Loading sound...");
+      const { sound: newSound } = await Audio.Sound.createAsync({
+        uri: soundUri,
+      });
+      setSound(newSound);
+      console.log("Sound successfully set:", newSound);
+      await newSound.playAsync();
+    } catch (error) {
+      console.error("Error loading or playing sound:", error);
+    }
   }
 
   function createOrUpdateStory() {
     // Check if a story with this id exists
-    const story = route.params.partialWrittenStory || route.params.partialAudioStory || route.params.partialVideoStory;
-    const existingStory = db.stories.find(s => s.id === story.id);
+    const story =
+      route.params.partialWrittenStory ||
+      route.params.partialAudioStory ||
+      route.params.partialVideoStory;
+    const existingStory = db.stories.find((s) => s.id === story.id);
     // update story with form values
     if (existingStory) {
       let updated = {};
@@ -76,14 +120,14 @@ const EditMetadata = ({ navigation, route }) => {
       updated.image = existingStory.image;
       updated.audio = soundUri;
       db.stories[db.stories.indexOf(existingStory)] = updated;
-      console.log('updated:', db);
+      console.log("updated:", db);
       return;
     }
 
     // Add values needed to create a new story
     let newStory = {};
     // every story has these
-    newStory.id = uuidv4();
+    newStory.id = uuid.v4();
     newStory.author = user.id;
     newStory.postedAt = new Date().toISOString();
     // these get set through the form
@@ -102,7 +146,11 @@ const EditMetadata = ({ navigation, route }) => {
     <View>
       <Text>
         Title
-        <TextInput onChangeText={setTitle} defaultValue={title} />
+        <TextInput
+          style={styles.inputStyle}
+          onChangeText={setTitle}
+          defaultValue={title}
+        />
       </Text>
       <Text>
         Start Date <DateTimePicker type="date" value={startDate} />
@@ -113,22 +161,68 @@ const EditMetadata = ({ navigation, route }) => {
       {text && <Text>{text}</Text>}
       {soundUri && <Button title="Play Audio" onPress={playSound} />}
       {/* TODO: preview for video */}
-
-      <Text>Make Visible to</Text>
-      <Text>
-        {/* TODO: Implement radio button functionality */}
-        <Button type="radio" /> Public
-        <Button type="radio" /> Circle
-      </Text>
-      <Button title="Confirm" onPress={() => {
-        createOrUpdateStory();
-        navigation.navigate("MyStories");
-      }} />
+      <View>
+        <Text>Make Visible to</Text>
+        <Pressable
+          onPress={() => setVisibility("Public")}
+          style={styles.radioButton}
+        >
+          <View style={styles.radioCircle}>
+            {visibility === "Public" && <View style={styles.selectedCircle} />}
+          </View>
+          <Text>Public</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => setVisibility("Circle")}
+          style={styles.radioButton}
+        >
+          <View style={styles.radioCircle}>
+            {visibility === "Circle" && <View style={styles.selectedCircle} />}
+          </View>
+          <Text>Circle</Text>
+        </Pressable>
+      </View>
+      <Button
+        title="Confirm"
+        onPress={() => {
+          createOrUpdateStory();
+          navigation.navigate("MyStories");
+        }}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  radioButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 5,
+  },
+  radioCircle: {
+    height: 20,
+    width: 20,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#000",
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 10,
+  },
+  selectedCircle: {
+    height: 10,
+    width: 10,
+    borderRadius: 5,
+    backgroundColor: "#000",
+  },
+  inputStyle: {
+    borderWidth: 1,
+    borderColor: "#000",
+    padding: 10,
+    marginVertical: 10,
+    color: "#000",
+    backgroundColor: "#fff",
+  },
 });
 
 export default EditMetadata;

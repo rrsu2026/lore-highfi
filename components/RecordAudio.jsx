@@ -3,10 +3,9 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 import theme from "../Theme";
 import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Audio } from 'expo-av';
+import { Audio } from "expo-av";
 
 const RecordAudio = ({ navigation }) => {
-
   const [recording, setRecording] = useState();
   const [permissionResponse, requestPermission] = Audio.usePermissions();
   const [hasStartedRecording, setHasStartedRecording] = useState(false);
@@ -15,8 +14,8 @@ const RecordAudio = ({ navigation }) => {
   async function startRecording() {
     // https://docs.expo.dev/versions/latest/sdk/audio-av/
     try {
-      if (permissionResponse.status !== 'granted') {
-        console.log('Requesting permission..');
+      if (permissionResponse.status !== "granted") {
+        console.log("Requesting permission..");
         await requestPermission();
       }
       await Audio.setAudioModeAsync({
@@ -24,60 +23,70 @@ const RecordAudio = ({ navigation }) => {
         playsInSilentModeIOS: true,
       });
 
-      console.log('Starting recording..');
-      const { recording } = await Audio.Recording.createAsync(Audio.RecordingOptionsPresets.HIGH_QUALITY
+      console.log("Starting recording..");
+      const { recording } = await Audio.Recording.createAsync(
+        Audio.RecordingOptionsPresets.HIGH_QUALITY
       );
       setRecording(recording);
       setHasStartedRecording(true);
-      console.log('Recording started');
+      console.log("Recording started");
     } catch (err) {
-      console.error('Failed to start recording', err);
+      console.error("Failed to start recording", err);
     }
   }
 
   async function pauseRecording() {
-    console.log('Pausing recording..');
+    console.log("Pausing recording..");
     await recording.pauseAsync();
     setIsPaused(true);
-    console.log('Recording paused');
+    console.log("Recording paused");
   }
 
   async function resumeRecording() {
-    console.log('Resuming recording..');
+    console.log("Resuming recording..");
     await recording.startAsync();
     setIsPaused(false);
-    console.log('Recording resumed');
+    console.log("Recording resumed");
   }
 
   async function stopRecording() {
-    console.log('Stopping recording..');
+    console.log("Stopping recording..");
     setRecording(undefined);
     await recording.stopAndUnloadAsync();
-    await Audio.setAudioModeAsync(
-      {
-        allowsRecordingIOS: false,
-      }
-    );
+    await Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+    });
     const uri = recording.getURI();
-    console.log('Recording stopped and stored at', uri);
+    console.log("Recording stopped and stored at", uri);
     return uri;
   }
 
   return (
     <View style={styles.container}>
-      {hasStartedRecording ?
+      {hasStartedRecording ? (
         <View>
           <Text style={styles.headerText}>Recording...</Text>
           <View style={styles.pauseCont}>
-            <Pressable style={styles.choiceButton} onPress={isPaused ? resumeRecording : pauseRecording}>
-              <Text style={styles.buttonText}>Pause</Text>
-              <FontAwesome name="pause" size={30} color="black" />
+            <Pressable
+              style={styles.choiceButton}
+              onPress={isPaused ? resumeRecording : pauseRecording}
+            >
+              <Text style={styles.buttonText}>
+                {isPaused ? "Resume" : "Pause"}
+              </Text>
+              <FontAwesome
+                name={isPaused ? "play" : "pause"}
+                size={30}
+                color="black"
+              />
             </Pressable>
             <Pressable
               style={styles.choiceButton}
               onPress={async () => {
                 const audio = await stopRecording();
-                navigation.navigate("EditMetadata", { partialAudioStory: { uri: audio } });
+                navigation.navigate("EditMetadata", {
+                  partialAudioStory: { uri: audio },
+                });
               }}
             >
               <Text style={styles.buttonText}>Save</Text>
@@ -85,7 +94,7 @@ const RecordAudio = ({ navigation }) => {
             </Pressable>
           </View>
         </View>
-        :
+      ) : (
         <View style={styles.container}>
           <Text style={styles.headerText}>Audio</Text>
           <Pressable
@@ -98,7 +107,7 @@ const RecordAudio = ({ navigation }) => {
             </View>
           </Pressable>
         </View>
-      }
+      )}
     </View>
   );
 };
@@ -126,6 +135,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#000",
     marginBottom: 15,
+    width: 170,
     gap: "10%",
   },
   headerText: {
@@ -136,7 +146,7 @@ const styles = StyleSheet.create({
     paddingVertical: "5%",
   },
   buttonText: {
-    fontSize: 24,
+    fontSize: 20,
   },
   startRecordingButton: {
     flexDirection: "column",
