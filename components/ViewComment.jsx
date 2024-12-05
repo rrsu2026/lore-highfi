@@ -10,7 +10,7 @@ const NewComment = ({ navigation, route }) => {
 
   return (
     <View>
-      <Text>Your response to "{route.params.story.title}" posted by {db.users.find(user => user.id == comment.authorId).name}</Text>
+      <Text>Your response to "{route.params.story.title}" posted by {db.users.find(u => u.id == route.params.story.authorId).name}</Text>
       <Text>{comment.text}</Text>
     </View>
   );
