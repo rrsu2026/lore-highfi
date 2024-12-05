@@ -62,7 +62,7 @@ const ViewStory = ({ navigation, route }) => {
           ))}
         </View>
         {route.params.justCommented &&
-          <View>
+          <View style={styles.responseNotif}>
             <Text>Response sent!</Text>
             <Pressable
               style={styles.button}
@@ -87,6 +87,15 @@ const ViewStory = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
+  responseNotif: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 15,
+    justifyContent: "space-between",
+    backgroundColor: theme.colors.primaryColor1,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+  },
   container: {
     padding: "3%",
     paddingBottom: "60%",
@@ -123,7 +132,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 8,
     paddingHorizontal: 12,
-    marginBottom: 8,
+    marginVertical: 8,
     marginHorizontal: 5,
     borderWidth: 2.5,
     width: "fit-content",
