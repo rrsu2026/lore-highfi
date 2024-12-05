@@ -240,7 +240,7 @@ export default function App() {
                 options={{ headerTitle: "Your Comment" }}
               />
             </Stack.Navigator>
-            <NavBar currentScreen={currentScreen} />
+            {currentScreen !== "Login" && <NavBar currentScreen={currentScreen} />}
           </View>
         </NavigationContainer>
       </FakeDatabaseContext.Provider>
