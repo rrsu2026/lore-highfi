@@ -19,16 +19,24 @@ const ViewStory = ({ navigation, route }) => {
           {db.users.find((user) => user.id == route.params.story.author).name}
         </Text>
         {user.id === route.params.story.author && (
-          <Button
-            title="Edit"
-            onPress={() =>
-              navigation.navigate("EditMetadata", {
-                partialWrittenStory: route.params.story,
-                partialAudioStory: route.params.story,
-                partialVideoStory: route.params.story,
-              })
-            }
-          />
+          <View>
+            <Button
+              title="Edit"
+              onPress={() =>
+                navigation.navigate("EditMetadata", {
+                  partialWrittenStory: route.params.story,
+                  partialAudioStory: route.params.story,
+                  partialVideoStory: route.params.story,
+                })
+              }
+            />
+            <Button
+              title="View Responses"
+              onPress={() =>
+                navigation.navigate("ViewComments", { story: route.params.story })
+              }
+            />
+          </View>
         )}
         <View style={styles.spaceSaveCont}>
           <Text style={styles.infoText}>
@@ -92,6 +100,7 @@ const styles = StyleSheet.create({
   tagsContainer: {
     flexDirection: "row",
     marginTop: 15,
+    flexWrap: "wrap",
   },
 });
 
