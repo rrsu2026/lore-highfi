@@ -16,9 +16,9 @@ const ViewStory = ({ navigation, route }) => {
         <Text style={styles.titleText}>{route.params.story.title}</Text>
         <Text style={styles.infoText}>
           By{" "}
-          {db.users.find((user) => user.id == route.params.story.author).name}
+          {db.users.find((user) => user.id == route.params.story.authorId).name}
         </Text>
-        {user.id === route.params.story.author && (
+        {user.id === route.params.story.authorId && (
           <View>
             <Button
               title="Edit"

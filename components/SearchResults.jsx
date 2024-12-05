@@ -12,7 +12,7 @@ const SearchResults = ({ navigation, route }) => {
       return (
         story.title?.toLowerCase().includes(queryLower) ||
         db.users
-          .find((user) => user.id == story.author)
+          .find((user) => user.id == story.authorId)
           .name?.toLowerCase()
           .includes(queryLower) ||
         story.tags?.map((tag) => tag.toLowerCase()).includes(queryLower) ||

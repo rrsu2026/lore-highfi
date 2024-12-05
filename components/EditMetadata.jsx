@@ -109,7 +109,7 @@ const EditMetadata = ({ navigation, route }) => {
       let updated = {};
       // every story has these
       updated.id = existingStory.id;
-      updated.author = existingStory.author;
+      updated.authorId = existingStory.authorId;
       updated.postedAt = existingStory.postedAt;
 
       // these get set through the form
@@ -130,7 +130,7 @@ const EditMetadata = ({ navigation, route }) => {
     let newStory = {};
     // every story has these
     newStory.id = uuid.v4();
-    newStory.author = user.id;
+    newStory.authorId = user.id;
     newStory.postedAt = new Date().toISOString();
     newStory.comments = [];
     // these get set through the form

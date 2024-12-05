@@ -8,7 +8,7 @@ const NewComment = ({ navigation, route }) => {
       {
         route.params.story.comments?.map((comment, index) => (
           <View key={index}>
-            <Text>{db.users.find(u => u.id == route.params.story.author).name}</Text>
+            <Text>{db.users.find(u => u.id == route.params.story.authorId).name}</Text>
             <Text>{comment.text}</Text>
           </View>
         )) || <Text>No comments</Text>

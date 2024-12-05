@@ -33,7 +33,7 @@ const StoryCard = ({ navigation, story }) => {
       </View>
       <View style={styles.textCont}>
         <Text style={styles.authorText} numberOfLines={1} ellipsizeMode="tail">
-          {db.users.find((user) => user.id == story.author).name}
+          {db.users.find((user) => user.id == story.authorId).name}
         </Text>
         <Text style={styles.dateText}>
           {story.postedAt

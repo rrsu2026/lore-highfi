@@ -35,7 +35,7 @@ const fakeDatabase = {
     {
       id: "c88489ba-d259-4158-8443-5fe0d352a764",
       title: "A Short Tale",
-      author: "701e20bb-3aba-4d4b-9f6c-436762886d58",
+      authorId: "701e20bb-3aba-4d4b-9f6c-436762886d58",
       location: "Nantucket, MA",
       tags: ["Mice", "Adventure", "Slice of Life"],
       postedAt: new Date(2024, 6, 15).toISOString(),
@@ -46,7 +46,7 @@ const fakeDatabase = {
     {
       id: "bd685d19-9dcf-4dd6-aae2-f5cda5791287",
       title: "Meeting my Wife",
-      author: "701e20bb-3aba-4d4b-9f6c-436762886d58",
+      authorId: "701e20bb-3aba-4d4b-9f6c-436762886d58",
       location: "Nantucket, MA",
       tags: ["Slice of Life", "Love Stories", "First-Gen", "Wisdom and Advice"],
       postedAt: new Date(2024, 6, 15).toISOString(), // Months in JavaScript are 0-indexed, but days and years are not
@@ -57,7 +57,7 @@ const fakeDatabase = {
     {
       id: "49651814-8f82-4065-9531-3a49b2b02ae3",
       title: "Nightmare at DFW part 2",
-      author: "6618d3b5-8540-4b84-9ed8-215a7f769ee3",
+      authorId: "6618d3b5-8540-4b84-9ed8-215a7f769ee3",
       location: "Nantucket, MA",
       tags: ["Slice of Life", "First-Gen"],
       postedAt: new Date(2024, 6, 15).toISOString(), // Months in JavaScript are 0-indexed, but days and years are not
@@ -68,7 +68,7 @@ const fakeDatabase = {
     {
       id: "588e8bf5-fdf9-4ceb-a0b2-514c908ea13b",
       title: "Nightmare at DFW",
-      author: "6618d3b5-8540-4b84-9ed8-215a7f769ee3",
+      authorId: "6618d3b5-8540-4b84-9ed8-215a7f769ee3",
       location: "Nantucket, MA",
       tags: ["Slice of Life"],
       postedAt: new Date(2024, 6, 15).toISOString(), // Months in JavaScript are 0-indexed, but days and years are not
@@ -79,7 +79,7 @@ const fakeDatabase = {
     {
       id: "5082a3db-ff6f-4539-b875-d2035222a3bc",
       title: "Frank Sinatra Concert",
-      author: "a28bfa77-fd2e-4802-834b-0a0f1c76d394",
+      authorId: "a28bfa77-fd2e-4802-834b-0a0f1c76d394",
       tags: ["Slice of Life", "Women"],
       location: "Chicago, IL",
       postedAt: new Date(2024, 6, 15).toISOString(), // Months in JavaScript are 0-indexed, but days and years are not
@@ -90,7 +90,7 @@ const fakeDatabase = {
     {
       id: "3799dfa1-4d9d-4b0a-987a-9270a18ab151",
       title: "First Trip to NYC",
-      author: "6a5bb277-6f10-4e0f-937c-5ef5d1d8f692",
+      authorId: "6a5bb277-6f10-4e0f-937c-5ef5d1d8f692",
       tags: ["Slice of Life"],
       location: "New York, NY",
       postedAt: new Date(2024, 6, 15).toISOString(), // Months in JavaScript are 0-indexed, but days and years are not

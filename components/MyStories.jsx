@@ -9,7 +9,7 @@ const MyStories = ({ navigation }) => {
   const user = useContext(AuthenticationContext);
   return (
     <View style={styles.container}>
-      <TabbedCardList navigation={navigation} stories={db.stories.filter((s) => s.author == user.id)} />
+      <TabbedCardList navigation={navigation} stories={db.stories.filter((s) => s.authorId == user.id)} />
     </View>
   );
 };

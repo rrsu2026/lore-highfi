@@ -11,7 +11,7 @@ const NewComment = ({ navigation, route }) => {
     const dbClone = structuredClone(db);
     dbClone.stories.find(story =>
       story.id === route.params.story.id
-    ).comments.push({ text, author: user.id });
+    ).comments.push({ text, authorId: user.id });
     setDb(dbClone);
     setCreated(true);
   }
@@ -33,7 +33,7 @@ const NewComment = ({ navigation, route }) => {
         Write a comment
         <TextInput onChangeText={setText} />
       </Text>
-      <Button title={`Share with ${db.users.find(u => u.id == route.params.story.author).name}`} onPress={createComment} />
+      <Button title={`Share with ${db.users.find(u => u.id == route.params.story.authorId).name}`} onPress={createComment} />
     </View>
   );
 };
