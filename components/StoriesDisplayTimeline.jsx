@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import { Dimensions } from "react-native";
 import {
   StyleSheet,
   ScrollView,
   View,
   Text,
   Animated,
-  TouchableOpacity,
 } from "react-native";
 import {
   GestureHandlerRootView,
@@ -15,93 +15,149 @@ import {
 import StoryCard from "./StoryCard";
 import theme from "../Theme";
 
-const StoriesDisplayTimeline = ({ navigation, stories }) => {
-  const [scale, setScale] = useState(new Animated.Value(1));
-  const [zoomIn, setZoomIn] = useState(false);
+const { height, width } = Dimensions.get("window");
+const isTablet = height / width < 1.6;
 
-  const onPinchEvent = Animated.event([{ nativeEvent: { scale } }], {
-    useNativeDriver: false,
-  });
+const StoriesDisplayTimeline = ({ navigation, stories }) => {
+  const [zoomLevel, setZoomLevel] = useState(0); // 0: Decade, 1: Year, 2: Month-Year
+  const scale = useRef(new Animated.Value(1)).current;
+  const opacity = useRef(new Animated.Value(1)).current;
+  const scrollViewRef = useRef();
 
   const onPinchStateChange = (event) => {
     if (event.nativeEvent.state === State.END) {
+      const currentScale = event.nativeEvent.scale;
+
+      // Determine new zoom level
+      let newZoomLevel = zoomLevel;
+      if (currentScale > 1.5 && zoomLevel < 2) {
+        newZoomLevel = zoomLevel + 1;
+      } else if (currentScale < 0.75 && zoomLevel > 0) {
+        newZoomLevel = zoomLevel - 1;
+      }
+
+      // Apply transition effect
+      if (newZoomLevel !== zoomLevel) {
+        Animated.sequence([
+          Animated.timing(opacity, {
+            toValue: 0,
+            duration: 300,
+            useNativeDriver: true,
+          }),
+          Animated.timing(opacity, {
+            toValue: 1,
+            duration: 300,
+            useNativeDriver: true,
+          }),
+        ]).start();
+
+        setZoomLevel(newZoomLevel);
+      }
+
+      // Reset scale
       Animated.spring(scale, {
         toValue: 1,
         friction: 7,
-        useNativeDriver: false,
+        useNativeDriver: true,
       }).start();
     }
   };
 
-  const formatDateToDecade = (dateString) => {
+  const getAllIntervals = (zoom = zoomLevel) => {
+  if (!stories || stories.length === 0) return [];
+
+  // Determine the start and end years based on the stories
+  const rawStartYear = new Date(
+    Math.min(...stories.map((story) => new Date(story.startDate).getTime()))
+  ).getFullYear();
+  const rawEndYear = new Date(
+    Math.max(...stories.map((story) => new Date(story.startDate).getTime()))
+  ).getFullYear();
+
+  // Adjust start and end to decades for zoom level 0
+  const startYear = Math.floor(rawStartYear / 10) * 10;
+  const endYear = Math.ceil(rawEndYear / 10) * 10;
+
+  let intervals = [];
+
+  if (zoom === 0) {
+    // Generate decades
+    for (let year = startYear; year <= endYear; year += 10) {
+      intervals.push(`${year}`);
+    }
+  } else if (zoom === 1) {
+    // Generate individual years
+    for (let year = rawStartYear; year <= rawEndYear; year++) {
+      intervals.push(`${year}`);
+    }
+  } else if (zoom === 2) {
+    // Generate month-year pairs
+    for (let year = rawStartYear; year <= rawEndYear; year++) {
+      for (let month = 0; month < 12; month++) {
+        intervals.push(
+          `${new Date(year, month).toLocaleString("default", { month: "short" })} ${year}`
+        );
+      }
+    }
+  }
+
+  return intervals;
+};
+
+  const formatDate = (dateString) => {
     const date = new Date(dateString);
-    const year = date.getFullYear();
-    return Math.floor(year / 10) * 10;
+    if (zoomLevel === 0) {
+      return Math.floor(date.getFullYear() / 10) * 10;
+    } else if (zoomLevel === 1) {
+      return date.getFullYear();
+    } else if (zoomLevel === 2) {
+      return `${date.toLocaleString("default", { month: "short" })} ${date.getFullYear()}`;
+    }
   };
 
-  const groupStoriesByDecade = (stories) => {
+  const groupStoriesByInterval = (stories) => {
     return stories.reduce((acc, story) => {
-      const decade = formatDateToDecade(story.startDate);
-      if (!acc[decade]) {
-        acc[decade] = [];
+      const interval = formatDate(story.startDate);
+      if (!acc[interval]) {
+        acc[interval] = [];
       }
-      acc[decade].push(story);
+      acc[interval].push(story);
       return acc;
     }, {});
   };
 
-  const groupedStories = groupStoriesByDecade(stories);
-
-  const handleStackClick = () => {
-    setZoomIn(!zoomIn);
-  };
+  const groupedStories = groupStoriesByInterval(stories);
+  const intervals = getAllIntervals();
 
   return (
     <GestureHandlerRootView style={styles.container}>
       <PinchGestureHandler
-        onGestureEvent={onPinchEvent}
         onHandlerStateChange={onPinchStateChange}
       >
-        <Animated.View style={[styles.timeline, { transform: [{ scale }] }]}>
-          <ScrollView style={styles.scrollView}>
+        <Animated.View style={[styles.timeline, { opacity }]}>
+          <ScrollView
+            ref={scrollViewRef}
+            style={styles.scrollView}
+            contentContainerStyle={styles.scrollViewContent}
+          >
             <View style={styles.yellowLine} />
-            {Object.keys(groupedStories)
-              .sort((a, b) => a - b)
-              .map((decade) => (
-                <View key={decade} style={styles.yearSection}>
-                  <View style={styles.yearContainer}>
-                    <Text style={styles.time}>{`${decade}s`}</Text>
-                  </View>
-                  {groupedStories[decade].length > 1 ? (
-                    <TouchableOpacity
-                      style={styles.stackContainer}
-                      onPress={handleStackClick}
-                    >
-                      <Text style={styles.stackLabel}>
-                        {groupedStories[decade].length} stories
-                      </Text>
-                      {zoomIn && (
-                        <View style={styles.zoomedStack}>
-                          {groupedStories[decade].map((story) => (
-                            <StoryCard
-                              key={story.id} // Use a unique identifier
-                              navigation={navigation}
-                              story={story}
-                            />
-                          ))}
-                        </View>
-                      )}
-                    </TouchableOpacity>
-                  ) : (
-                    <View style={styles.cardContainer}>
+            {intervals.map((interval, index) => (
+              <View key={`${interval}-${index}`} style={styles.yearSection}>
+                <View style={styles.yearContainer}>
+                  <Text style={styles.time}>{interval}</Text>
+                </View>
+                {groupedStories[interval] &&
+                  groupedStories[interval].map((story) => (
+                    <View key={story.id} style={styles.cardContainer}>
                       <StoryCard
                         navigation={navigation}
-                        story={groupedStories[decade][0]}
+                        story={story}
                       />
                     </View>
-                  )}
-                </View>
-              ))}
+                  ))}
+              </View>
+            ))}
+            <View />
           </ScrollView>
         </Animated.View>
       </PinchGestureHandler>
@@ -112,11 +168,10 @@ const StoriesDisplayTimeline = ({ navigation, stories }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: "90%",
   },
   timeline: {
-    flexDirection: "column",
     flex: 1,
+    paddingBottom: isTablet ? 0 : 415,
   },
   scrollView: {
     marginLeft: 30,
@@ -135,31 +190,15 @@ const styles = StyleSheet.create({
   },
   yearContainer: {
     marginLeft: "10%",
-    marginBottom: "2%",
     flexDirection: "row",
     alignItems: "center",
+    flex: 1,
   },
   time: {
     fontSize: 14,
     color: "#333",
     fontWeight: "bold",
     marginRight: 10,
-  },
-  stackContainer: {
-    flexDirection: "column",
-    marginTop: 10,
-    borderRadius: 5,
-    padding: 5,
-    backgroundColor: "#f4f4f4",
-  },
-  stackLabel: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#333",
-    marginBottom: 5,
-  },
-  zoomedStack: {
-    flexDirection: "column",
   },
   cardContainer: {
     borderWidth: 3,

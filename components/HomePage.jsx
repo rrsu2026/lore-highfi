@@ -25,7 +25,7 @@ const HomePage = ({ navigation }) => {
           <Text style={styles.shareStoryText}>Share Your Story</Text>
         </Pressable>
       </View>
-      <Text style={styles.subAuthorText}>Subscribed Authors:</Text>
+      <Text style={styles.subAuthorText}>Stories From Subscribed Authors:</Text>
 
       <TabbedCardList
         style={styles.container}

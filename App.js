@@ -56,7 +56,7 @@ const fakeDatabase = {
       location: "Nantucket, MA",
       tags: ["Slice of Life"],
       postedAt: new Date(2024, 6, 15).toISOString(), // Months in JavaScript are 0-indexed, but days and years are not
-      startDate: new Date(1980, 0, 1).toISOString(),
+      startDate: new Date(1984, 0, 1).toISOString(),
       text: "Off the shore of Cape Cod, summers on Nantucket were a combination of warm sun and brisk wind. It was late August and I had escaped the busy skylines of New York in search of solace. I pulled out my camera while watching waves crash upon Madaket Beach. My goal was to capture the momentary bliss I felt. But there she stood in front of the vast sea",
     },
     {
