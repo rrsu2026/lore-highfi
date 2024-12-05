@@ -9,25 +9,35 @@ import {
 } from "react-native";
 import AuthenticationContext from "./AuthenticationContext";
 import { FontAwesome } from "@expo/vector-icons";
-import db from "../database/db"; // Adjust this import to match your project structure.
 import Tag from "./Tag.jsx";
 
 const MyProfile = ({ navigation }) => {
   const user = useContext(AuthenticationContext);
 
-  const signOut = async () => {
-    try {
-      const { error } = await db.auth.signOut();
-      if (error) {
-        Alert.alert("Error", error.message);
-      } else {
-        navigation.navigate("Login"); // Navigate to the Login screen after signing out.
-        Alert.alert("Signed out", "You have been successfully signed out.");
-      }
-    } catch (err) {
-      console.error(err);
-      Alert.alert("Error", "An unexpected error occurred during sign out.");
-    }
+  const signOut = () => {
+    Alert.alert(
+      "Confirm Sign Out",
+      "Are you sure you want to sign out?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Sign Out",
+          style: "destructive",
+          onPress: () => {
+            // Reset navigation stack and navigate to Login
+            navigation.reset({
+              index: 0,
+              routes: [{ name: "Login" }],
+            });
+            Alert.alert("Signed Out", "You have been successfully signed out.");
+          },
+        },
+      ],
+      { cancelable: true }
+    );
   };
 
   return (
