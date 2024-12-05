@@ -24,22 +24,85 @@ const EditWrittenStory = ({ navigation }) => {
   };
 
   return (
-    <View>
-      {/* TODO: Optional "make sure that this is correct" if the story was prefilled by scan */}
-      <Text>
-        Image (optional)
-        <Button title="Pick an Image" onPress={pickImage} />
-      </Text>
-      <Text>
-        Text
-        <TextInput onChangeText={setText} />
-      </Text>
-      <Button title="Save" onPress={() => navigation.navigate("EditMetadata", { partialWrittenStory: { image, text } })} />
+    <View style={styles.container}>
+      <Text style={styles.label}>Image (Optional)</Text>
+      <Pressable style={styles.imageButton} onPress={pickImage}>
+        <Text style={styles.imageButtonText}>Click to attach</Text>
+      </Pressable>
+      {image && <Image source={{ uri: image }} style={styles.imagePreview} />}
+      <Text style={styles.label}>Text</Text>
+      <TextInput
+        style={styles.textInput}
+        onChangeText={setText}
+        value={text}
+        placeholder="Type your story here..."
+        multiline
+      />
+      <Pressable
+        style={styles.saveButton}
+        onPress={() =>
+          navigation.navigate("EditMetadata", { partialWrittenStory: { image, text } })
+        }
+      >
+        <Text style={styles.saveButtonText}>Save</Text>
+      </Pressable>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: "#fff",
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  imageButton: {
+    backgroundColor: "#FFD966",
+    padding: 10,
+    borderRadius: 8,
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  imageButtonText: {
+    color: "#000",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  imagePreview: {
+    width: "100%",
+    height: 200,
+    resizeMode: "cover",
+    borderRadius: 8,
+    marginVertical: 20,
+  },
+  textInput: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 8,
+    padding: 10,
+    fontSize: 16,
+    height: 150,
+    textAlignVertical: "top",
+    marginBottom: 20,
+  },
+  saveButton: {
+    backgroundColor: "#FFD966",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 15,
+    borderRadius: 8,
+  },
+  saveButtonText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#000",
+  },
 });
 
 export default EditWrittenStory;
