@@ -43,6 +43,17 @@ const ViewStory = ({ navigation, route }) => {
             <Tag key={index} navigation={navigation} title={tag} />
           ))}
         </View>
+        {route.params.justCommented &&
+          <View>
+            <Text>Response sent!</Text>
+            <Button
+              title="View your response"
+              onPress={() =>
+                navigation.navigate("ViewComment", { story: route.params.story })
+              }
+            />
+          </View>
+        }
       </View>
       {route.params.story.text && <StoryText text={route.params.story.text} />}
       {route.params.story.audio && (
@@ -51,7 +62,7 @@ const ViewStory = ({ navigation, route }) => {
       {route.params.story.video && (
         <StoryVideo video={route.params.story.video} />
       )}
-      <Button title="Comment" onPress={() => navigation.navigate("NewComment", {story: route.params.story})} />
+      <Button title="Comment" onPress={() => navigation.navigate("NewComment", { story: route.params.story })} />
     </View>
   );
 };

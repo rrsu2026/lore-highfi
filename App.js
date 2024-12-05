@@ -26,6 +26,7 @@ import SliceOfLifeSearch from "./demo/SliceOfLifeSearch.jsx";
 import Login from "./components/Login.jsx";
 import NewComment from "./components/NewComment.jsx";
 import ViewComments from "./components/ViewComments.jsx";
+import ViewComment from "./components/ViewComment.jsx";
 
 import NavBar from "./components/Navbar.jsx";
 
@@ -232,6 +233,11 @@ export default function App() {
                 name="ViewComments"
                 component={ViewComments}
                 options={{ headerTitle: "Comments" }}
+              />
+              <Stack.Screen
+                name="ViewComment"
+                component={ViewComment}
+                options={{ headerTitle: "Your Comment" }}
               />
             </Stack.Navigator>
             <NavBar currentScreen={currentScreen} />
