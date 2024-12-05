@@ -132,8 +132,8 @@ const EditMetadata = ({ navigation, route }) => {
     newStory.postedAt = new Date().toISOString();
     // these get set through the form
     newStory.title = title;
-    newStory.startDate = startDate;
-    newStory.endDate = endDate;
+    newStory.startDate = startDate.toISOString();
+    newStory.endDate = endDate.toISOString();
     // these differ per type of story
     newStory.text = text;
     newStory.image = route.params.partialWrittenStory?.image;
@@ -144,20 +144,29 @@ const EditMetadata = ({ navigation, route }) => {
 
   return (
     <View>
-      <Text>
+      <View style={styles.inputCont}>
+      <Text style={styles.catText}>
         Title
+        </Text>
         <TextInput
           style={styles.inputStyle}
           onChangeText={setTitle}
           defaultValue={title}
         />
+
+      </View>
+      <View style={styles.inputCont}>
+      <Text style={styles.catText}>
+        Start Date 
       </Text>
-      <Text>
-        Start Date <DateTimePicker type="date" value={startDate} />
+      <DateTimePicker type="date" value={startDate} />
+      </View>
+      <View style={styles.inputCont}>
+      <Text style={styles.catText}>
+        End Date (optional) 
       </Text>
-      <Text>
-        End Date (optional) <DateTimePicker type="date" value={endDate} />
-      </Text>
+      <DateTimePicker type="date" value={endDate} />
+      </View>
       {text && <Text>{text}</Text>}
       {soundUri && <Button title="Play Audio" onPress={playSound} />}
       {/* TODO: preview for video */}
@@ -216,13 +225,22 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
   },
   inputStyle: {
-    borderWidth: 1,
+    borderWidth: 2.5,
     borderColor: "#000",
     padding: 10,
     marginVertical: 10,
     color: "#000",
     backgroundColor: "#fff",
+    width: "90%",
   },
+  catText: {
+    fontSize: 16,
+    fontWeight: "bold"
+  },
+  inputCont: {
+    flexDirection: "column",
+    justifyContent: "center",
+  }
 });
 
 export default EditMetadata;
