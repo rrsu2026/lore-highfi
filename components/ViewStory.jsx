@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, Pressable } from "react-native";
 import { format } from "date-fns";
 import StoryText from "./StoryText";
 import StoryAudio from "./StoryAudio";
@@ -19,9 +19,9 @@ const ViewStory = ({ navigation, route }) => {
           {db.users.find((user) => user.id == route.params.story.authorId).name}
         </Text>
         {user.id === route.params.story.authorId && (
-          <View>
-            <Button
-              title="Edit"
+          <View style={styles.row}>
+            <Pressable
+              style={styles.button}
               onPress={() =>
                 navigation.navigate("EditMetadata", {
                   partialWrittenStory: route.params.story,
@@ -29,13 +29,17 @@ const ViewStory = ({ navigation, route }) => {
                   partialVideoStory: route.params.story,
                 })
               }
-            />
-            <Button
-              title="View Responses"
+            >
+              <Text style={styles.buttonText}>Edit</Text>
+            </Pressable>
+            <Pressable
+              style={styles.button}
               onPress={() =>
                 navigation.navigate("ViewComments", { story: route.params.story })
               }
-            />
+            >
+              <Text style={styles.buttonText}>View Responses</Text>
+            </Pressable>
           </View>
         )}
         <View style={styles.spaceSaveCont}>
@@ -54,12 +58,14 @@ const ViewStory = ({ navigation, route }) => {
         {route.params.justCommented &&
           <View>
             <Text>Response sent!</Text>
-            <Button
-              title="View your response"
+            <Pressable
+              style={styles.button}
               onPress={() =>
                 navigation.navigate("ViewComment", { story: route.params.story })
               }
-            />
+            >
+              <Text style={styles.buttonText}>View your response</Text>
+            </Pressable>
           </View>
         }
       </View>
@@ -70,7 +76,9 @@ const ViewStory = ({ navigation, route }) => {
       {route.params.story.video && (
         <StoryVideo video={route.params.story.video} />
       )}
-      <Button title="Comment" onPress={() => navigation.navigate("NewComment", { story: route.params.story })} />
+      <Pressable style={styles.button} onPress={() => navigation.navigate("NewComment", { story: route.params.story })} >
+        <Text style={styles.buttonText}>Comment</Text>
+      </Pressable>
     </View>
   );
 };
@@ -97,10 +105,30 @@ const styles = StyleSheet.create({
     fontSize: 14,
     padding: 1,
   },
+  row: {
+    marginTop: 15,
+    display: "flex",
+    flexDirection: "row",
+  },
   tagsContainer: {
     flexDirection: "row",
     marginTop: 15,
     flexWrap: "wrap",
+  },
+  button: {
+    backgroundColor: "#FCD385",
+    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    marginBottom: 8,
+    marginHorizontal: 5,
+    borderWidth: 2.5,
+    width: "fit-content",
+  },
+  buttonText: {
+    color: "#000",
+    fontSize: 15,
+    fontWeight: "400",
   },
 });
 
