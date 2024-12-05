@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Pressable, TextInput, Image } from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import theme from "../Theme";
 
-const EditWrittenStory = ({ navigation }) => {
+const EditWrittenStory = ({ navigation, route }) => {
   const [image, setImage] = useState(null);
   const [text, setText] = useState("");
 
+  // Check if the last screen was Scan.jsx
+  const fromScanPage = route.params?.fromScan || false;
+
   const pickImage = async () => {
-    // https://docs.expo.dev/versions/latest/sdk/imagepicker/
-    // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ['images', 'videos'],
+      mediaTypes: ["images", "videos"],
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
-
-    console.log(result); // expand the base64 in your console if you want to crash your browser :>
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
@@ -24,22 +24,97 @@ const EditWrittenStory = ({ navigation }) => {
   };
 
   return (
-    <View>
-      {/* TODO: Optional "make sure that this is correct" if the story was prefilled by scan */}
-      <Text>
-        Image (optional)
-        <Button title="Pick an Image" onPress={pickImage} />
-      </Text>
-      <Text>
-        Text
-        <TextInput onChangeText={setText} />
-      </Text>
-      <Button title="Save" onPress={() => navigation.navigate("EditMetadata", { partialWrittenStory: { image, text } })} />
+    <View style={styles.container}>
+      {fromScanPage && (
+        <Text style={styles.warningText}>Please check to make sure this is correct</Text>
+      )}
+      <Text style={styles.label}>Image (Optional)</Text>
+      <Pressable style={styles.imageButton} onPress={pickImage}>
+        <Text style={styles.imageButtonText}>Click to attach</Text>
+      </Pressable>
+      {image && <Image source={{ uri: image }} style={styles.imagePreview} />}
+      <Text style={styles.label}>Text</Text>
+      <TextInput
+        style={styles.textInput}
+        onChangeText={setText}
+        value={text}
+        placeholder="Type your story here..."
+        multiline
+      />
+      <Pressable
+        style={styles.saveButton}
+        onPress={() =>
+          navigation.navigate("EditMetadata", { partialWrittenStory: { image, text } })
+        }
+      >
+        <Text style={styles.saveButtonText}>Save</Text>
+      </Pressable>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: "#fff",
+  },
+  warningText: {
+    color: "red",
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  imageButton: {
+    backgroundColor: theme.colors.complementColor2,
+    padding: 10,
+    borderRadius: 8,
+    borderWidth: 2.5,
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  imageButtonText: {
+    color: "#000",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  imagePreview: {
+    width: "100%",
+    height: 200,
+    resizeMode: "cover",
+    borderRadius: 8,
+    marginVertical: 20,
+  },
+  textInput: {
+    borderWidth: 2.5,
+    borderColor: "black",
+    borderRadius: 8,
+    padding: 10,
+    fontSize: 16,
+    height: 250,
+    textAlignVertical: "top",
+    marginBottom: 20,
+  },
+  saveButton: {
+    backgroundColor: theme.colors.complementColor2,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 2.5,
+    padding: 15,
+    borderRadius: 8,
+  },
+  saveButtonText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#000",
+  },
 });
 
 export default EditWrittenStory;
