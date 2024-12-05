@@ -42,7 +42,7 @@ const SearchPage = ({ navigation }) => {
       <View style={styles.suggestionsContainer}>
         <Pressable
           style={styles.suggestionButton}
-          onPress={() => navigation.navigate("SliceOfLifeSearch")}
+          onPress={() => navigation.navigate("SearchResults", { query: "Slice of Life" })}
         >
           <Text style={styles.buttonText}>Slice of Life</Text>
         </Pressable>
