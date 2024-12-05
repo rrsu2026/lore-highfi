@@ -39,7 +39,7 @@ const ViewStory = ({ navigation, route }) => {
           <Text style={styles.infoText}> {route.params.story.location}</Text>
         </View>
         <View style={styles.tagsContainer}>
-          {route.params.story.tags.map((tag, index) => (
+          {route.params.story.tags?.map((tag, index) => (
             <Tag key={index} navigation={navigation} title={tag} />
           ))}
         </View>
@@ -51,6 +51,7 @@ const ViewStory = ({ navigation, route }) => {
       {route.params.story.video && (
         <StoryVideo video={route.params.story.video} />
       )}
+      <Button title="Comment" onPress={() => navigation.navigate("NewComment", {story: route.params.story})} />
     </View>
   );
 };

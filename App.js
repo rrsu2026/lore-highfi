@@ -24,11 +24,23 @@ import Scan from "./components/Scan.jsx";
 import EditWrittenStory from "./components/EditWrittenStory.jsx";
 import SliceOfLifeSearch from "./demo/SliceOfLifeSearch.jsx";
 import Login from "./components/Login.jsx";
+import NewComment from "./components/NewComment.jsx";
+import ViewComments from "./components/ViewComments.jsx";
 
 import NavBar from "./components/Navbar.jsx";
 
 const fakeDatabase = {
   stories: [
+    {
+      id: "c88489ba-d259-4158-8443-5fe0d352a764",
+      title: "A Short Tale",
+      author: "701e20bb-3aba-4d4b-9f6c-436762886d58",
+      location: "Nantucket, MA",
+      tags: ["Mice", "Adventure", "Slice of Life"],
+      postedAt: new Date(2024, 6, 15).toISOString(),
+      startDate: new Date(1975, 0, 1).toISOString(),
+      text: "Once upon a time, in a small village, there was a mouse named Squeaky.",
+    },
     {
       id: "bd685d19-9dcf-4dd6-aae2-f5cda5791287",
       title: "Meeting my Wife",
@@ -204,6 +216,16 @@ export default function App() {
                 name="Login"
                 component={Login}
                 options={{ headerShown: false, presentation: "modal" }}
+              />
+              <Stack.Screen 
+                name="NewComment"
+                component={NewComment}
+                options={{ headerTitle: "Comment" }}
+              />
+              <Stack.Screen 
+                name="ViewComments"
+                component={ViewComments}
+                options={{ headerTitle: "Comments" }}
               />
             </Stack.Navigator>
             <NavBar currentScreen={currentScreen} />
