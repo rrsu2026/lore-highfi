@@ -18,8 +18,8 @@ const ViewStory = ({ navigation, route }) => {
           By{" "}
           {db.users.find((user) => user.id == route.params.story.authorId).name}
         </Text>
-        {user.id === route.params.story.authorId && (
-          <View style={styles.row}>
+        <View style={styles.row}>
+          {user.id === route.params.story.authorId && (
             <Pressable
               style={styles.button}
               onPress={() =>
@@ -32,6 +32,8 @@ const ViewStory = ({ navigation, route }) => {
             >
               <Text style={styles.buttonText}>Edit</Text>
             </Pressable>
+          )}
+          {user.id === route.params.story.authorId && (
             <Pressable
               style={styles.button}
               onPress={() =>
@@ -40,8 +42,12 @@ const ViewStory = ({ navigation, route }) => {
             >
               <Text style={styles.buttonText}>View Responses</Text>
             </Pressable>
-          </View>
-        )}
+          )}
+
+          <Pressable style={styles.button} onPress={() => navigation.navigate("NewComment", { story: route.params.story })} >
+            <Text style={styles.buttonText}>Comment</Text>
+          </Pressable>
+        </View>
         <View style={styles.spaceSaveCont}>
           <Text style={styles.infoText}>
             {route.params.story.startDate
@@ -76,9 +82,6 @@ const ViewStory = ({ navigation, route }) => {
       {route.params.story.video && (
         <StoryVideo video={route.params.story.video} />
       )}
-      <Pressable style={styles.button} onPress={() => navigation.navigate("NewComment", { story: route.params.story })} >
-        <Text style={styles.buttonText}>Comment</Text>
-      </Pressable>
     </View>
   );
 };
