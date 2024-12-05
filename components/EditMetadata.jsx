@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
   inputCont: {
     flexDirection: "column",
     justifyContent: "center",
-    gap: 15,
+    gap: 20,
   },
   datesCont: {
     flexDirection: "row",
