@@ -1,17 +1,29 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { View, Text, Button, TextInput } from 'react-native';
 
 const NewComment = ({ navigation, route }) => {
   const [text, setText] = useState("");
+  const [db, setDb] = useContext(FakeDatabaseContext);
+  const [created, setCreated] = useState(false);
 
   function createComment() {
-    if (!route.params.story.comments) {
-      route.params.story["comments"] = [];
-      console.log("story", route.params.story);
-    }
-    route.params.story.comments.push({ text });
-    console.log("updated story", route.params.story);
+    const dbClone = structuredClone(db);
+    dbClone.stories.find(story =>
+      story.id === route.params.story.id
+    ).comments.push({ text });
+    setDb(dbClone);
+    setCreated(true);
   }
+
+  useEffect(() => {
+    if (created) {
+      navigation.navigate("ViewComments", {
+        story: db.stories.find(story =>
+          story.id === route.params.story.id
+        )
+      });
+    }
+  }, [created]);
 
   return (
     <View>
@@ -19,15 +31,9 @@ const NewComment = ({ navigation, route }) => {
         Write a comment
         <TextInput onChangeText={setText} />
       </Text>
-      <Button title="Save" onPress={() => {
-        createComment();
-        navigation.navigate("ViewComments", { story: route.params.story });
-      }} />
+      <Button title="Save" onPress={createComment} />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-});
 
 export default NewComment;
