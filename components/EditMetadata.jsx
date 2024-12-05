@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
   makeVisText: {
     fontSize: 20,
     fontWeight: "300",
-    marginBottom: "5%"
+    marginVertical: "5%"
   },
   inputCont: {
     flexDirection: "column",
