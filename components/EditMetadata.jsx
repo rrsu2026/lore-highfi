@@ -132,6 +132,7 @@ const EditMetadata = ({ navigation, route }) => {
     newStory.id = uuid.v4();
     newStory.author = user.id;
     newStory.postedAt = new Date().toISOString();
+    newStory.comments = [];
     // these get set through the form
     newStory.title = title;
     newStory.startDate = startDate.toISOString();
