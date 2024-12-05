@@ -122,7 +122,6 @@ const EditMetadata = ({ navigation, route }) => {
       updated.image = existingStory.image;
       updated.audio = soundUri;
       db.stories[db.stories.indexOf(existingStory)] = updated;
-      console.log("updated:", db);
       return;
     }
 
@@ -164,13 +163,13 @@ const EditMetadata = ({ navigation, route }) => {
       <Text style={styles.catText}>
         Start Date 
       </Text>
-      <DateTimePicker type="date" value={startDate} />
+      <DateTimePicker type="date" value={startDate} onChange={(_, date) => setStartDate(date)} />
       </View>
       <View style={styles.inputCont}>
       <Text style={styles.catText}>
-        End Date (optional) 
+        End Date (optional)
       </Text>
-      <DateTimePicker type="date" value={endDate} />
+      <DateTimePicker type="date" value={endDate} onChange={(_, date) => setEndDate(date)} />
       </View>
       </View>
       {text && <Text>{text}</Text>}
