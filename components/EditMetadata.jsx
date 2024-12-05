@@ -11,6 +11,8 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { Audio } from "expo-av";
 import AuthenticationContext from "./AuthenticationContext";
 import uuid from "react-native-uuid";
+import theme from "../Theme";
+
 
 const EditMetadata = ({ navigation, route }) => {
   const user = useContext(AuthenticationContext);
@@ -143,18 +145,20 @@ const EditMetadata = ({ navigation, route }) => {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.inputCont}>
       <Text style={styles.catText}>
         Title
         </Text>
         <TextInput
           style={styles.inputStyle}
+          placeholder="Enter your title here..."
           onChangeText={setTitle}
           defaultValue={title}
         />
 
       </View>
+      <View style={styles.datesCont}>
       <View style={styles.inputCont}>
       <Text style={styles.catText}>
         Start Date 
@@ -167,79 +171,131 @@ const EditMetadata = ({ navigation, route }) => {
       </Text>
       <DateTimePicker type="date" value={endDate} />
       </View>
+      </View>
       {text && <Text>{text}</Text>}
       {soundUri && <Button title="Play Audio" onPress={playSound} />}
       {/* TODO: preview for video */}
-      <View>
-        <Text>Make Visible to</Text>
-        <Pressable
-          onPress={() => setVisibility("Public")}
-          style={styles.radioButton}
-        >
-          <View style={styles.radioCircle}>
-            {visibility === "Public" && <View style={styles.selectedCircle} />}
-          </View>
-          <Text>Public</Text>
-        </Pressable>
-        <Pressable
-          onPress={() => setVisibility("Circle")}
-          style={styles.radioButton}
-        >
-          <View style={styles.radioCircle}>
-            {visibility === "Circle" && <View style={styles.selectedCircle} />}
-          </View>
-          <Text>Circle</Text>
-        </Pressable>
-      </View>
-      <Button
-        title="Confirm"
-        onPress={() => {
+      <Text style={styles.makeVisText}>Make Visible to...</Text>
+      <View style={styles.publicCont}>  
+  <Pressable
+    onPress={() => setVisibility("Public")}
+    style={[
+      styles.button,
+      visibility === "Public" && styles.selectedButton,
+    ]}
+  >
+    <Text
+      style={[
+        styles.buttonText,
+        visibility === "Public" && styles.buttonText, 
+      ]}
+    >
+      Public
+    </Text>
+  </Pressable>
+
+  <Pressable
+    onPress={() => setVisibility("Circle")}
+    style={[
+      styles.button,
+      visibility === "Circle" && styles.selectedButton, // Change color when selected
+    ]}
+  >
+    <Text
+      style={[
+        styles.buttonText,
+        visibility === "Circle" && styles.buttonText, 
+      ]}
+    >
+      Circle
+    </Text>
+  </Pressable>
+</View>
+
+      <View style={styles.centCont}>
+      <Pressable style={styles.button} onPress={() => {
           createOrUpdateStory();
           navigation.navigate("MyStories");
-        }}
-      />
+        }}>
+          <Text style={styles.buttonText}>Confirm</Text>
+
+        </Pressable>
+        </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  radioButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 5,
+  container: {
+    flex: 1,
+    margin: "2%"
   },
-  radioCircle: {
-    height: 20,
-    width: 20,
-    borderRadius: 10,
-    borderWidth: 2,
+  button: {
+    backgroundColor: "#FCD385",
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: "1%",
+    borderWidth: 2.5,
     borderColor: "#000",
     alignItems: "center",
     justifyContent: "center",
-    marginRight: 10,
+    width: "45%",
+    marginBottom: 10,
   },
-  selectedCircle: {
-    height: 10,
-    width: 10,
-    borderRadius: 5,
-    backgroundColor: "#000",
+  buttonText: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#000",
   },
+    radioButton: {
+      padding: 10,
+      borderRadius: 8,
+      borderWidth: 1,
+      borderColor: "#ccc",
+      backgroundColor: theme.colors.primaryColor1, 
+      alignItems: "center",
+      margin: 10,
+    },
+    selectedButton: {
+      backgroundColor: theme.colors.x11Gray, 
+    },
   inputStyle: {
     borderWidth: 2.5,
     borderColor: "#000",
     padding: 10,
     marginVertical: 10,
+    marginHorizontal: 10,
     color: "#000",
     backgroundColor: "#fff",
-    width: "90%",
   },
   catText: {
     fontSize: 16,
-    fontWeight: "bold"
+    fontWeight: "bold",
+  },
+  makeVisText: {
+    fontSize: 20,
+    fontWeight: "300",
+    marginBottom: "5%"
   },
   inputCont: {
     flexDirection: "column",
     justifyContent: "center",
+    gap: 15,
+  },
+  datesCont: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start"
+  },
+  publicCont: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    marginBottom: "25%",
+  },
+  centCont: {
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
 
