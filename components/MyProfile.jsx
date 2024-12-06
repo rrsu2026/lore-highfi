@@ -10,6 +10,8 @@ import {
 import AuthenticationContext from "./AuthenticationContext";
 import { FontAwesome } from "@expo/vector-icons";
 import Tag from "./Tag.jsx";
+import theme from "../Theme";
+
 
 const MyProfile = ({ navigation }) => {
   const user = useContext(AuthenticationContext);
@@ -201,7 +203,7 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   signOutButton: {
-    backgroundColor: "#FF6347",
+    backgroundColor: theme.colors.complementColor2,
     borderRadius: 8,
     paddingVertical: 12,
     alignItems: "center",
@@ -211,7 +213,7 @@ const styles = StyleSheet.create({
   signOutButtonText: {
     fontSize: 16,
     fontWeight: "600",
-    color: "#FFF",
+    color: "black",
   },
 });
 

@@ -136,9 +136,8 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   suggestionButton: {
-    backgroundColor: "#FCD385",
+    backgroundColor: theme.colors.complementColor1,
     borderRadius: 8,
-    borderWidth: 2.5,
     paddingVertical: 8,
     paddingHorizontal: 12,
     marginBottom: 8,

@@ -197,8 +197,9 @@ export default function App() {
                 component={StartVideoRecording}
                 options={{ headerTitle: "" }}
               />
-              <Stack.Screen name="RecordVideo" component={RecordVideo} />
-              <Stack.Screen name="RecordAudio" component={RecordAudio} />
+              <Stack.Screen name="RecordVideo" component={RecordVideo} options={{ headerTitle: "" }}
+              />
+              <Stack.Screen name="RecordAudio" component={RecordAudio} options={{ headerTitle: "" }}/>
               <Stack.Screen
                 name="ViewStory"
                 component={ViewStory}
@@ -207,12 +208,14 @@ export default function App() {
                   headerTitle: "",
                 }}
               />
-              <Stack.Screen name="EditMetadata" component={EditMetadata} />
-              <Stack.Screen name="MyStories" component={MyStories} />
-              <Stack.Screen name="Scan" component={Scan} />
+              <Stack.Screen name="EditMetadata" component={EditMetadata} options={{ headerTitle: "" }}
+              />
+              <Stack.Screen name="MyStories" component={MyStories} options={{ headerTitle: "" }}/>
+              <Stack.Screen name="Scan" component={Scan} options={{ headerTitle: "" }}/>
               <Stack.Screen
                 name="EditWrittenStory"
                 component={EditWrittenStory}
+                options={{ headerTitle: "" }}
               />
               <Stack.Screen
                 name="SliceOfLifeSearch"

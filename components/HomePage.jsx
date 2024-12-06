@@ -12,6 +12,14 @@ const HomePage = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerCont}>
+      </View>
+      <Text style={styles.subAuthorText}>Stories From Subscribed Authors:</Text>
+
+      <TabbedCardList
+        style={styles.container}
+        navigation={navigation}
+        stories={db.stories}
+      />
         <Pressable
           style={styles.shareStoryButton}
           onPress={() => navigation.navigate("StoryFormatChoice")}
@@ -24,14 +32,6 @@ const HomePage = ({ navigation }) => {
           />
           <Text style={styles.shareStoryText}>Share Your Story</Text>
         </Pressable>
-      </View>
-      <Text style={styles.subAuthorText}>Stories From Subscribed Authors:</Text>
-
-      <TabbedCardList
-        style={styles.container}
-        navigation={navigation}
-        stories={db.stories}
-      />
     </SafeAreaView>
   );
 };
@@ -49,17 +49,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  shareStoryButton: {
+shareStoryButton: {
+    position: "absolute",
+    bottom: 100,
+    alignSelf: "center",
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: theme.colors.complementColor2,
     width: "60%",
     borderRadius: 10,
-    marginVertical: "5%",
     paddingVertical: "4%",
     paddingHorizontal: 20,
     borderWidth: 3,
     borderColor: "#000",
+    zIndex: 1,
   },
   shareStoryText: {
     fontSize: 16,
@@ -67,12 +70,12 @@ const styles = StyleSheet.create({
     fontWeight: "semibold",
   },
   subAuthorText: {
-    fontSize: 16,
+    fontSize: 18,
     color: "black",
     fontWeight: "500",
     textAlign: "left",
     marginLeft: "5%",
-    marginBottom: "3%",
+    marginVertical: "5%",
   },
   icon: {
     marginRight: 10,

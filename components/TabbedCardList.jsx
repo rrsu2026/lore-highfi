@@ -9,7 +9,7 @@ const Tabs = createMaterialTopTabNavigator();
 
 const TabbedCardList = ({ navigation, stories }) => {
   return (
-    <View style={{ minHeight: 1000 }}>
+    <View style={{ minHeight: 1150 }}>
       <Tabs.Navigator
         screenOptions={{
           tabBarStyle: {
