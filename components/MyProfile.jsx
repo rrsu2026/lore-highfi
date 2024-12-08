@@ -15,7 +15,7 @@ import theme from "../Theme";
 
 
 const MyProfile = ({ navigation }) => {
-  const user = useContext(AuthenticationContext);
+  const [user, setUser] = useContext(AuthenticationContext);
 
   const signOut = () => {
     Alert.alert(

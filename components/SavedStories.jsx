@@ -6,7 +6,7 @@ import AuthenticationContext from './AuthenticationContext';
 
 const SavedStories = ({ navigation }) => {
   const [db, setDb] = useContext(FakeDatabaseContext);
-  const user = useContext(AuthenticationContext);
+  const [user, setUser] = useContext(AuthenticationContext);
   return (
     <View style={styles.container}>
       <TabbedCardList navigation={navigation} stories={db.stories.filter((s) => user.savedStories.includes(s.id))} />

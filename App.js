@@ -158,7 +158,7 @@ export default function App() {
     db.users.find((user) => user.id === defaultUser)
   );
   return (
-    <AuthenticationContext.Provider value={loggedInUser}>
+    <AuthenticationContext.Provider value={[loggedInUser, setLoggedInUser]}>
       <FakeDatabaseContext.Provider value={[db, setDb]}>
         <NavigationContainer
           onStateChange={(state) => {

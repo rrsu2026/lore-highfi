@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { View, Text, StyleSheet} from 'react-native';
 
 const NewComment = ({ navigation, route }) => {
-  const user = useContext(AuthenticationContext);
+  const [user, setUser] = useContext(AuthenticationContext);
   const [db, setDb] = useContext(FakeDatabaseContext);
   const comment = route.params.story.comments.find(comment =>
     comment.authorId === user.id

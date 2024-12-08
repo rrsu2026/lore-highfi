@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Button, TextInput, Pressable } from 'react-nati
 const NewComment = ({ navigation, route }) => {
   const [text, setText] = useState("");
   const [db, setDb] = useContext(FakeDatabaseContext);
-  const user = useContext(AuthenticationContext);
+  const [user, setUser] = useContext(AuthenticationContext);
   const [created, setCreated] = useState(false);
 
   function createComment() {

@@ -9,7 +9,7 @@ import Tag from "./Tag.jsx";
 
 const ViewStory = ({ navigation, route }) => {
   const [db, setDb] = useContext(FakeDatabaseContext);
-  const user = useContext(AuthenticationContext);
+  const [user, setUser] = useContext(AuthenticationContext);
   const [saved, setSaved] = useState(false); // Gotta put this in local state to make the button reactive
 
   useEffect(() => {
@@ -55,7 +55,9 @@ const ViewStory = ({ navigation, route }) => {
           </Pressable>
           {saved ?
             <Pressable style={styles.button} onPress={() => {
-              user.savedStories = user.savedStories.filter((id) => id !== route.params.story.id);
+              const userClone = JSON.parse(JSON.stringify(user));
+              userClone.savedStories = userClone.savedStories.filter((id) => id !== route.params.story.id);
+              setUser(userClone);
               setSaved(false);
             }
             } >
@@ -63,7 +65,9 @@ const ViewStory = ({ navigation, route }) => {
             </Pressable>
             :
             <Pressable style={styles.button} onPress={() => {
-              user.savedStories.push(route.params.story.id);
+              const userClone = JSON.parse(JSON.stringify(user));
+              userClone.savedStories.push(route.params.story.id);
+              setUser(userClone);
               setSaved(true);
             }
             } >

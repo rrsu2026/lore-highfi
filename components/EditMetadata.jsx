@@ -18,7 +18,7 @@ import theme from "../Theme";
 
 
 const EditMetadata = ({ navigation, route }) => {
-  const user = useContext(AuthenticationContext);
+  const [user, setUser] = useContext(AuthenticationContext);
   const [db, setDb] = useContext(FakeDatabaseContext);
 
   const [title, setTitle] = useState("");

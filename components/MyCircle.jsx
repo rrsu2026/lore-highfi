@@ -5,7 +5,7 @@ import UserList from './UserList';
 
 const MyCircle = ({ navigation }) => {
   const [db, setDb] = useContext(FakeDatabaseContext);
-  const loggedInUser = useContext(AuthenticationContext);
+  const [loggedInUser, setLoggedInUser] = useContext(AuthenticationContext);
   return (
     <View style={styles.container}>
       <Text>My Circle</Text>
