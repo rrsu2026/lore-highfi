@@ -19,6 +19,7 @@ const EditMetadata = ({ navigation, route }) => {
   const [db, setDb] = useContext(FakeDatabaseContext);
 
   const [title, setTitle] = useState("");
+  const [location, setLocation] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
@@ -77,9 +78,9 @@ const EditMetadata = ({ navigation, route }) => {
   useEffect(() => {
     return sound
       ? () => {
-          console.log("Unloading Sound");
-          sound.unloadAsync();
-        }
+        console.log("Unloading Sound");
+        sound.unloadAsync();
+      }
       : undefined;
   }, [sound]);
 
@@ -111,9 +112,11 @@ const EditMetadata = ({ navigation, route }) => {
       updated.id = existingStory.id;
       updated.authorId = existingStory.authorId;
       updated.postedAt = existingStory.postedAt;
+      updated.comments = existingStory.comments;
 
       // these get set through the form
       updated.title = title;
+      updated.location = location;
       updated.startDate = startDate;
       updated.endDate = endDate;
 
@@ -134,6 +137,7 @@ const EditMetadata = ({ navigation, route }) => {
     newStory.comments = [];
     // these get set through the form
     newStory.title = title;
+    newStory.location = location;
     newStory.startDate = startDate.toISOString();
     newStory.endDate = endDate.toISOString();
     // these differ per type of story
@@ -147,8 +151,8 @@ const EditMetadata = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <View style={styles.inputCont}>
-      <Text style={styles.catText}>
-        Title
+        <Text style={styles.catText}>
+          Title
         </Text>
         <TextInput
           style={styles.inputStyle}
@@ -157,70 +161,80 @@ const EditMetadata = ({ navigation, route }) => {
           defaultValue={title}
         />
 
+      </View><View style={styles.inputCont}>
+        <Text style={styles.catText}>
+          Location
+        </Text>
+        <TextInput
+          style={styles.inputStyle}
+          placeholder="Enter your location here..."
+          onChangeText={setLocation}
+          defaultValue={location}
+        />
+
       </View>
       <View style={styles.datesCont}>
-      <View style={styles.inputCont}>
-      <Text style={styles.catText}>
-        Start Date 
-      </Text>
-      <DateTimePicker type="date" value={startDate} onChange={(_, date) => setStartDate(date)} />
-      </View>
-      <View style={styles.inputCont}>
-      <Text style={styles.catText}>
-        End Date (optional)
-      </Text>
-      <DateTimePicker type="date" value={endDate} onChange={(_, date) => setEndDate(date)} />
-      </View>
+        <View style={styles.inputCont}>
+          <Text style={styles.catText}>
+            Start Date
+          </Text>
+          <DateTimePicker type="date" value={startDate} onChange={(_, date) => setStartDate(date)} />
+        </View>
+        <View style={styles.inputCont}>
+          <Text style={styles.catText}>
+            End Date (optional)
+          </Text>
+          <DateTimePicker type="date" value={endDate} onChange={(_, date) => setEndDate(date)} />
+        </View>
       </View>
       {text && <Text>{text}</Text>}
       {soundUri && <Button title="Play Audio" onPress={playSound} />}
       {/* TODO: preview for video */}
       <Text style={styles.makeVisText}>Make Visible to...</Text>
-      <View style={styles.publicCont}>  
-  <Pressable
-    onPress={() => setVisibility("Public")}
-    style={[
-      styles.button,
-      visibility === "Public" && styles.selectedButton,
-    ]}
-  >
-    <Text
-      style={[
-        styles.buttonText,
-        visibility === "Public" && styles.buttonText, 
-      ]}
-    >
-      Public
-    </Text>
-  </Pressable>
+      <View style={styles.publicCont}>
+        <Pressable
+          onPress={() => setVisibility("Public")}
+          style={[
+            styles.button,
+            visibility === "Public" && styles.selectedButton,
+          ]}
+        >
+          <Text
+            style={[
+              styles.buttonText,
+              visibility === "Public" && styles.buttonText,
+            ]}
+          >
+            Public
+          </Text>
+        </Pressable>
 
-  <Pressable
-    onPress={() => setVisibility("Circle")}
-    style={[
-      styles.button,
-      visibility === "Circle" && styles.selectedButton, // Change color when selected
-    ]}
-  >
-    <Text
-      style={[
-        styles.buttonText,
-        visibility === "Circle" && styles.buttonText, 
-      ]}
-    >
-      Circle
-    </Text>
-  </Pressable>
-</View>
-
+        <Pressable
+          onPress={() => setVisibility("Circle")}
+          style={[
+            styles.button,
+            visibility === "Circle" && styles.selectedButton, // Change color when selected
+          ]}
+        >
+          <Text
+            style={[
+              styles.buttonText,
+              visibility === "Circle" && styles.buttonText,
+            ]}
+          >
+            Circle
+          </Text>
+        </Pressable>
+      </View>
       <View style={styles.centCont}>
-      <Pressable style={styles.button} onPress={() => {
+        <Pressable style={styles.button} onPress={() => {
           createOrUpdateStory();
           navigation.navigate("MyStories");
         }}>
           <Text style={styles.buttonText}>Confirm</Text>
 
         </Pressable>
-        </View>
+      </View>
     </View>
   );
 };
@@ -247,18 +261,18 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: "#000",
   },
-    radioButton: {
-      padding: 10,
-      borderRadius: 8,
-      borderWidth: 1,
-      borderColor: "#ccc",
-      backgroundColor: theme.colors.primaryColor1, 
-      alignItems: "center",
-      margin: 10,
-    },
-    selectedButton: {
-      backgroundColor: theme.colors.x11Gray, 
-    },
+  radioButton: {
+    padding: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    backgroundColor: theme.colors.primaryColor1,
+    alignItems: "center",
+    margin: 10,
+  },
+  selectedButton: {
+    backgroundColor: theme.colors.x11Gray,
+  },
   inputStyle: {
     borderWidth: 2.5,
     borderColor: "#000",
