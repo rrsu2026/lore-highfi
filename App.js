@@ -31,6 +31,7 @@ import ViewComment from "./components/ViewComment.jsx";
 import NavBar from "./components/Navbar.jsx";
 import MySubscribers from "./components/MySubscribers.jsx";
 import SubscribedAuthors from "./components/SubscribedAuthors.jsx";
+import SavedStories from "./components/SavedStories.jsx";
 
 const fakeDatabase = {
   stories: [
@@ -119,6 +120,10 @@ const fakeDatabase = {
         "6a5bb277-6f10-4e0f-937c-5ef5d1d8f692",
       ],
       subscribedTo: ["a28bfa77-fd2e-4802-834b-0a0f1c76d394"],
+      savedStories: [
+        "c88489ba-d259-4158-8443-5fe0d352a764",
+        "bd685d19-9dcf-4dd6-aae2-f5cda5791287",
+      ]
     },
     {
       id: "a28bfa77-fd2e-4802-834b-0a0f1c76d394",
@@ -260,6 +265,11 @@ export default function App() {
                 name="SubscribedAuthors"
                 component={SubscribedAuthors}
                 options={{ headerTitle: "Subscribed Authors" }}
+              />
+              <Stack.Screen
+                name="SavedStories"
+                component={SavedStories}
+                options={{ headerTitle: "Saved Stories" }}
               />
             </Stack.Navigator>
             {currentScreen !== "Login" && <NavBar currentScreen={currentScreen} />}
