@@ -9,7 +9,7 @@ import {
   Keyboard,
   ScrollView,
   TouchableWithoutFeedback
-} from "react-native";
+ } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Audio } from "expo-av";
 import AuthenticationContext from "./AuthenticationContext";
@@ -18,14 +18,13 @@ import theme from "../Theme";
 
 
 const EditMetadata = ({ navigation, route }) => {
-  const [user, setUser] = useContext(AuthenticationContext);
+  const user = useContext(AuthenticationContext);
   const [db, setDb] = useContext(FakeDatabaseContext);
 
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [tags, setTags] = useState([]);
 
   const [text, setText] = useState("");
   const [soundUri, setSoundUri] = useState("");
@@ -40,8 +39,6 @@ const EditMetadata = ({ navigation, route }) => {
   useEffect(() => {
     if (route.params.partialWrittenStory) {
       setTitle(route.params.partialWrittenStory.title);
-      setLocation(route.params.partialWrittenStory.location);
-      setTags(route.params.partialWrittenStory.tags);
       setStartDate(
         route.params.partialWrittenStory.startDate
           ? new Date(route.params.partialWrittenStory.startDate)
@@ -55,8 +52,6 @@ const EditMetadata = ({ navigation, route }) => {
       setText(route.params.partialWrittenStory.text);
     } else if (route.params.partialAudioStory) {
       setTitle(route.params.partialAudioStory.title);
-      setLocation(route.params.partialAudioStory.location);
-      setTags(route.params.partialAudioStory.tags);
       setStartDate(
         route.params.partialAudioStory.startDate
           ? new Date(route.params.partialAudioStory.startDate)
@@ -70,8 +65,6 @@ const EditMetadata = ({ navigation, route }) => {
       setSoundUri(route.params.partialAudioStory.uri);
     } else if (route.params.partialVideoStory) {
       setTitle(route.params.partialVideoStory.title);
-      setLocation(route.params.partialVideoStory.location);
-      setTags(route.params.partialVideoStory.tags);
       setStartDate(
         route.params.partialVideoStory.startDate
           ? new Date(route.params.partialVideoStory.startDate)
@@ -133,7 +126,6 @@ const EditMetadata = ({ navigation, route }) => {
       updated.location = location;
       updated.startDate = startDate;
       updated.endDate = endDate;
-      updated.tags = tags;
 
       // these differ per type of story
       updated.text = text;
@@ -155,7 +147,6 @@ const EditMetadata = ({ navigation, route }) => {
     newStory.location = location;
     newStory.startDate = startDate.toISOString();
     newStory.endDate = endDate.toISOString();
-    newStory.tags = tags;
     // these differ per type of story
     newStory.text = text;
     newStory.image = route.params.partialWrittenStory?.image;
@@ -166,29 +157,29 @@ const EditMetadata = ({ navigation, route }) => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        <ScrollView>
-          <View style={styles.inputCont}>
-            <Text style={styles.catText}>
-              Title
-            </Text>
-            <TextInput
-              style={styles.inputStyle}
-              placeholder="Enter your title here..."
-              onChangeText={setTitle}
-              defaultValue={title}
-            />
+    <View style={styles.container}>
+    <ScrollView>
+      <View style={styles.inputCont}>
+        <Text style={styles.catText}>
+          Title
+        </Text>
+        <TextInput
+          style={styles.inputStyle}
+          placeholder="Enter your title here..."
+          onChangeText={setTitle}
+          defaultValue={title}
+        />
 
-          </View><View style={styles.inputCont}>
-            <Text style={styles.catText}>
-              Location
-            </Text>
-            <TextInput
-              style={styles.inputStyle}
-              placeholder="Enter your location here..."
-              onChangeText={setLocation}
-              defaultValue={location}
-            />
+      </View><View style={styles.inputCont}>
+        <Text style={styles.catText}>
+          Location
+        </Text>
+        <TextInput
+          style={styles.inputStyle}
+          placeholder="Enter your location here..."
+          onChangeText={setLocation}
+          defaultValue={location}
+        />
 
       </View>
       <View style={styles.datesCont}>
@@ -260,34 +251,34 @@ const EditMetadata = ({ navigation, route }) => {
           </Text>
         </Pressable>
 
-            <Pressable
-              onPress={() => setVisibility("Circle")}
-              style={[
-                styles.button,
-                visibility === "Circle" && styles.selectedButton, // Change color when selected
-              ]}
-            >
-              <Text
-                style={[
-                  styles.buttonText,
-                  visibility === "Circle" && styles.buttonText,
-                ]}
-              >
-                Circle
-              </Text>
-            </Pressable>
-          </View>
-          <View style={styles.centCont}>
-            <Pressable style={styles.button} onPress={() => {
-              createOrUpdateStory();
-              navigation.navigate("MyStories");
-            }}>
-              <Text style={styles.buttonText}>Confirm</Text>
-
-            </Pressable>
-          </View>
-        </ScrollView>
+        <Pressable
+          onPress={() => setVisibility("Circle")}
+          style={[
+            styles.button,
+            visibility === "Circle" && styles.selectedButton, // Change color when selected
+          ]}
+        >
+          <Text
+            style={[
+              styles.buttonText,
+              visibility === "Circle" && styles.buttonText,
+            ]}
+          >
+            Circle
+          </Text>
+        </Pressable>
       </View>
+      <View style={styles.centCont}>
+        <Pressable style={styles.button} onPress={() => {
+          createOrUpdateStory();
+          navigation.navigate("MyStories");
+        }}>
+          <Text style={styles.buttonText}>Confirm</Text>
+
+        </Pressable>
+      </View>
+      </ScrollView>
+    </View>
     </TouchableWithoutFeedback>
   );
 };
@@ -332,7 +323,7 @@ const styles = StyleSheet.create({
     borderWidth: 2.5,
     borderColor: "#000",
     padding: 10,
-    marginVertical: 5,
+    marginVertical: 10,
     marginHorizontal: 10,
     color: "#000",
     backgroundColor: "#fff",
@@ -350,7 +341,7 @@ const styles = StyleSheet.create({
   inputCont: {
     flexDirection: "column",
     justifyContent: "center",
-    gap: 10,
+    gap: 20,
   },
   datesCont: {
     flexDirection: "row",
@@ -361,7 +352,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
-    marginBottom: "7%",
+    marginBottom: "25%",
   },
   centCont: {
     alignItems: "center",
@@ -375,12 +366,12 @@ const styles = StyleSheet.create({
   tagsContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    marginVertical: 5,
+    marginVertical: 10,
   },
   tag: {
-    backgroundColor: theme.colors.complementColor2,
+    backgroundColor: theme.colors.primaryColor1,
     borderRadius: 12,
-    paddingVertical: 2,
+    paddingVertical: 5,
     paddingHorizontal: 10,
     marginRight: 8,
     marginBottom: 8,
