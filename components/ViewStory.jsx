@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, Text, StyleSheet, Button, Pressable } from "react-native";
+import { View, Text, StyleSheet, Button, Pressable, Image } from "react-native";
 import { format } from "date-fns";
 import StoryText from "./StoryText";
 import StoryAudio from "./StoryAudio";
@@ -75,7 +75,8 @@ const ViewStory = ({ navigation, route }) => {
           </View>
         }
       </View>
-      {route.params.story.text && <StoryText text={route.params.story.text} />}
+      {route.params.story.image && <Image source={{ uri: route.params.story.image }} style={styles.image} />}
+      {route.params.story.text || route.params.story.image && <StoryText text={route.params.story.text} />}
       {route.params.story.audio && (
         <StoryAudio audio={route.params.story.audio} />
       )}
@@ -87,6 +88,12 @@ const ViewStory = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
+  image: {
+    width: "100%",
+    aspectRatio: 16 / 9,
+    resizeMode: "contain",
+    marginVertical: "1rem",
+  },
   responseNotif: {
     flexDirection: "row",
     alignItems: "center",
