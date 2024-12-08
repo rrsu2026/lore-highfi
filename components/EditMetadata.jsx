@@ -32,6 +32,10 @@ const EditMetadata = ({ navigation, route }) => {
 
   const [visibility, setVisibility] = useState("Public");
 
+  const [tags, setTags] = useState([]);
+  const [newTag, setNewTag] = useState("");
+
+
   useEffect(() => {
     if (route.params.partialWrittenStory) {
       setTitle(route.params.partialWrittenStory.title);
@@ -192,10 +196,43 @@ const EditMetadata = ({ navigation, route }) => {
           <DateTimePicker type="date" value={endDate} onChange={(_, date) => setEndDate(date)} />
         </View>
       </View>
+      <View style={styles.inputCont}>
+  <Text style={styles.catText}>Tags</Text>
+  <View style={styles.row}>
+    <TextInput
+      style={styles.inputStyle}
+      placeholder="Add a tag..."
+      value={newTag}
+      onChangeText={setNewTag}
+    />
+    <Pressable
+      style={styles.addButton}
+      onPress={() => {
+        if (newTag.trim() && !tags.includes(newTag.trim())) {
+          setTags((prevTags) => [...prevTags, newTag.trim()]);
+          setNewTag("");
+        }
+      }}
+    >
+      <Text style={styles.buttonText}>Add</Text>
+    </Pressable>
+  </View>
+  <View style={styles.tagsContainer}>
+    {tags.map((tag, index) => (
+      <View key={index} style={styles.tag}>
+        <Text style={styles.tagText}>{tag}</Text>
+        <Pressable onPress={() => setTags(tags.filter((t) => t !== tag))}>
+          <Text style={styles.removeTag}>✕</Text>
+        </Pressable>
+      </View>
+    ))}
+  </View>
+</View>
+
       {text && <Text>{text}</Text>}
       {soundUri && <Button title="Play Audio" onPress={playSound} />}
       {/* TODO: preview for video */}
-      <Text style={styles.makeVisText}>Make Visible to...</Text>
+      <Text style={styles.catText}>Make Visible to...</Text>
       <View style={styles.publicCont}>
         <Pressable
           onPress={() => setVisibility("Public")}
@@ -262,6 +299,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "45%",
     marginBottom: 10,
+    marginTop: "3%",
   },
   buttonText: {
     fontSize: 16,
@@ -279,12 +317,13 @@ const styles = StyleSheet.create({
   },
   selectedButton: {
     backgroundColor: theme.colors.x11Gray,
+    marginTop: "3%",
   },
   inputStyle: {
     borderWidth: 2.5,
     borderColor: "#000",
     padding: 10,
-    marginVertical: 10,
+    marginVertical: 5,
     marginHorizontal: 10,
     color: "#000",
     backgroundColor: "#fff",
@@ -292,6 +331,7 @@ const styles = StyleSheet.create({
   catText: {
     fontSize: 16,
     fontWeight: "bold",
+    paddingTop: "2%",
   },
   makeVisText: {
     fontSize: 20,
@@ -312,12 +352,52 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
-    marginBottom: "25%",
+    marginBottom: "7%",
   },
   centCont: {
     alignItems: "center",
     justifyContent: "center"
-  }
+  },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  tagsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginVertical: 5,
+  },
+  tag: {
+    backgroundColor: theme.colors.complementColor2,
+    borderRadius: 12,
+    paddingVertical: 2,
+    paddingHorizontal: 10,
+    marginRight: 8,
+    marginBottom: 8,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  tagText: {
+    color: "#000",
+    fontSize: 14,
+    fontWeight: "500",
+    marginRight: 8,
+  },
+  removeTag: {
+    color: "red",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  addButton: {
+    backgroundColor: "#FCD385",
+    padding: 10,
+    borderRadius: 8,
+    marginLeft: 10,
+    borderWidth: 2.5,
+    borderColor: "#000",
+  },
+  
 });
 
 export default EditMetadata;
