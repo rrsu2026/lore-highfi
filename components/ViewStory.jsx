@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text, StyleSheet, Button, Pressable, Image } from "react-native";
 import { format } from "date-fns";
 import StoryText from "./StoryText";
@@ -9,7 +9,8 @@ import Tag from "./Tag.jsx";
 
 const ViewStory = ({ navigation, route }) => {
   const [db, setDb] = useContext(FakeDatabaseContext);
-  const user = useContext(AuthenticationContext);
+  const [user, setUser] = useContext(AuthenticationContext);
+  
   return (
     <View style={styles.container}>
       <View style={styles.headerCont}>
@@ -47,6 +48,26 @@ const ViewStory = ({ navigation, route }) => {
           <Pressable style={styles.button} onPress={() => navigation.navigate("NewComment", { story: route.params.story })} >
             <Text style={styles.buttonText}>Comment</Text>
           </Pressable>
+          {user.savedStories.includes(route.params.story.id) ?
+            <Pressable style={styles.button} onPress={() => {
+              const userClone = JSON.parse(JSON.stringify(user));
+              userClone.savedStories = userClone.savedStories.filter((id) => id !== route.params.story.id);
+              setUser(userClone);
+            }
+            } >
+              <Text style={styles.buttonText}>Remove from Saved Stories</Text>
+            </Pressable>
+            :
+            <Pressable style={styles.button} onPress={() => {
+              const userClone = JSON.parse(JSON.stringify(user));
+              userClone.savedStories.push(route.params.story.id);
+              setUser(userClone);
+            }
+            } >
+              <Text style={styles.buttonText}>Add to Saved Stories</Text>
+            </Pressable>
+          }
+
         </View>
         <View style={styles.spaceSaveCont}>
           <Text style={styles.infoText}>
@@ -128,6 +149,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     display: "flex",
     flexDirection: "row",
+    flexWrap: "wrap",
   },
   tagsContainer: {
     flexDirection: "row",
