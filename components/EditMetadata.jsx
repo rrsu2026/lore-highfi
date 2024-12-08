@@ -323,7 +323,7 @@ const styles = StyleSheet.create({
     borderWidth: 2.5,
     borderColor: "#000",
     padding: 10,
-    marginVertical: 10,
+    marginVertical: 5,
     marginHorizontal: 10,
     color: "#000",
     backgroundColor: "#fff",
@@ -352,7 +352,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
-    marginBottom: "25%",
+    marginBottom: "7%",
   },
   centCont: {
     alignItems: "center",
@@ -366,12 +366,12 @@ const styles = StyleSheet.create({
   tagsContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    marginVertical: 10,
+    marginVertical: 5,
   },
   tag: {
-    backgroundColor: theme.colors.primaryColor1,
+    backgroundColor: theme.colors.complementColor2,
     borderRadius: 12,
-    paddingVertical: 5,
+    paddingVertical: 2,
     paddingHorizontal: 10,
     marginRight: 8,
     marginBottom: 8,
