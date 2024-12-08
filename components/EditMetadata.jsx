@@ -6,7 +6,10 @@ import {
   Button,
   Pressable,
   TextInput,
-} from "react-native";
+  Keyboard,
+  ScrollView,
+  TouchableWithoutFeedback
+ } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Audio } from "expo-av";
 import AuthenticationContext from "./AuthenticationContext";
@@ -149,7 +152,9 @@ const EditMetadata = ({ navigation, route }) => {
   }
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
+    <ScrollView>
       <View style={styles.inputCont}>
         <Text style={styles.catText}>
           Title
@@ -235,7 +240,9 @@ const EditMetadata = ({ navigation, route }) => {
 
         </Pressable>
       </View>
+      </ScrollView>
     </View>
+    </TouchableWithoutFeedback>
   );
 };
 
