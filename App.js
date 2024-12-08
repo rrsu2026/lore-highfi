@@ -29,6 +29,9 @@ import ViewComments from "./components/ViewComments.jsx";
 import ViewComment from "./components/ViewComment.jsx";
 
 import NavBar from "./components/Navbar.jsx";
+import MySubscribers from "./components/MySubscribers.jsx";
+import SubscribedAuthors from "./components/SubscribedAuthors.jsx";
+import SavedStories from "./components/SavedStories.jsx";
 
 const fakeDatabase = {
   stories: [
@@ -116,10 +119,20 @@ const fakeDatabase = {
         "a28bfa77-fd2e-4802-834b-0a0f1c76d394",
         "6a5bb277-6f10-4e0f-937c-5ef5d1d8f692",
       ],
+      subscribedTo: ["a28bfa77-fd2e-4802-834b-0a0f1c76d394"],
+      savedStories: [
+        "c88489ba-d259-4158-8443-5fe0d352a764",
+        "bd685d19-9dcf-4dd6-aae2-f5cda5791287",
+      ]
     },
     {
       id: "a28bfa77-fd2e-4802-834b-0a0f1c76d394",
       name: "Shelly C.",
+      location: "Chicago, IL",
+      age: 92,
+      tags: ["1940s", "Music", "Storytelling"],
+      about: "I grew up in Chicago during the 1940s and have a deep love for music and storytelling.",
+      subscribedTo: ["6618d3b5-8540-4b84-9ed8-215a7f769ee3"],
     },
     {
       id: "6a5bb277-6f10-4e0f-937c-5ef5d1d8f692",
@@ -128,6 +141,7 @@ const fakeDatabase = {
       age: 78,
       tags: ["1970s", "Teacher"],
       about: "I love talking about Austin, TX and science education!",
+      subscribedTo: ["6618d3b5-8540-4b84-9ed8-215a7f769ee3"],
     },
   ],
 };
@@ -199,7 +213,7 @@ export default function App() {
               />
               <Stack.Screen name="RecordVideo" component={RecordVideo} options={{ headerTitle: "" }}
               />
-              <Stack.Screen name="RecordAudio" component={RecordAudio} options={{ headerTitle: "" }}/>
+              <Stack.Screen name="RecordAudio" component={RecordAudio} options={{ headerTitle: "" }} />
               <Stack.Screen
                 name="ViewStory"
                 component={ViewStory}
@@ -210,8 +224,8 @@ export default function App() {
               />
               <Stack.Screen name="EditMetadata" component={EditMetadata} options={{ headerTitle: "" }}
               />
-              <Stack.Screen name="MyStories" component={MyStories} options={{ headerTitle: "" }}/>
-              <Stack.Screen name="Scan" component={Scan} options={{ headerTitle: "" }}/>
+              <Stack.Screen name="MyStories" component={MyStories} options={{ headerTitle: "" }} />
+              <Stack.Screen name="Scan" component={Scan} options={{ headerTitle: "" }} />
               <Stack.Screen
                 name="EditWrittenStory"
                 component={EditWrittenStory}
@@ -241,6 +255,21 @@ export default function App() {
                 name="ViewComment"
                 component={ViewComment}
                 options={{ headerTitle: "Your Comment" }}
+              />
+              <Stack.Screen
+                name="MySubscribers"
+                component={MySubscribers}
+                options={{ headerTitle: "My Subscribers" }}
+              />
+              <Stack.Screen
+                name="SubscribedAuthors"
+                component={SubscribedAuthors}
+                options={{ headerTitle: "Subscribed Authors" }}
+              />
+              <Stack.Screen
+                name="SavedStories"
+                component={SavedStories}
+                options={{ headerTitle: "Saved Stories" }}
               />
             </Stack.Navigator>
             {currentScreen !== "Login" && <NavBar currentScreen={currentScreen} />}

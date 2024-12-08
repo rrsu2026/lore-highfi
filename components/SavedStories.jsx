@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import TabbedCardList from './TabbedCardList';
 import FakeDatabaseContext from './FakeDatabaseContext';
-import UserList from './UserList';
+import AuthenticationContext from './AuthenticationContext';
 
-const MyCircle = ({ navigation }) => {
+const SavedStories = ({ navigation }) => {
   const [db, setDb] = useContext(FakeDatabaseContext);
-  const loggedInUser = useContext(AuthenticationContext);
+  const user = useContext(AuthenticationContext);
   return (
     <View style={styles.container}>
-      <Text>My Circle</Text>
-      <UserList navigation={navigation} users={db.users.filter((i) => loggedInUser.circle?.includes(i.id))} />
+      <TabbedCardList navigation={navigation} stories={db.stories.filter((s) => user.savedStories.includes(s.id))} />
     </View>
   );
 };
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default MyCircle;
+export default SavedStories;
