@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Pressable, TextInput, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  TextInput,
+  Image,
+  Keyboard,
+  TouchableWithoutFeedback,
+  ScrollView,
+} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import theme from "../Theme";
 
@@ -24,32 +34,38 @@ const EditWrittenStory = ({ navigation, route }) => {
   };
 
   return (
-    <View style={styles.container}>
-      {fromScanPage && (
-        <Text style={styles.warningText}>Please check to make sure this is correct</Text>
-      )}
-      <Text style={styles.label}>Image (Optional)</Text>
-      <Pressable style={styles.imageButton} onPress={pickImage}>
-        <Text style={styles.imageButtonText}>Click to attach</Text>
-      </Pressable>
-      {image && <Image source={{ uri: image }} style={styles.imagePreview} />}
-      <Text style={styles.label}>Text</Text>
-      <TextInput
-        style={styles.textInput}
-        onChangeText={setText}
-        value={text}
-        placeholder="Type your story here..."
-        multiline
-      />
-      <Pressable
-        style={styles.saveButton}
-        onPress={() =>
-          navigation.navigate("EditMetadata", { partialWrittenStory: { image, text } })
-        }
-      >
-        <Text style={styles.saveButtonText}>Save</Text>
-      </Pressable>
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+      <ScrollView>
+        {fromScanPage && (
+          <Text style={styles.warningText}>
+            Please check to make sure this is correct
+          </Text>
+        )}
+        <Text style={styles.label}>Image (Optional)</Text>
+        <Pressable style={styles.imageButton} onPress={pickImage}>
+          <Text style={styles.imageButtonText}>Click to attach</Text>
+        </Pressable>
+        {image && <Image source={{ uri: image }} style={styles.imagePreview} />}
+        <Text style={styles.label}>Text</Text>
+        <TextInput
+          style={styles.textInput}
+          onChangeText={setText}
+          value={text}
+          placeholder="Type your story here..."
+          multiline
+        />
+        <Pressable
+          style={styles.saveButton}
+          onPress={() =>
+            navigation.navigate("EditMetadata", { partialWrittenStory: { image, text } })
+          }
+        >
+          <Text style={styles.saveButtonText}>Save</Text>
+        </Pressable>
+        </ScrollView>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -97,7 +113,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     fontSize: 16,
-    height: 250,
+    height: 200,
     textAlignVertical: "top",
     marginBottom: 20,
   },
