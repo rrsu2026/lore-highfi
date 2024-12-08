@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     display: "flex",
     flexDirection: "row",
+    flexWrap: "wrap",
   },
   tagsContainer: {
     flexDirection: "row",
