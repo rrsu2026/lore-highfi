@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Pressable,
   Alert,
+  Image,
 } from "react-native";
 import AuthenticationContext from "./AuthenticationContext";
 import { FontAwesome } from "@expo/vector-icons";
@@ -29,7 +30,6 @@ const MyProfile = ({ navigation }) => {
           text: "Sign Out",
           style: "destructive",
           onPress: () => {
-            // Reset navigation stack and navigate to Login
             navigation.reset({
               index: 0,
               routes: [{ name: "Login" }],
@@ -50,8 +50,13 @@ const MyProfile = ({ navigation }) => {
       </View>
 
       <View style={styles.profileSection}>
-        <View style={styles.avatar} />
-        <View>
+      <View style={styles.avatar}>
+  <Image
+    source={require('../assets/fakerennold.jpg')}
+    style={styles.avatarImage} // Add this style to keep the image dimensions consistent
+  />
+</View>        
+<View>
           <Text style={styles.nameText}>{user.name}</Text>
           <Text style={styles.locationText}>
             <FontAwesome name="map-marker" size={14} color="#eb4634" />{" "}
@@ -136,7 +141,15 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     backgroundColor: "#CCC",
     marginRight: 20,
-  },
+    overflow: "hidden", 
+    alignItems: "center", 
+    justifyContent: "center", 
+  },  
+  avatarImage: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+  },  
   nameText: {
     fontSize: 20,
     fontWeight: "bold",
