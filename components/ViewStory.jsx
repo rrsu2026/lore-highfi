@@ -10,11 +10,6 @@ import Tag from "./Tag.jsx";
 const ViewStory = ({ navigation, route }) => {
   const [db, setDb] = useContext(FakeDatabaseContext);
   const [user, setUser] = useContext(AuthenticationContext);
-  const [saved, setSaved] = useState(false); // Gotta put this in local state to make the button reactive
-
-  useEffect(() => {
-    setSaved(user.savedStories.includes(route.params.story.id));
-  }, []);
   
   return (
     <View style={styles.container}>
@@ -53,12 +48,11 @@ const ViewStory = ({ navigation, route }) => {
           <Pressable style={styles.button} onPress={() => navigation.navigate("NewComment", { story: route.params.story })} >
             <Text style={styles.buttonText}>Comment</Text>
           </Pressable>
-          {saved ?
+          {user.savedStories.includes(route.params.story.id) ?
             <Pressable style={styles.button} onPress={() => {
               const userClone = JSON.parse(JSON.stringify(user));
               userClone.savedStories = userClone.savedStories.filter((id) => id !== route.params.story.id);
               setUser(userClone);
-              setSaved(false);
             }
             } >
               <Text style={styles.buttonText}>Remove from Saved Stories</Text>
@@ -68,7 +62,6 @@ const ViewStory = ({ navigation, route }) => {
               const userClone = JSON.parse(JSON.stringify(user));
               userClone.savedStories.push(route.params.story.id);
               setUser(userClone);
-              setSaved(true);
             }
             } >
               <Text style={styles.buttonText}>Add to Saved Stories</Text>
