@@ -76,7 +76,7 @@ const ViewStory = ({ navigation, route }) => {
         }
       </View>
       {route.params.story.image && <Image source={{ uri: route.params.story.image }} style={styles.image} />}
-      {route.params.story.text || route.params.story.image && <StoryText text={route.params.story.text} />}
+      {route.params.story.text && <StoryText text={route.params.story.text} />}
       {route.params.story.audio && (
         <StoryAudio audio={route.params.story.audio} />
       )}
