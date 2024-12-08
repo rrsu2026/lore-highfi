@@ -106,54 +106,46 @@ const EditMetadata = ({ navigation, route }) => {
   }
 
   function createOrUpdateStory() {
-    // Check if a story with this id exists
     const story =
       route.params.partialWrittenStory ||
       route.params.partialAudioStory ||
       route.params.partialVideoStory;
-    const existingStory = db.stories.find((s) => s.id === story.id);
-    // update story with form values
+    const existingStory = db.stories.find((s) => s.id === story?.id);
+  
     if (existingStory) {
-      let updated = {};
-      // every story has these
-      updated.id = existingStory.id;
-      updated.authorId = existingStory.authorId;
-      updated.postedAt = existingStory.postedAt;
-      updated.comments = existingStory.comments;
-
-      // these get set through the form
-      updated.title = title;
-      updated.location = location;
-      updated.startDate = startDate;
-      updated.endDate = endDate;
-
-      // these differ per type of story
-      updated.text = text;
-      updated.image = existingStory.image;
-      updated.audio = soundUri;
+      let updated = {
+        ...existingStory,
+        title,
+        location,
+        startDate,
+        endDate,
+        text,
+        tags, 
+        audio: soundUri,
+      };
       db.stories[db.stories.indexOf(existingStory)] = updated;
+      setDb({ ...db });
       return;
     }
-
-    // Add values needed to create a new story
-    let newStory = {};
-    // every story has these
-    newStory.id = uuid.v4();
-    newStory.authorId = user.id;
-    newStory.postedAt = new Date().toISOString();
-    newStory.comments = [];
-    // these get set through the form
-    newStory.title = title;
-    newStory.location = location;
-    newStory.startDate = startDate.toISOString();
-    newStory.endDate = endDate.toISOString();
-    // these differ per type of story
-    newStory.text = text;
-    newStory.image = route.params.partialWrittenStory?.image;
-    newStory.audio = soundUri;
-    // TODO: video
+  
+    let newStory = {
+      id: uuid.v4(),
+      authorId: "6618d3b5-8540-4b84-9ed8-215a7f769ee3",
+      postedAt: new Date().toISOString(),
+      comments: [],
+      title,
+      location,
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString(),
+      text,
+      tags, // Include tags
+      image: route.params.partialWrittenStory?.image,
+      audio: soundUri,
+    };
     db.stories.push(newStory);
+    setDb({ ...db });
   }
+  
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
