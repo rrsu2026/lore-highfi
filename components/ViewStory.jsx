@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text, StyleSheet, Button, Pressable, Image } from "react-native";
 import { format } from "date-fns";
 import StoryText from "./StoryText";
@@ -10,6 +10,12 @@ import Tag from "./Tag.jsx";
 const ViewStory = ({ navigation, route }) => {
   const [db, setDb] = useContext(FakeDatabaseContext);
   const user = useContext(AuthenticationContext);
+  const [saved, setSaved] = useState(false); // Gotta put this in local state to make the button reactive
+
+  useEffect(() => {
+    setSaved(user.savedStories.includes(route.params.story.id));
+  }, []);
+  
   return (
     <View style={styles.container}>
       <View style={styles.headerCont}>
@@ -47,6 +53,24 @@ const ViewStory = ({ navigation, route }) => {
           <Pressable style={styles.button} onPress={() => navigation.navigate("NewComment", { story: route.params.story })} >
             <Text style={styles.buttonText}>Comment</Text>
           </Pressable>
+          {saved ?
+            <Pressable style={styles.button} onPress={() => {
+              user.savedStories = user.savedStories.filter((id) => id !== route.params.story.id);
+              setSaved(false);
+            }
+            } >
+              <Text style={styles.buttonText}>Remove from Saved Stories</Text>
+            </Pressable>
+            :
+            <Pressable style={styles.button} onPress={() => {
+              user.savedStories.push(route.params.story.id);
+              setSaved(true);
+            }
+            } >
+              <Text style={styles.buttonText}>Add to Saved Stories</Text>
+            </Pressable>
+          }
+
         </View>
         <View style={styles.spaceSaveCont}>
           <Text style={styles.infoText}>
