@@ -222,6 +222,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 20,
+    borderWidth: 2.5
   },
   signOutButtonText: {
     fontSize: 16,
