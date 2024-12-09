@@ -8,7 +8,6 @@ const MyCircle = ({ navigation }) => {
   const [loggedInUser, setLoggedInUser] = useContext(AuthenticationContext);
   return (
     <View style={styles.container}>
-      <Text>My Circle</Text>
       <UserList navigation={navigation} users={db.users.filter((i) => loggedInUser.circle?.includes(i.id))} />
     </View>
   );

@@ -118,12 +118,23 @@ const fakeDatabase = {
       "title": "Chinese New Year Amidst the Financial Crisis",
       "authorId": "a28bfa77-fd2e-4802-834b-0a0f1c76d394",
       "location": "Chicago, IL",
-      "tags": ["Chinese-American", "Family", "Slice of Life", "Women"],
+      "tags": ["Chinese-American", "Family", "Slice of Life", "Resilience"],
       "postedAt": "2024-07-15T00:00:00.000Z",
       "startDate": "2009-01-26T00:00:00.000Z",
       "text": "As the 2009 Chinese New Year approached, the Chen household buzzed with activity. The aroma of traditional dishes like dumplings and fish filled the air, symbolizing prosperity and abundance. Red lanterns adorned the living room, casting a warm glow that contrasted with the cold reality of the ongoing financial crisis.\n\nGathered around the dinner table, I looked at my grandchildren's eager faces. Their parents, my children, had been discussing the impact of the economic downturn on their jobs and savings. The weight of the recession was palpable, but tonight, I wanted to focus on hope and resilience.\n\nAfter dinner, I handed each grandchild a red envelope, or hóngbāo, containing money—a tradition meant to bestow good luck and ward off evil spirits. Their eyes lit up, momentarily forgetting the outside world's troubles. We then gathered to watch the Spring Festival Gala on television, a program filled with performances that celebrate Chinese culture and unity.\n\nAs fireworks illuminated the night sky, I reflected on the importance of family and tradition during challenging times. The financial crisis had affected us all, but the New Year offered a chance to start anew, to instill hope in the younger generation, and to remind them of the strength found in our shared heritage.\n\nIn the face of uncertainty, our family's celebration of Chinese New Year became a beacon of continuity and optimism, reinforcing the bonds that hold us together and the cultural values that guide us forward.",
       "comments": []
-    }
+    },
+    {
+      "id": "q28bfa77-fd2e-4802-834b-0a0f1c76d3987",
+      "title": "Voice",
+      "authorId": "h95jif44-mk9l-af78-5a1i-7h7m8j43ka61",
+      "location": "Chicago, IL",
+      "tags": ["Egypt", "1970s"],
+      "postedAt": "2024-07-15T00:00:00.000Z",
+      "startDate": "2009-01-26T00:00:00.000Z",
+      "audio": "https://ia801303.us.archive.org/3/items/AmericanStories/Luck_-_By_Mark_Twain.mp3",
+      "comments": []
+    },
     
     
   ],
@@ -162,6 +173,7 @@ const fakeDatabase = {
     {
       id: "6a5bb277-6f10-4e0f-937c-5ef5d1d8f692",
       name: "Bob Williams",
+      pfp: require('./assets/bobw.jpg'),
       location: "Austin, TX",
       age: 78,
       tags: ["1970s", "Teacher"],

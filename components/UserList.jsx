@@ -1,16 +1,17 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-import { StyleSheet, ScrollView } from 'react-native';
+import { FlatList, StyleSheet} from 'react-native';
+import ProfileCard from './ProfileCard';
 
 const UserList = ({ navigation, users }) => {
   return (
-    <ScrollView style={styles.container}>
-      {
-        users?.map(user => <View key={user.id}><Text>{user.name}</Text></View>)
-      }
-    </ScrollView>
+    <FlatList
+      data={users}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => <ProfileCard user={item} />}
+    />
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
