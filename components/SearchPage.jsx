@@ -89,7 +89,7 @@ const SearchPage = ({ navigation }) => {
         <Pressable
           style={styles.suggestionButton}
           onPress={() =>
-            navigation.navigate("SearchResults", { query: "Love-Stories" })
+            navigation.navigate("SearchResults", { query: "Love Stories" })
           }
         >
           <Text style={styles.buttonText}>Love Stories</Text>

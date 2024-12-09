@@ -176,6 +176,9 @@ const styles = StyleSheet.create({
   scrollView: {
     marginLeft: 30,
   },
+  scrollViewContent: {
+    paddingBottom: 300,
+  },
   yellowLine: {
     position: "absolute",
     width: 10,

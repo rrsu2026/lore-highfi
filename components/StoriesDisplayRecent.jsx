@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useRef} from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
 import StoryCard from "./StoryCard";
 import theme from "../Theme.js";
 
 const StoriesDisplayRecent = ({ navigation, stories }) => {
+  const scrollViewRef = useRef();
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView contentContainerStyle={{ paddingBottom: 300 }}>
         {stories.map((story) => (
           <View style={styles.cardContainer} key={story.id || story.title}>
             <StoryCard key={story.id} navigation={navigation} story={story} />
@@ -20,7 +21,9 @@ const StoriesDisplayRecent = ({ navigation, stories }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: "90%",
+  },
+  scrollCont: {
+    paddingBottom: "30%",
   },
   cardContainer: {
     borderWidth: 3,

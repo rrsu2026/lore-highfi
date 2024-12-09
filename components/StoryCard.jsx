@@ -1,19 +1,20 @@
 import React, { useContext } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { useWindowDimensions, View, Text, StyleSheet, Pressable } from "react-native";
 import { format } from "date-fns";
 import { FontAwesome } from "@expo/vector-icons";
 import theme from "../Theme";
 
 const StoryCard = ({ navigation, story }) => {
+  const { width } = useWindowDimensions();
   const [db, setDb] = useContext(FakeDatabaseContext);
 
-  const author = db.users.find((user) => user.id == story.authorId);
+  const author = db.users.find((user) => user.id === story.authorId);
   const authorName = author ? author.name : 'Unknown Author';
 
   return (
     <Pressable
       style={styles.container}
-      onPress={() => navigation.navigate("ViewStory", { story: story })}
+      onPress={() => navigation.navigate("ViewStory", { story })}
       accessible={true}
       accessibilityLabel={`View story titled ${story.title}`}
     >
@@ -24,34 +25,34 @@ const StoryCard = ({ navigation, story }) => {
           </Text>
         )}
         <View>
-        {story.text && (
-          <Text style={styles.locationText}>
-            <FontAwesome name="pencil" size={16} color="black" /> Text
-          </Text>
-        )}
-        {story.audio && (
-          <Text style={styles.locationText}>
-            <FontAwesome name="microphone" size={16} color="black" /> Audio
-          </Text>
-        )}
-        {story.video && (
-          <Text style={styles.locationText}>
-            <FontAwesome name="video-camera" size={16} color="black" /> Video
-          </Text>
-        )}
+          {story.text && (
+            <Text style={styles.locationText}>
+              <FontAwesome name="pencil" size={16} color="black" /> Text
+            </Text>
+          )}
+          {story.audio && (
+            <Text style={styles.locationText}>
+              <FontAwesome name="microphone" size={16} color="black" /> Audio
+            </Text>
+          )}
+          {story.video && (
+            <Text style={styles.locationText}>
+              <FontAwesome name="video-camera" size={16} color="black" /> Video
+            </Text>
+          )}
           <Text style={styles.locationText}>
             <FontAwesome name="map-marker" size={14} color="#eb4634" />{" "}
-                {story.location}
+            {story.location}
           </Text>
-          </View>
+        </View>
       </View>
       <View style={styles.textCont}>
-        <Text style={styles.text1} numberOfLines={1} ellipsizeMode="tail">
+        <Text style={[styles.text1, { fontSize: width > 600 ? 24 : 18 }]} numberOfLines={1} ellipsizeMode="tail">
           {story.title}
         </Text>
       </View>
       <View style={styles.textCont}>
-        <Text style={styles.authorText} numberOfLines={1} ellipsizeMode="tail">
+        <Text style={[styles.authorText, { fontSize: width > 600 ? 18 : 14 }]} numberOfLines={1} ellipsizeMode="tail">
           {authorName}
         </Text>
         <Text style={styles.dateText}>
@@ -83,7 +84,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text1: {
-    fontSize: 18,
     fontWeight: "500",
     marginBottom: "2%",
     flex: 1,
@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: "right",
     marginLeft: 10,
+    marginTop: "2%",
   },
   authorText: {
     fontSize: 14,

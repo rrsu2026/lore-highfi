@@ -8,7 +8,7 @@ const MySubscribers = ({ navigation }) => {
   const loggedInUser = useContext(AuthenticationContext);
   return (
     <View style={styles.container}>
-      <Text>My Subscribers</Text>
+      <Text style={styles.textStyle}>No subscribers yet. </Text>
       <UserList navigation={navigation} users={db.users.filter(user => user.subscribedTo?.includes(loggedInUser.id))} />
     </View>
   );
@@ -17,6 +17,11 @@ const MySubscribers = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1
+  },
+  textStyle: {
+    justifyContent: "center",
+    fontSize: 20,
+    padding: "2%",
   }
 });
 
