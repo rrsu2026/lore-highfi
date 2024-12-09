@@ -1,23 +1,42 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, FlatList, Text, StyleSheet } from 'react-native';
+import FakeDatabaseContext from './FakeDatabaseContext';
+import CommentCard from './CommentCard';
 
-const NewComment = ({ navigation, route }) => {
-  const [db, setDb] = useContext(FakeDatabaseContext);
+const ViewComments = ({ navigation, route }) => {
+  const [db] = useContext(FakeDatabaseContext);
+  const { story } = route.params;
+
+  const renderComment = ({ item }) => {
+    const author = db.users.find(u => u.id === item.authorId);
+    const authorName = author ? author.name : 'Unknown Author';
+    return (
+      <CommentCard
+        authorName={authorName}
+        commentText={item.text}
+      />
+    );
+  };
+
   return (
-    <View>
-      {
-        route.params.story.comments?.map((comment, index) => (
-          <View key={index}>
-            <Text>{db.users.find(u => u.id == route.params.story.authorId).name}</Text>
-            <Text>{comment.text}</Text>
-          </View>
-        )) || <Text>No comments</Text>
-      }
+    <View style={styles.container}>
+      {story.comments && story.comments.length > 0 ? (
+        <FlatList
+          data={story.comments}
+          renderItem={renderComment}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      ) : (
+        <Text>No comments</Text>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
 });
 
-export default NewComment;
+export default ViewComments;

@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "300",
     marginVertical: "3%",
+    marginHorizontal: "2%",
     textAlign: "center"
   },
   button: {
