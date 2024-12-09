@@ -23,6 +23,7 @@ const StoryCard = ({ navigation, story }) => {
             {format(new Date(story.startDate), "yyyy")}
           </Text>
         )}
+        <View>
         {story.text && (
           <Text style={styles.locationText}>
             <FontAwesome name="pencil" size={16} color="black" /> Text
@@ -38,14 +39,15 @@ const StoryCard = ({ navigation, story }) => {
             <FontAwesome name="video-camera" size={16} color="black" /> Video
           </Text>
         )}
+          <Text style={styles.locationText}>
+            <FontAwesome name="map-marker" size={14} color="#eb4634" />{" "}
+                {story.location}
+          </Text>
+          </View>
       </View>
       <View style={styles.textCont}>
         <Text style={styles.text1} numberOfLines={1} ellipsizeMode="tail">
           {story.title}
-        </Text>
-        <Text style={styles.locationText}>
-          <FontAwesome name="map-marker" size={14} color="#eb4634" />{" "}
-          {story.location}
         </Text>
       </View>
       <View style={styles.textCont}>

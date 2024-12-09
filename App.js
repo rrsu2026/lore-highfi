@@ -39,7 +39,7 @@ const fakeDatabase = {
       id: "c88489ba-d259-4158-8443-5fe0d352a764",
       title: "A Short Tale",
       authorId: "701e20bb-3aba-4d4b-9f6c-436762886d58",
-      location: "Nantucket, MA",
+      location: "London, England",
       tags: ["Mice", "Adventure", "Slice of Life"],
       postedAt: new Date(2024, 6, 15).toISOString(),
       startDate: new Date(1975, 0, 1).toISOString(),
@@ -61,7 +61,7 @@ const fakeDatabase = {
       id: "49651814-8f82-4065-9531-3a49b2b02ae3",
       title: "Nightmare at DFW part 2",
       authorId: "6618d3b5-8540-4b84-9ed8-215a7f769ee3",
-      location: "Fort Worth, TX",
+      location: "Fort Worth, TX, USA",
       tags: ["Slice of Life", "First-Gen"],
       postedAt: new Date(2024, 6, 15).toISOString(), // Months in JavaScript are 0-indexed, but days and years are not
       startDate: new Date(1980, 0, 1).toISOString(),
@@ -72,7 +72,7 @@ const fakeDatabase = {
       id: "588e8bf5-fdf9-4ceb-a0b2-514c908ea13b",
       title: "Nightmare at DFW",
       authorId: "6618d3b5-8540-4b84-9ed8-215a7f769ee3",
-      location: "Fort Worth, TX",
+      location: "Fort Worth, TX, USA",
       tags: ["Slice of Life"],
       postedAt: new Date(2024, 6, 15).toISOString(), // Months in JavaScript are 0-indexed, but days and years are not
       startDate: new Date(1984, 0, 1).toISOString(),
@@ -84,7 +84,7 @@ const fakeDatabase = {
       title: "Frank Sinatra Concert",
       authorId: "a28bfa77-fd2e-4802-834b-0a0f1c76d394",
       tags: ["Slice of Life", "Women"],
-      location: "Chicago, IL",
+      location: "Chicago, IL, USA",
       postedAt: new Date(2024, 6, 15).toISOString(), // Months in JavaScript are 0-indexed, but days and years are not
       startDate: new Date(1945, 0, 1).toISOString(),
       text: "The smell of caramel corn and the distant hum of chatter filled the air that night in 1945. I was just a little girl, barely eight, clutching my father’s hand as we wove through the crowded streets outside the Chicago Theatre. Its iconic marquee glowed against the chilly autumn sky, and the name Frank Sinatra sparkled like magic. My father, a quiet man who rarely treated himself to such outings, had surprised me with tickets earlier that week. He loved Sinatra's voice, and I think he wanted to share that joy with me. Inside, the theater felt grand and endless, with velvet seats and golden lights that danced off the walls. When Sinatra finally took the stage, his voice filled every corner of that beautiful room. I remember sitting there, my legs too short to reach the floor, transfixed by his charm, feeling as if he were singing just for me.\n\nNow, as I sit in my worn armchair all these years later, I can still hear the music in my mind. My father’s hand felt so strong in mine back then, and I wonder if he knew how much that night would mean to me. The war was ending, and the world felt uncertain, but for those two hours, everything seemed right. My father bought me a small box of Cracker Jack at intermission, and I remember the sweetness mingling with the melodies as Sinatra crooned I’ll Never Smile Again. Sometimes, when the house is quiet, I hum that song to myself and think of my father. He passed not long after that night, but I still have the memory of his smile as Sinatra tipped his hat to the audience. It’s a little thread of light in a world that can sometimes feel so dim.",
@@ -95,7 +95,7 @@ const fakeDatabase = {
       title: "First Trip to NYC",
       authorId: "6a5bb277-6f10-4e0f-937c-5ef5d1d8f692",
       tags: ["Slice of Life"],
-      location: "New York, NY",
+      location: "New York, NY, USA",
       postedAt: new Date(2024, 6, 15).toISOString(), // Months in JavaScript are 0-indexed, but days and years are not
       startDate: new Date(1963, 0, 1).toISOString(),
       text: "I still remember stepping off that Greyhound bus into the madness of New York City back in 1963, a wide-eyed farm boy barely 18. Those skyscrapers felt like they could touch the stars, and I stood there, boots and all, wondering how a Texan like me had landed in the middle of such a roaring, blinking universe. I clutched my hat tight, weaving through crowds faster than any herd I’d ever seen, the honking taxis and flashing lights of Times Square making my head spin. I’d spent most of my money on a hot dog and a ticket to the top of the Empire State Building, where the whole city spread out like a quilt stitched with light. Now, at 75, I can still feel that wonder deep in my chest—it was the first time I realized how big and beautiful the world could be.\n\n\n\n\n\n\n\n",
@@ -117,7 +117,7 @@ const fakeDatabase = {
       "id": "a28bfa77-fd2e-4802-834b-0a0f1c76d394",
       "title": "Chinese New Year Amidst the Financial Crisis",
       "authorId": "a28bfa77-fd2e-4802-834b-0a0f1c76d394",
-      "location": "Chicago, IL",
+      "location": "Chicago, IL, USA",
       "tags": ["Chinese-American", "Family", "Slice of Life", "Resilience"],
       "postedAt": "2024-07-15T00:00:00.000Z",
       "startDate": "2009-01-26T00:00:00.000Z",
@@ -126,16 +126,37 @@ const fakeDatabase = {
     },
     {
       "id": "q28bfa77-fd2e-4802-834b-0a0f1c76d3987",
-      "title": "Voice",
+      "title": "Pyramid Adventure",
       "authorId": "h95jif44-mk9l-af78-5a1i-7h7m8j43ka61",
-      "location": "Chicago, IL",
+      "location": "Cairo, Egypt",
       "tags": ["Egypt", "1970s"],
       "postedAt": "2024-07-15T00:00:00.000Z",
-      "startDate": "2009-01-26T00:00:00.000Z",
+      "startDate": "1993-01-26T00:00:00.000Z",
       "audio": "https://ia801303.us.archive.org/3/items/AmericanStories/Luck_-_By_Mark_Twain.mp3",
       "comments": []
     },
-    
+    {
+      "id": "m08bfa77-fd2e-4802-834b-0a0f1c76d3987",
+      "title": "Wartime Friends",
+      "authorId": "f73ghd22-ki7j-8d56-389g-5f5k6h21i849",
+      "location": "Gdańsk, Poland",
+      "tags": ["Military", "1940s"],
+      "postedAt": "2024-09-15T00:00:00.000Z",
+      "startDate": "1944-01-26T00:00:00.000Z",
+      "audio": "https://ia801303.us.archive.org/3/items/AmericanStories/Luck_-_By_Mark_Twain.mp3",
+      "comments": []
+    },
+    {
+      "id": "bn08bfa77-fd2e-4802-834b-0a0f1c76d3987",
+      "title": "25th Anniversary with my Wife",
+      "authorId": "j17lkj66-om1n-ch90-7c3k-9j9o0l65mc83",
+      "location": "Paris, France",
+      "tags": ["Love Stories", "1980s"],
+      "postedAt": "2024-09-15T00:00:00.000Z",
+      "startDate": "1987-01-26T00:00:00.000Z",
+      "audio": "https://ia801303.us.archive.org/3/items/AmericanStories/Luck_-_By_Mark_Twain.mp3",
+      "comments": []
+    },
     
   ],
   users: [
@@ -146,7 +167,7 @@ const fakeDatabase = {
     {
       id: "6618d3b5-8540-4b84-9ed8-215a7f769ee3",
       name: "Rennold Suzuki",
-      location: "Seattle, WA",
+      location: "Seattle, WA, USA",
       age: 85,
       tags: ["Veteran", "First-Gen", "Scientist"],
       about:
@@ -164,7 +185,7 @@ const fakeDatabase = {
     {
       id: "a28bfa77-fd2e-4802-834b-0a0f1c76d394",
       name: "Shelly Chen",
-      location: "Chicago, IL",
+      location: "Chicago, IL, USA",
       age: 92,
       tags: ["1940s", "Music", "Storytelling"],
       about: "I grew up in Chicago during the 1940s and have a deep love for music and storytelling.",
@@ -174,7 +195,7 @@ const fakeDatabase = {
       id: "6a5bb277-6f10-4e0f-937c-5ef5d1d8f692",
       name: "Bob Williams",
       pfp: require('./assets/bobw.jpg'),
-      location: "Austin, TX",
+      location: "Austin, TX, USA",
       age: 78,
       tags: ["1970s", "Teacher"],
       about: "I love talking about Austin, TX and science education!",
@@ -309,7 +330,7 @@ export default function App() {
                 component={SearchPage}
                 options={{ headerShown: false }}
               />
-              <Stack.Screen name="SearchResults" component={SearchResults} options={{ headerTitle: "" }}/>
+              <Stack.Screen name="SearchResults" component={SearchResults} options={{ headerTitle: "", headerBackTitle: "Back"}}/>
               <Stack.Screen
                 name="MyProfile"
                 component={MyProfile}
