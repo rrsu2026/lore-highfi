@@ -221,7 +221,7 @@ const EditMetadata = ({ navigation, route }) => {
   </View>
 </View>
 
-      {text && <Text>{text}</Text>}
+      {/*text && <Text>{text}</Text>*/}
       {soundUri && <Button title="Play Audio" onPress={playSound} />}
       {/* TODO: preview for video */}
       <Text style={styles.catText}>Make Visible to...</Text>

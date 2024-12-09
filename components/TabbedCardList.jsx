@@ -13,7 +13,7 @@ const TabbedCardList = ({ navigation, stories }) => {
       <Tabs.Navigator
         screenOptions={{
           tabBarStyle: {
-            backgroundColor: theme.colors.com,
+            backgroundColor: theme.colors.primaryColor1,
             borderBottomWidth: 2.5,
           },
 

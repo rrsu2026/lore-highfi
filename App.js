@@ -289,12 +289,14 @@ export default function App() {
             <Stack.Navigator
               screenOptions={{
                 headerStyle: {
-                  backgroundColor: "#f4f4f4",
+                  backgroundColor: theme.colors.primaryColor1,
                 },
                 headerTintColor: theme.colors.primaryColor5,
                 headerTitleStyle: {
                   fontWeight: "bold",
+                  fontSize: 24,
                 },
+                headerShadowVisible: false,  
               }}
             >
               <Stack.Screen
@@ -313,16 +315,16 @@ export default function App() {
                 component={MyProfile}
                 options={{ headerShown: false }}
               />
-              <Stack.Screen name="MyCircle" component={MyCircle} />
+              <Stack.Screen name="MyCircle" component={MyCircle}options={{headerTitle: "My Circle", headerBackTitle: "Back"}}/>
               <Stack.Screen
                 name="StoryFormatChoice"
                 component={StoryFormatChoice}
-                options={{ headerTitle: "" }}
+                options={{ headerTitle: " ", headerBackTitle: "Back" }}
               />
               <Stack.Screen
                 name="TextInputChoice"
                 component={TextInputChoice}
-                options={{ headerTitle: "" }}
+                options={{ headerTitle: "", headerBackTitle: "Back" }}
               />
               <Stack.Screen
                 name="StartVideoRecording"
@@ -342,7 +344,7 @@ export default function App() {
               />
               <Stack.Screen name="EditMetadata" component={EditMetadata} options={{ headerTitle: "" }}
               />
-              <Stack.Screen name="MyStories" component={MyStories} options={{ headerTitle: "" }} />
+              <Stack.Screen name="MyStories" component={MyStories} options={{ headerTitle: "My Stories", headerBackTitle: "Back",}} />
               <Stack.Screen name="Scan" component={Scan} options={{ headerTitle: "" }} />
               <Stack.Screen
                 name="EditWrittenStory"
@@ -387,7 +389,7 @@ export default function App() {
               <Stack.Screen
                 name="SavedStories"
                 component={SavedStories}
-                options={{ headerTitle: "Saved Stories" }}
+                options={{ headerTitle: "Saved Stories", headerBackTitle: "Back"}}
               />
             </Stack.Navigator>
             {currentScreen !== "Login" && <NavBar currentScreen={currentScreen} />}

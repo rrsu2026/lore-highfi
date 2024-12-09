@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
     aspectRatio: 16 / 9,
     resizeMode: "contain",
     marginVertical: "1rem",
+    paddingTop: "1rem",
   },
   responseNotif: {
     flexDirection: "row",
