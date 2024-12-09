@@ -1,33 +1,42 @@
 import React, { useContext } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import TabbedCardList from "./TabbedCardList";
 import FakeDatabaseContext from "./FakeDatabaseContext";
 import theme from "../Theme.js";
 
 const SearchResults = ({ navigation, route }) => {
-  const [db, setDb] = useContext(FakeDatabaseContext);
+  const [db] = useContext(FakeDatabaseContext);
+  const query = route.params.query?.trim().toLowerCase();
+
   const getSearchResults = (query) => {
+    if (!query) return [];
     return db.stories.filter((story) => {
-      const queryLower = query.toLowerCase();
+      const author = db.users.find((user) => user.id === story.authorId);
       return (
-        story.title?.toLowerCase().includes(queryLower) ||
-        db.users
-          .find((user) => user.id == story.authorId)
-          .name?.toLowerCase()
-          .includes(queryLower) ||
-        story.tags?.map((tag) => tag.toLowerCase()).includes(queryLower) ||
-        story.text.toLowerCase().includes(queryLower)
+        story.title?.toLowerCase().includes(query) ||
+        author?.name?.toLowerCase().includes(query) ||
+        story.tags?.some((tag) => tag.toLowerCase().includes(query)) ||
+        story.text?.toLowerCase().includes(query.toLowerCase())
       );
     });
   };
+
+  const searchResults = getSearchResults(query);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.resultText}>Results for "{route.params.query}"</Text>
-      <TabbedCardList
-        style={styles.container}
-        navigation={navigation}
-        stories={getSearchResults(route.params.query)}
-      />
+      <Text style={styles.resultText}>
+        {query ? `Results for "${route.params.query}"` : "No search term entered."}
+      </Text>
+      {query && searchResults.length === 0 ? (
+        <Text style={styles.noResultsText}>No results found.</Text>
+      ) : (
+        <TabbedCardList
+          style={styles.container}
+          navigation={navigation}
+          stories={searchResults}
+        />
+      )}
     </View>
   );
 };
@@ -44,7 +53,13 @@ const styles = StyleSheet.create({
     textAlign: "left",
     marginLeft: "2%",
     marginBottom: "3%",
-    marginTop: "10%",
+    marginTop: "5%",
+  },
+  noResultsText: {
+    fontSize: 18,
+    color: "gray",
+    textAlign: "center",
+    marginTop: "5%",
   },
 });
 

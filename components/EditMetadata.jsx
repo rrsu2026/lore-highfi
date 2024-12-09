@@ -3,19 +3,18 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
   Pressable,
   TextInput,
   Keyboard,
   ScrollView,
-  TouchableWithoutFeedback
- } from "react-native";
+  TouchableWithoutFeedback,
+} from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Audio } from "expo-av";
 import AuthenticationContext from "./AuthenticationContext";
+import FakeDatabaseContext from "./FakeDatabaseContext";
 import uuid from "react-native-uuid";
 import theme from "../Theme";
-
 
 const EditMetadata = ({ navigation, route }) => {
   const user = useContext(AuthenticationContext);
@@ -25,16 +24,12 @@ const EditMetadata = ({ navigation, route }) => {
   const [location, setLocation] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-
   const [text, setText] = useState("");
   const [soundUri, setSoundUri] = useState("");
   const [sound, setSound] = useState();
-
   const [visibility, setVisibility] = useState("Public");
-
   const [tags, setTags] = useState([]);
   const [newTag, setNewTag] = useState("");
-
 
   useEffect(() => {
     if (route.params.partialWrittenStory) {
@@ -85,9 +80,9 @@ const EditMetadata = ({ navigation, route }) => {
   useEffect(() => {
     return sound
       ? () => {
-        console.log("Unloading Sound");
-        sound.unloadAsync();
-      }
+          console.log("Unloading Sound");
+          sound.unloadAsync();
+        }
       : undefined;
   }, [sound]);
 
@@ -111,7 +106,7 @@ const EditMetadata = ({ navigation, route }) => {
       route.params.partialAudioStory ||
       route.params.partialVideoStory;
     const existingStory = db.stories.find((s) => s.id === story?.id);
-  
+
     if (existingStory) {
       let updated = {
         ...existingStory,
@@ -120,17 +115,17 @@ const EditMetadata = ({ navigation, route }) => {
         startDate,
         endDate,
         text,
-        tags, 
+        tags,
         audio: soundUri,
       };
       db.stories[db.stories.indexOf(existingStory)] = updated;
       setDb({ ...db });
       return;
     }
-  
+
     let newStory = {
       id: uuid.v4(),
-      authorId: "6618d3b5-8540-4b84-9ed8-215a7f769ee3",
+      authorId: user.id,
       postedAt: new Date().toISOString(),
       comments: [],
       title,
@@ -138,141 +133,180 @@ const EditMetadata = ({ navigation, route }) => {
       startDate: startDate.toISOString(),
       endDate: endDate.toISOString(),
       text,
-      tags, // Include tags
+      tags,
       image: route.params.partialWrittenStory?.image,
       audio: soundUri,
     };
     db.stories.push(newStory);
     setDb({ ...db });
   }
+
+  const deleteStory = () => {
+    const storyId = route.params.partialWrittenStory.id;
+    const updatedStories = db.stories.filter((s) => s.id !== storyId);
+    setDb({ ...db, stories: updatedStories });
+    navigation.navigate("MyStories");
+  };
   
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-    <View style={styles.container}>
-    <ScrollView>
-      <View style={styles.inputCont}>
-        <Text style={styles.catText}>
-          Title
-        </Text>
-        <TextInput
-          style={styles.inputStyle}
-          placeholder="Enter your title here..."
-          onChangeText={setTitle}
-          defaultValue={title}
-        />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
+          <ScrollView>
+            {/* Title Input */}
+            <View style={styles.inputCont}>
+              <Text style={styles.catText}>Title</Text>
+              <TextInput
+                style={styles.inputStyle}
+                placeholder="Enter your title here..."
+                onChangeText={setTitle}
+                value={title}
+              />
+            </View>
+    
+            {/* Location Input */}
+            <View style={styles.inputCont}>
+              <Text style={styles.catText}>Location</Text>
+              <TextInput
+                style={styles.inputStyle}
+                placeholder="Enter your location here..."
+                onChangeText={setLocation}
+                value={location}
+              />
+            </View>
+    
+            {/* Date Pickers */}
+            <View style={styles.datesCont}>
+              <View style={styles.inputCont}>
+                <Text style={styles.catText}>Start Date</Text>
+                <DateTimePicker
+                  value={startDate}
+                  mode="date"
+                  display="default"
+                  onChange={(_, date) => setStartDate(date || startDate)}
+                />
+              </View>
+              <View style={styles.inputCont}>
+                <Text style={styles.catText}>End Date (optional)</Text>
+                <DateTimePicker
+                  value={endDate}
+                  mode="date"
+                  display="default"
+                  onChange={(_, date) => setEndDate(date || endDate)}
+                />
+              </View>
+            </View>
+    
+            {/* Tags Input */}
+            <View style={styles.inputCont}>
+              <Text style={styles.catText}>Tags</Text>
+              <View style={styles.row}>
+                <TextInput
+                  style={styles.inputStyle}
+                  placeholder="Add a tag..."
+                  value={newTag}
+                  onChangeText={setNewTag}
+                />
+                <Pressable
+                  style={styles.addButton}
+                  onPress={() => {
+                    if (newTag.trim() && !tags.includes(newTag.trim())) {
+                      setTags((prevTags) => [...prevTags, newTag.trim()]);
+                      setNewTag("");
+                    }
+                  }}
+                >
+                  <Text style={styles.buttonText}>Add</Text>
+                </Pressable>
+              </View>
+              <View style={styles.tagsContainer}>
+                {tags.map((tag, index) => (
+                  <View key={index} style={styles.tag}>
+                    <Text style={styles.tagText}>{tag}</Text>
+                    <Pressable onPress={() => setTags(tags.filter((t) => t !== tag))}>
+                      <Text style={styles.removeTag}>✕</Text>
+                    </Pressable>
+                  </View>
+                ))}
+              </View>
+            </View>
 
-      </View><View style={styles.inputCont}>
-        <Text style={styles.catText}>
-          Location
-        </Text>
-        <TextInput
-          style={styles.inputStyle}
-          placeholder="Enter your location here..."
-          onChangeText={setLocation}
-          defaultValue={location}
-        />
-
-      </View>
-      <View style={styles.datesCont}>
-        <View style={styles.inputCont}>
-          <Text style={styles.catText}>
-            Start Date
-          </Text>
-          <DateTimePicker type="date" value={startDate} onChange={(_, date) => setStartDate(date)} />
+    
+            {/* Audio Playback */}
+            {soundUri ? (
+              <View style={styles.inputCont}>
+                <Text style={styles.catText}>Audio</Text>
+                <Pressable style={styles.button} onPress={playSound}>
+                  <Text style={styles.buttonText}>Play Audio</Text>
+                </Pressable>
+              </View>
+            ) : null}
+    
+            {/* Visibility Options */}
+            <Text style={styles.catText}>Make Visible to...</Text>
+            <View style={styles.publicCont}>
+              <Pressable
+                onPress={() => setVisibility("Public")}
+                style={[
+                  styles.button,
+                  visibility === "Public" && styles.selectedButton,
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.buttonText,
+                    visibility === "Public" && styles.buttonText,
+                  ]}
+                >
+                  Public
+                </Text>
+              </Pressable>
+    
+              <Pressable
+                onPress={() => setVisibility("Circle")}
+                style={[
+                  styles.button,
+                  visibility === "Circle" && styles.selectedButton,
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.buttonText,
+                    visibility === "Circle" && styles.buttonText,
+                  ]}
+                >
+                  Circle
+                </Text>
+              </Pressable>
+            </View>
+    
+            {/* Confirm and Delete Buttons */}
+            <View style={styles.centCont}>
+            <Pressable
+                style={styles.button}
+                onPress={() => {
+                  createOrUpdateStory();
+                  navigation.navigate("MyStories");
+                }}
+              >
+                <Text style={styles.buttonText}>Confirm</Text>
+              </Pressable>
+    
+              {route.params.partialWrittenStory && (
+                <Pressable
+                  style={[styles.button, styles.deleteButton]}
+                  onPress={deleteStory}
+                >
+                  <Text style={[styles.buttonText, styles.deleteButtonText]}>
+                    Delete Story
+                  </Text>
+                </Pressable>
+              )}
+            </View>
+          </ScrollView>
         </View>
-        <View style={styles.inputCont}>
-          <Text style={styles.catText}>
-            End Date (optional)
-          </Text>
-          <DateTimePicker type="date" value={endDate} onChange={(_, date) => setEndDate(date)} />
-        </View>
-      </View>
-      <View style={styles.inputCont}>
-  <Text style={styles.catText}>Tags</Text>
-  <View style={styles.row}>
-    <TextInput
-      style={styles.inputStyle}
-      placeholder="Add a tag..."
-      value={newTag}
-      onChangeText={setNewTag}
-    />
-    <Pressable
-      style={styles.addButton}
-      onPress={() => {
-        if (newTag.trim() && !tags.includes(newTag.trim())) {
-          setTags((prevTags) => [...prevTags, newTag.trim()]);
-          setNewTag("");
-        }
-      }}
-    >
-      <Text style={styles.buttonText}>Add</Text>
-    </Pressable>
-  </View>
-  <View style={styles.tagsContainer}>
-    {tags.map((tag, index) => (
-      <View key={index} style={styles.tag}>
-        <Text style={styles.tagText}>{tag}</Text>
-        <Pressable onPress={() => setTags(tags.filter((t) => t !== tag))}>
-          <Text style={styles.removeTag}>✕</Text>
-        </Pressable>
-      </View>
-    ))}
-  </View>
-</View>
-
-      {/*text && <Text>{text}</Text>*/}
-      {soundUri && <Button title="Play Audio" onPress={playSound} />}
-      {/* TODO: preview for video */}
-      <Text style={styles.catText}>Make Visible to...</Text>
-      <View style={styles.publicCont}>
-        <Pressable
-          onPress={() => setVisibility("Public")}
-          style={[
-            styles.button,
-            visibility === "Public" && styles.selectedButton,
-          ]}
-        >
-          <Text
-            style={[
-              styles.buttonText,
-              visibility === "Public" && styles.buttonText,
-            ]}
-          >
-            Public
-          </Text>
-        </Pressable>
-
-        <Pressable
-          onPress={() => setVisibility("Circle")}
-          style={[
-            styles.button,
-            visibility === "Circle" && styles.selectedButton, // Change color when selected
-          ]}
-        >
-          <Text
-            style={[
-              styles.buttonText,
-              visibility === "Circle" && styles.buttonText,
-            ]}
-          >
-            Circle
-          </Text>
-        </Pressable>
-      </View>
-      <View style={styles.centCont}>
-        <Pressable style={styles.button} onPress={() => {
-          createOrUpdateStory();
-          navigation.navigate("MyStories");
-        }}>
-          <Text style={styles.buttonText}>Confirm</Text>
-
-        </Pressable>
-      </View>
-      </ScrollView>
-    </View>
-    </TouchableWithoutFeedback>
-  );
+      </TouchableWithoutFeedback>
+    );    
 };
 
 const styles = StyleSheet.create({
@@ -282,6 +316,19 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#FCD385",
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: "1%",
+    borderWidth: 2.5,
+    borderColor: "#000",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "45%",
+    marginBottom: 10,
+    marginTop: "3%",
+  },
+  deleteButton: {
+    backgroundColor: "#ed786f",
     borderRadius: 8,
     paddingVertical: 12,
     paddingHorizontal: "1%",
@@ -347,8 +394,10 @@ const styles = StyleSheet.create({
     marginBottom: "7%",
   },
   centCont: {
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    gap: 15,
   },
   row: {
     flexDirection: "row",

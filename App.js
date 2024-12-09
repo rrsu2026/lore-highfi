@@ -205,7 +205,7 @@ const fakeDatabase = {
       "age": 72,
       "tags": ["1950s", "Technology", "Photography"],
       "about": "A retired engineer in Edison, I enjoy staying updated with tech trends and capturing moments through photography.",
-      "subscribedTo": ["994bg6e8-1873-7eb7-ch1h-548d0i09h8h6"]
+      "subscribedTo": ["994bg6e8-1873-7eb7-ch1h-548d0i09h8h6", "6618d3b5-8540-4b84-9ed8-215a7f769ee3"]
     },
     {
       "id": "e62fgc11-jh6i-7c45-278f-4e4j5g10h738",
@@ -241,7 +241,7 @@ const fakeDatabase = {
       "age": 65,
       "tags": ["1960s", "Teaching", "Music"],
       "about": "As a retired teacher in Cairo, I have a passion for traditional Egyptian music and educating the youth.",
-      "subscribedTo": ["d38fk0i2-5cb7-bg1b-gl5l-98ch4m43l2l0"]
+      "subscribedTo": ["d38fk0i2-5cb7-bg1b-gl5l-98ch4m43l2l0", "6618d3b5-8540-4b84-9ed8-215a7f769ee3"]
     },
     {
       "id": "i06kjg55-nl0m-bg89-6b2j-8i8n9k54lb72",
@@ -250,7 +250,7 @@ const fakeDatabase = {
       "age": 78,
       "tags": ["1940s", "Sailing", "Writing"],
       "about": "A former sailor from Stockholm, I now enjoy writing about my adventures on the sea.",
-      "subscribedTo": ["e49gl1j3-6dc8-ch2c-hm6m-a9di5n54m3m1"]
+      "subscribedTo": ["e49gl1j3-6dc8-ch2c-hm6m-a9di5n54m3m1", "6618d3b5-8540-4b84-9ed8-215a7f769ee3"]
     },
     {
       "id": "j17lkj66-om1n-ch90-7c3k-9j9o0l65mc83",
@@ -294,7 +294,7 @@ export default function App() {
                 headerTintColor: theme.colors.primaryColor5,
                 headerTitleStyle: {
                   fontWeight: "bold",
-                  fontSize: 24,
+                  fontSize: 20,
                 },
                 headerShadowVisible: false,  
               }}
@@ -309,7 +309,7 @@ export default function App() {
                 component={SearchPage}
                 options={{ headerShown: false }}
               />
-              <Stack.Screen name="SearchResults" component={SearchResults} />
+              <Stack.Screen name="SearchResults" component={SearchResults} options={{ headerTitle: "" }}/>
               <Stack.Screen
                 name="MyProfile"
                 component={MyProfile}
@@ -379,7 +379,7 @@ export default function App() {
               <Stack.Screen
                 name="MySubscribers"
                 component={MySubscribers}
-                options={{ headerTitle: "My Subscribers" }}
+                options={{ headerTitle: "My Subscribers",  headerBackTitle: "Back"  }}
               />
               <Stack.Screen
                 name="SubscribedAuthors"

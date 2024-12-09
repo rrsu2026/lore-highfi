@@ -8,7 +8,6 @@ const SubscribedAuthors = ({ navigation }) => {
   const [loggedInUser, setLoggedInUser] = useContext(AuthenticationContext);
   return (
     <View style={styles.container}>
-      <Text>Subscribed Authors</Text>
       <UserList navigation={navigation} users={db.users.filter((i) => loggedInUser.subscribedTo?.includes(i.id))} />
     </View>
   );

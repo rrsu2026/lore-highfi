@@ -9,7 +9,7 @@ const MySubscribers = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text>My Subscribers</Text>
-      <UserList navigation={navigation} users={db.users.filter((i) => i.subscribedTo?.includes(loggedInUser.id))} />
+      <UserList navigation={navigation} users={db.users.filter(user => user.subscribedTo?.includes(loggedInUser.id))} />
     </View>
   );
 };
