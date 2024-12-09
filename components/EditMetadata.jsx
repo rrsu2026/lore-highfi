@@ -30,6 +30,7 @@ const EditMetadata = ({ navigation, route }) => {
   const [visibility, setVisibility] = useState("Public");
   const [tags, setTags] = useState([]);
   const [newTag, setNewTag] = useState("");
+  const [deleteBut, setDeleteBut] = useState(false);
 
   useEffect(() => {
     if (route.params.partialWrittenStory) {
@@ -45,6 +46,7 @@ const EditMetadata = ({ navigation, route }) => {
           : new Date()
       );
       setText(route.params.partialWrittenStory.text);
+      setDeleteBut(true);
     } else if (route.params.partialAudioStory) {
       setTitle(route.params.partialAudioStory.title);
       setStartDate(
@@ -125,7 +127,7 @@ const EditMetadata = ({ navigation, route }) => {
 
     let newStory = {
       id: uuid.v4(),
-      authorId: user.id,
+      authorId: "6618d3b5-8540-4b84-9ed8-215a7f769ee3",
       postedAt: new Date().toISOString(),
       comments: [],
       title,
@@ -292,7 +294,7 @@ const EditMetadata = ({ navigation, route }) => {
                 <Text style={styles.buttonText}>Confirm</Text>
               </Pressable>
     
-              {route.params.partialWrittenStory && (
+              {deleteBut && (
                 <Pressable
                   style={[styles.button, styles.deleteButton]}
                   onPress={deleteStory}
